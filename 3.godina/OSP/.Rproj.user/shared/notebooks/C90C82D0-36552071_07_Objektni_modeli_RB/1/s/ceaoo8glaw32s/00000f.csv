@@ -1,0 +1,4 @@
+"0","# stvaramo novi objekt klase `Person`"
+"0","pero <- list(id = ""12345678"", surname = ""Peric"", weight = 78)"
+"0","class(pero) <- ""Person"""
+"0",""

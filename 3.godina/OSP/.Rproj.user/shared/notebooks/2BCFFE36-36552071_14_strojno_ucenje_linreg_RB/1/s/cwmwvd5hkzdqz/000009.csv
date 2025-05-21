@@ -1,0 +1,5 @@
+"0",""
+"0","# stvorite kvantil-kvantil graf std. reziduala"
+"0","# koristite geometriju `geom_qq`"
+"0","# reziduale postavite na estetiku `sample` (ne `x`!)"
+"0","ggplot(predikcije, aes(sample = .std.resid)) + geom_qq()"

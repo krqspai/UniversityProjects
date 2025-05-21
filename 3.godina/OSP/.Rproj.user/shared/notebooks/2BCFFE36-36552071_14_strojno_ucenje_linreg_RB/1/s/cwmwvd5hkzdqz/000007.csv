@@ -1,0 +1,4 @@
+"0",""
+"0","# stvorite graf gustoće razdiobe standardnih reziduala"
+"0","# koristite geometriju `geom_density`"
+"0","ggplot(predikcije, aes(x = .std.resid)) + geom_density()"

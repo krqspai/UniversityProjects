@@ -1,0 +1,7 @@
+"0","# razdvojite stupac `Kvartal` u stupce `Kvartal` i `Godina` uz uklanjanje originalnog stupca"
+"0","# rezultat pohranite u varijablu `odjeli2`"
+"0","# sve učinite u sklopu jedne naredbe uz pomoć `%>%` operatora"
+"0","odjeli2 <- odjeli %>% separate(Kvartal, c(""Kvartal"", ""Godina""), ""-"", T)"
+"0",""
+"0","# proučite okvir `odjeli2`"
+"0","head(odjeli2)"

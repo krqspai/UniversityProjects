@@ -1,0 +1,7 @@
+"0","# primjer nepotrebnog korištenja petlje"
+"0","a <- 1:5"
+"0","b <- 6:10"
+"0","c <- numeric()"
+"0",""
+"0","for (i in 1:length(a)) c[i] <- a[i] + b[i]"
+"0",""

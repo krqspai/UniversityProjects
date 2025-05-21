@@ -1,0 +1,8 @@
+"0","set.seed(1234)"
+"0",""
+"0","# ponovo rješite prvi primjer uz pomoć %>% operatora"
+"0","runif(100, 0, 100) %>% round(2) %>% sample(10) %>% mean()"
+"1","[1]"
+"1"," 46.651"
+"1","
+"

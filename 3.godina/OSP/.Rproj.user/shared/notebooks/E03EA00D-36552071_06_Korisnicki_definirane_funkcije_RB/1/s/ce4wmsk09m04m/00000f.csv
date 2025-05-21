@@ -1,0 +1,4 @@
+"0","#kraća definicija"
+"0","stvoriteljFje <- function() {"
+"0","    function(x) x + 1"
+"0","}"

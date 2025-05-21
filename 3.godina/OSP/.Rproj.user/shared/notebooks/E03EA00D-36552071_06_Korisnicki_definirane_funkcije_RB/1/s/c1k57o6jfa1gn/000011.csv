@@ -1,0 +1,5 @@
+"0","# stvorite funkciju `myAbs` koja će imitirati"
+"0","# rad R-ove funkcije `abs` (ali ju neće direktno pozivati!)"
+"0","myAbs <- function(x) {"
+"0","  ifelse(x >= 0, x, -x)"
+"0","}"

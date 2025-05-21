@@ -1,0 +1,3 @@
+"0","# zelim u ispisu vidjeti najvise 10 redaka ali sve stupce"
+"0","options(tibble.print_max = 10, tibble.width = Inf)"
+"0",""

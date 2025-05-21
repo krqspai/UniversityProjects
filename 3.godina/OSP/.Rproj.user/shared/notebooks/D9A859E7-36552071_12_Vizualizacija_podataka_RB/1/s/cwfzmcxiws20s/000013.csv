@@ -1,0 +1,3 @@
+"0","# razdvojite sljedeći graf u ovisnosti o prozirnosti (`clarity`)"
+"0","# koristite funkciju `facet_wrap` i jednostranu formulu"
+"0","ggplot(diamondsSample, aes(x*y*z, price)) + geom_point() + facet_wrap(~ clarity)"

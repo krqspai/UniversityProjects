@@ -1,0 +1,2 @@
+"0","# izračunajte prosječno kašnjenje u dolasku leta za varijablu `hflights`"
+"0","summarise(hflights, meanDelay = mean(ArrDelay, na.rm = T))"

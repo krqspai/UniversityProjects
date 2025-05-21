@@ -1,0 +1,1 @@
+"0","msleep %>% mutate(msleep, sleep_category = cut(sleep_total, 5)) %>% group_by(sleep_category) %>% summarise(total_count = n(), non_herbi_count = sum(vore != ""herbi"", na.rm = TRUE))"

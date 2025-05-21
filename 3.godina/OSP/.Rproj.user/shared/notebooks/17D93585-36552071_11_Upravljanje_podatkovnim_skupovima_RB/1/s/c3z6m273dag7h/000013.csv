@@ -1,0 +1,8 @@
+"0",""
+"0","# tablici `titanic` dodajte stupac `EmbarkationPort` u kojem će pisati puno "
+"0","# ime luke ukrcaja (Southampton, Queenstown ili Cherbourg)"
+"0","# koristite `mutate` i dva `ifelse`"
+"0","titanic <- mutate(titanic, EmbarkationPort = ifelse(Embarked == ""Q"", ""Queenstown"", ifelse(Embarked == ""S"", ""Southampton"", ""Cherbourg"")))"
+"0",""
+"0","# ispišite prvih 10 redaka tablice `titanic`"
+"0","head(titanic, 10)"

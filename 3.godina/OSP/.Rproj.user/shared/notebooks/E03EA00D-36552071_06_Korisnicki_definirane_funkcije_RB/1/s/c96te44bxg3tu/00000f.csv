@@ -1,0 +1,8 @@
+"0","# stvaramo podatkovni okvir `df`"
+"0","df <- data.frame(id = 1:5, name = LETTERS[1:5])"
+"0",""
+"0","f <- function() {"
+"0","    df$name[1] <<- ""change!"""
+"0","}"
+"0",""
+"0","f()"

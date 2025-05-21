@@ -1,0 +1,2 @@
+"0","starwars2 <- starwars[!is.na(starwars$mass),]"
+"0","starwars2[starwars2$mass >= 70 & starwars2$mass <= 80, c(""name"", ""mass"")]"

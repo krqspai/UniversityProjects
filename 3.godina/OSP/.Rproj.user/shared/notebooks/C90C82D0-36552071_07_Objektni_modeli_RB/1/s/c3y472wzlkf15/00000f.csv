@@ -1,0 +1,2 @@
+"0","library(sloop)"
+"0","knitr::opts_chunk$set(results = 'hold')"

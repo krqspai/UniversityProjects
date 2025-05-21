@@ -1,0 +1,6 @@
+"0","# stvorite funkciju `rmse` koja će za zadane vektore `pred` i `stv`"
+"0","# izračunati RMSE mjeru prema gornjoj formuli"
+"0",""
+"0","rmse <- function(pred, stv) {"
+"0","  sqrt(sum((pred-stv)**2)/length(pred))"
+"0","} "

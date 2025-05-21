@@ -1,0 +1,3 @@
+"0","kategorije <- factor(racun[[""katArtikl""]])"
+"0","racun[racun$katArtikl == ""slatkisi i grickalice"" & racun$cijenaEUR * 7.5343 < 71,"
+"0","      c(""sifArtikl"",""nazArtikl"",""cijenaEUR"")]"

@@ -1,0 +1,2 @@
+"0","# promijenite orijentaciju slova na x osi tako da budu pod kutem od 45 stupnjeva"
+"0","ggplot(diamondsSample, aes(cut)) + geom_bar() + theme(axis.text.x = element_text(angle = 45))"

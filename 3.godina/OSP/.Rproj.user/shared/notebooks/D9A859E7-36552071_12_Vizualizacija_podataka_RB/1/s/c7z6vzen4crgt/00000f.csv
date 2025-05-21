@@ -1,0 +1,2 @@
+"0","#library(GGally)  # ako nije učitan!"
+"0","ggpairs(data = mtcars[,1:6])"

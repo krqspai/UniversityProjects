@@ -1,0 +1,3 @@
+"0","songs_g <- songs %>% filter(playlist_subgenre %in% c(""hip hop"",""hip pop""))"
+"0","songs_hop <- songs %>% filter(playlist_subgenre %in% c(""hip hop""))"
+"0","songs_pop <- songs %>% filter(playlist_subgenre %in% c(""hip pop""))"

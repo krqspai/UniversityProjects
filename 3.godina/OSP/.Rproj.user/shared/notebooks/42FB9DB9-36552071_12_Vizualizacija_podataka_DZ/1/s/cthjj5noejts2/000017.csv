@@ -1,0 +1,2 @@
+"0","ggplot(mpg, aes(x = drv, fill = manufacturer)) + geom_histogram(stat = ""count"", position = ""fill"", color = ""white"")"
+"2","Warning: [38;5;232mIgnoring unknown parameters: `binwidth`, `bins`, and `pad`[39m"

@@ -1,0 +1,79 @@
+body {
+    background-color: blue;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 350px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.zaglavlje {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 275px;
+}
+
+.ikona {
+    width: 50px;
+    margin-right: 25px;
+    height: 50px;
+    background-image: url("ad1f0b02bf743ed191dea33f1c44f09f.png");
+    background-size: 50px auto;
+}
+
+.naslov {
+    font-size: 24px;
+    color: blue;
+}
+
+.sredina {
+    width: 275px;
+    font-size: 16px;
+}
+
+.podnozje {
+    display: flex;
+    width: 275px;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    width: 135px;
+    height: 40px;
+}
+
+.b1 {
+    background-color: lightblue;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.b2 {
+    background-color: white;
+    border: 2px solid blue;
+    border-radius: 5px;
+    color: blue;
+}
+
+.b1:hover {
+    background-color: blue;
+    cursor: pointer;
+}
+
+.b2:hover {
+    background-color: blue;
+    cursor: pointer;
+    color: white;
+}

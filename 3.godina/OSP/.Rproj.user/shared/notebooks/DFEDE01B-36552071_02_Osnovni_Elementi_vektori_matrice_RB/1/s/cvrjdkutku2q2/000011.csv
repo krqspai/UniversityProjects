@@ -1,0 +1,5 @@
+"0",".mojaVarijabla <- 5   #OK"
+"0","moja.Varijabla <- 5  #OK"
+"0","#_mojaVarijabla <- 5  # nije OK"
+"0","#123Varijabla <- 5  # nije OK"
+"0",""

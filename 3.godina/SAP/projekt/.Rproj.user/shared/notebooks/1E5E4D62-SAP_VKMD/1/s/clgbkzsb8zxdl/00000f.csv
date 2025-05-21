@@ -1,0 +1,4 @@
+"0","# Provođenje log() nad budžet vrijednostima"
+"0","IMDB$budget_log = log(IMDB$budget)"
+"0","IMDB$budget = IMDB$budget_log"
+"0","IMDB$budget_log = NULL"

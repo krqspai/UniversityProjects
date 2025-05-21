@@ -1,0 +1,4 @@
+"0","list5 <- list5[lapply(list5, !is.null)]
+"
+"2","Error in !is.null : invalid argument type
+"

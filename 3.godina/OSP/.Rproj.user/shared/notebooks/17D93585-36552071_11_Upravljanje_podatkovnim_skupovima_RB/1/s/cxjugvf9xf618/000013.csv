@@ -1,0 +1,8 @@
+"0","# u varijablu `filteredData` ubacite prvih pet redaka i prva tri stupca"
+"0","# iz varijable `sampleData`"
+"0","library(writexl)"
+"2","Warning: package ‘writexl’ was built under R version 4.4.2"
+"0","filteredData <- sampleData[1:5, 1:3]"
+"0",""
+"0","# spremite podatke iz `filteredData` u datoteku `datasets/FilteredExcel.xlsx`"
+"0","write_xlsx(filteredData, ""Datasets/FilteredExcel.xlsx"")"

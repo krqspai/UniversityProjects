@@ -1,0 +1,7 @@
+"0","# pokušajte ""dugi"" format oblikovati natrag u ""široki"""
+"0","# pohranite rezultat u datoteku `potrosackaKosaricaSirokiFormat.csv`"
+"0","racuni3 <- racuni2"
+"0","racuni3$Vrijednost <- 1"
+"0","racuni3 <- pivot_wider(racuni3, names_from = Artikl, values_from = Vrijednost, values_fill = 0)"
+"0","write_csv(racuni3, ""Datasets/potrosackaKosaricaSirokiFormat.csv"")"
+"0",""

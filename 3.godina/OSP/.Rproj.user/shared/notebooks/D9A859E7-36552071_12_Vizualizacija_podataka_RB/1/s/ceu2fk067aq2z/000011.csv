@@ -1,0 +1,3 @@
+"0","# promijenite temu sljedećem grafu na `theme_classic`"
+"0","ggplot(diamondsSample, aes(x = x*y*z, fill = color)) + geom_histogram(bins = 30, na.rm = T) + "
+"0","  xlim(0, 500) + theme_classic()"

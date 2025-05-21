@@ -1,0 +1,8 @@
+"0","ggplot(film_count, aes(x = count, y = avg_score)) +"
+"0","  geom_point(color = ""blue"") +"
+"0","  geom_smooth(method = ""lm"", color = ""red"") +"
+"0","  labs("
+"0","    title = ""Odnos broja filmova po desetljeću i prosječne ocjene"","
+"0","    x = ""Broj filmova po desetljeću"","
+"0","    y = ""Prosječna IMDb ocjena"""
+"0","  )"

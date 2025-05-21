@@ -1,0 +1,4 @@
+"0","IMDB %>% group_by(genres) %>% summarise(  # broj filmova po žanrovima"
+"0","          count = n())"
+"2","Error in summarise(., count = n()) : could not find function ""summarise""
+"

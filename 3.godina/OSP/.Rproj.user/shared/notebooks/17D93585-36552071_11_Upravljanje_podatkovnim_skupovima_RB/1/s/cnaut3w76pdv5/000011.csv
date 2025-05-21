@@ -1,0 +1,6 @@
+"0","# stvorite okvir `korisnikMjesto` koji će biti rezultat"
+"0","# prirodnog spajanja okvira `korisnik` i `mjesto`"
+"0","korisnikMjesto <- inner_join(korisnik, mjesto, by=c(""pbrBoravista"" = ""pbr""))"
+"0",""
+"0","# ispišite okvir `korisnikMjesto`"
+"0","korisnikMjesto"

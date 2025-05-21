@@ -1,0 +1,3 @@
+"0","# mijenjamo izgled naziva grafa "
+"0","# (za obitelj fontova preporučeno koristiti `serif`, `sans` ili `mono`)"
+"0","#... + theme( title = element_text(family = 'serif', face = 'bold.italic'))"

@@ -1,0 +1,2 @@
+"0","set.seed(36552071) # otkomentirati i unijeti JMBAG bez vodećih nula!"
+"0","l <- list(a = 1:5, b = rep(T, F, 5), c = 2, d = 1:10000, e = list(1, runif(5)))"

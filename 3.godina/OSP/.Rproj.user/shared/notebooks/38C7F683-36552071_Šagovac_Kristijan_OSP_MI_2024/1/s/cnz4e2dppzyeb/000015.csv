@@ -1,0 +1,1 @@
+"0","bikes[wday(bikes$day) %in% c(1, 7) & bikes$temp > 33, c(""day"", ""temp"", ""casual"")]"

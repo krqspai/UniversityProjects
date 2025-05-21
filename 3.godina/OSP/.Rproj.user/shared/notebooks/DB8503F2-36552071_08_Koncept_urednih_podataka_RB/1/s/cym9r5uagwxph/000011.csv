@@ -1,0 +1,3 @@
+"0",""
+"0","# rezultat pohranite u datoteku 'potrosackaKosaricaDugiFormat.csv'"
+"0","write_csv(racuni2, ""Datasets/potrosackaKosaricaDugiFormat.csv"")"

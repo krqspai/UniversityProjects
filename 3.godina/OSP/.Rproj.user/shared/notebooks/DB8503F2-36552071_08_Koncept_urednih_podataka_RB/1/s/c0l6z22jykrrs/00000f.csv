@@ -1,0 +1,74 @@
+"0","# učitajte podatke iz datoteke `studenti.csv` u varijablu `studenti`"
+"0","studenti <- read_csv(""Datasets/studenti.csv"")"
+"2","[1mRows: [22m[34m27[39m [1mColumns: [22m[34m10[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (9): Prezime, Ime, Matematika 1, Fizika 1, Programiranje, Osnove elektrotehnik...
+[32mdbl[39m (1): JMBAG"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","# upoznajte se sa podacima uz pomoć standardnih funkcija za tu svrhu"
+"0","# (names, sapply - class, str, head, summary ...)"
+"0","# u daljnim primjerima za ovaj postupak koristiti ćemo se izrazom ""proučite okvir.."""
+"0","library(dplyr)"
+"2","
+Attaching package: ‘dplyr’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","names(studenti)"
+"1"," [1]"
+"1"," ""JMBAG""                "
+"1"," ""Prezime""              "
+"1"," ""Ime""                  "
+"1","
+"
+"1"," [4]"
+"1"," ""Matematika 1""         "
+"1"," ""Fizika 1""             "
+"1"," ""Programiranje""        "
+"1","
+"
+"1"," [7]"
+"1"," ""Osnove elektrotehnike"""
+"1"," ""Digitalna logika""     "
+"1"," ""Matematika 2""         "
+"1","
+"
+"1","[10]"
+"1"," ""Algoritmi 1""          "
+"1","
+"
+"0","glimpse(studenti)"
+"1","Rows: 27"
+"1",""
+"1","
+"
+"1","Columns: 10"
+"1",""
+"1","
+"
+"1","$ JMBAG                   [3m[38;5;246m<dbl>[39m[23m 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349…
+$ Prezime                 [3m[38;5;246m<chr>[39m[23m ""Anić"", ""Babić"", ""Crnoja"", ""Črnjac"", ""Dizla"", ""Ermić…
+$ Ime                     [3m[38;5;246m<chr>[39m[23m ""Iva"", ""Josip"", ""Petra"", ""Lucija"", ""Stipe"", ""Igor"", …
+$ `Matematika 1`          [3m[38;5;246m<chr>[39m[23m ""2"", ""5"", ""4"", ""2"", ""NULL"", ""NULL"", ""NULL"", ""3"", ""3""…
+$ `Fizika 1`              [3m[38;5;246m<chr>[39m[23m ""2"", ""3"", ""3"", ""5"", ""4"", ""3"", ""3"", ""4"", ""2"", ""2"", ""N…
+$ Programiranje           [3m[38;5;246m<chr>[39m[23m ""NULL"", ""4"", ""4"", ""2"", ""3"", ""NULL"", ""3"", ""3"", ""3"", ""…
+$ `Osnove elektrotehnike` [3m[38;5;246m<chr>[39m[23m ""NULL"", ""3"", ""2"", ""2"", ""5"", ""5"", ""3"", ""4"", ""2"", ""2"",…
+$ `Digitalna logika`      [3m[38;5;246m<chr>[39m[23m ""4"", ""NULL"", ""3"", ""3"", ""2"", ""5"", ""2"", ""4"", ""3"", ""5"",…
+$ `Matematika 2`          [3m[38;5;246m<chr>[39m[23m ""2"", ""5"", ""4"", ""3"", ""2"", ""5"", ""2"", ""5"", ""NULL"", ""4"",…
+$ `Algoritmi 1`           [3m[38;5;246m<chr>[39m[23m ""2"", ""5"", ""3"", ""4"", ""2"", ""5"", ""5"", ""4"", ""3"", ""2"", ""4…"
+"1",""
+"1","
+"
+"0","head(studenti)"

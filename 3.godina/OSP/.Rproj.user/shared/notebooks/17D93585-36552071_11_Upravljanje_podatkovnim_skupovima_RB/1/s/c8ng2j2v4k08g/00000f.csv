@@ -1,0 +1,3 @@
+"0","# ispišite koliko u skupu `hflights` ima opservacija"
+"0","# po zrakoplovnoj tvrtki"
+"0","count(hflights, UniqueCarrier)"

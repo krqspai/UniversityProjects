@@ -1,0 +1,2 @@
+"0","filmovi4 <- filter(filmovi, !is.na(title_year) & !is.na(imdb_score))"
+"0","filmovi4 <- unique(filmovi4)"

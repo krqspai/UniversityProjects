@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4. zadatak (CSS)</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        font-size: 30px;
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .card {
+        height: 400px;
+        width: 400px;
+        border: 2px solid black;
+        border-radius: 5px;
+        margin: 5px;
+        text-align: center;
+        align-content: center;
+    }
+    .mobile-menu {
+        display: none;
+    }
+    .povratak {
+        display: none;
+    }
+
+    @media only screen and (max-width: 767px) {
+    .card {
+        width: 90%;
+    }
+    .povratak {
+        display: block;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        width: 200px;
+        height: 50px;
+        border: 2px solid black;
+        border-radius: 5px;
+        font-size: 1.7rem;
+        background-color: white;
+        text-align: center;
+        align-content: center;
+    }
+    .mobile-menu{
+        display: flex;
+        width: 90%;
+        justify-content: space-between;
+    }
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="mobile-menu" id="menu">
+            <a href="#c1">Kartica 1</a>
+            <a href="#c2">Kartica 2</a>
+            <a href="#c3">Kartica 3</a>
+            <a href="#c4">Kartica 4</a>
+        </div>
+        <div class="card" id="c1">
+            Kartica 1
+        </div>
+        <div class="card" id="c2">
+            Kartica 2
+        </div>
+        <div class="card" id="c3">
+            Kartica 3
+        </div>
+        <div class="card" id="c4">
+            Kartica 4
+        </div>
+    </div>
+    <div class="povratak">
+        <a href="#menu">Povratak na vrh</a>
+    </div>
+</body>
+

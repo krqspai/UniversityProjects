@@ -1,0 +1,3 @@
+"0","# ponovite isti graf, ali varijablu `cyl` mapirajte"
+"0","# i na `color` i na `shape` estetiku"
+"0","ggplot(mtcars, aes(x = wt, y = mpg, shape = cyl, color = cyl)) + geom_point()"

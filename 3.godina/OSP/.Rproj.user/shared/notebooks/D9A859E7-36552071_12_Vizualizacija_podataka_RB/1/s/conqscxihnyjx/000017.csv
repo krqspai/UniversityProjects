@@ -1,0 +1,4 @@
+"0","set.seed(1001)"
+"0","# stvorite okvir `diamondsSample` u koji ćete staviti"
+"0","# 5000 nasumičnih redaka iz okvira `diamonds`"
+"0","diamondsSample <- slice_sample(diamonds, n = 5000)"

@@ -1,0 +1,6 @@
+"0","knitr::opts_chunk$set(results = 'hold')"
+"0","library(tidyverse)"
+"0","library(lubridate)"
+"0","library(caret)"
+"0","library(ggplot2)"
+"0","# sve nužne pakete učitati ovdje!"

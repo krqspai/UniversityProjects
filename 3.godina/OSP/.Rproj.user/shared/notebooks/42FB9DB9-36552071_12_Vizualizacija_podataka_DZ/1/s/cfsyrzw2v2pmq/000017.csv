@@ -1,0 +1,4 @@
+"0","ggplot(mpg, aes(x = as.factor(trans), y = displ)) + "
+"0","  geom_boxplot() +"
+"0","  theme(axis.text.x = element_text(angle = 90)) +"
+"0","  theme_bw()"

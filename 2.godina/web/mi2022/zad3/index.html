@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      //vec postoji - potrebno koristiti
+      async function LoadData(fileName) {
+        let promise = await fetch(fileName);
+        if (!promise.ok) {
+          throw new Error("Cannot load json file");
+        } else {
+          return await promise.json();
+        }
+      }
+
+      async function printaj() {
+        try {
+          var categories = await LoadData("categories.json");
+          var products = await LoadData("products.json");
+            console.log(categories)
+            console.log(products)
+          var cnt = {};
+
+          for (let cat of categories) {
+            cnt[cat["CategoryId"]] = 0;
+          }
+          console.log(cnt)
+
+          for (let prod of products) {
+            if (Object.keys(cnt).includes(prod["CategoryId"].toString())) {
+              cnt[prod["CategoryId"]] += prod["NumProd"];
+            }
+          }
+
+          var mx = -1,
+            mxi;
+          for (let cat of categories) {
+            if (mx < cnt[cat["CategoryId"]]) {
+              mx = cnt[cat["CategoryId"]];
+              mxi = cat["CategoryName"];
+            }
+          }
+          console.log("Category with most products: " + mxi + " - " + mx);
+        } catch (error) {
+          console.log("An error has occured and program stopped working");
+        }
+      }
+
+      printaj();
+    </script>
+  </body>
+</html>

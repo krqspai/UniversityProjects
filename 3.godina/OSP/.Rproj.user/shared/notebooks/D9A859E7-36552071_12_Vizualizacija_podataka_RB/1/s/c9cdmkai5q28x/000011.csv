@@ -1,0 +1,4 @@
+"0","# konačno, nacrtajte isti histogram uz pozicijski aspekt `""fill""`"
+"0","# postavite parametar geometrije `color  na ""Black"" radi ljepšeg prikaza"
+"0","# objasnite rezultat!"
+"0","ggplot(mtcars, aes(x = wt, fill = cyl)) + geom_histogram(bins = 4, position = ""fill"", color = ""black"")"

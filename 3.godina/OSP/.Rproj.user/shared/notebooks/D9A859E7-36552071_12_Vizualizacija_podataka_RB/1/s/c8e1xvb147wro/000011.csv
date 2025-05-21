@@ -1,0 +1,6 @@
+"0","ggplot() + "
+"0","layer( data = mtcars,                      # 1. podaci"
+"0","       mapping = aes(x = wt, y = mpg),     # 2. mapiranja / estetike"
+"0","       geom = ""point"",                     # 3. geometrija"
+"0","       stat = ""identity"",                  # za sada zanemariti"
+"0","       position = ""identity"")              # za sada zanemariti"

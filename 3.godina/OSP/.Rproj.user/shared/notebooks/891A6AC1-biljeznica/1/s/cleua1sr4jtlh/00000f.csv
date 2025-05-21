@@ -1,0 +1,4 @@
+"0","regression_results <- augment(model)"
+"0","ggplot(regression_results, aes(x = decade, y = imdb_score)) +"
+"0","  geom_point(color = ""red"", alpha = 0.15) +"
+"0","  labs(title = ""Razdiobe vrijednosti ocjena po desetljećima"")"

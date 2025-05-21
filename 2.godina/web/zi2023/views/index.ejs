@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang = "hr">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <title>ToDos</title>
+    </head>
+    <body>
+        <h1>Add todo...</h1>
+        <form class="kontrole" action="/add" method="POST">
+            <select name="ime">
+                <option value="Work">Work</option>
+                <option value="Movies and books">Movies and books</option>
+                <option value="Fun">Fun</option>
+                <option value="Sports">Sports</option>
+            </select>
+            <input type="text" name="opis">
+            <button type="submit">Add todo</button>
+        </form>
+        <hr/>
+        <h1>My todos...</h1>
+        <div class="container">
+            <% for (let cat of lista.categories) { %>
+                <div class="minicontainer">
+                    <div class ="naslovkat"> <%= cat.name + " (" + cat.todos.length + ")"%> </div>
+                    <div class="content">
+                    <% for (var i=0; i<cat.todos.length; i++) {%>
+                        <div class="red">
+                            <div class="rbr"><%=i+1%>.</div>
+                            <div class="opisnik"> <%= cat.todos[i].opis %> </div>
+                            <div class="datum"> <%= cat.todos[i].datum %> </div>
+                            <form action="/delete/<%=cat.todos[i].id%>" method="POST">
+                                <button type = "submit">X</button>
+                            </form>
+                        </div>
+                    <% } %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <hr/>
+        <div class="zadnjired">My todos count: <%=br1%>, all todos count: <%=br2%> </div>
+    </body>
+</html>

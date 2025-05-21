@@ -1,0 +1,30 @@
+"0","# ponovo učitajte podatke iz datoteke `studenti.csv` u varijablu `studenti`"
+"0","# naredbi `read_csv` dodajte parametre `na` sa znakovnim nizom koji predstavlja NA"
+"0","# i `col_types` sa znakovnim nizom koji opisuje tipove stupaca "
+"0","# (npr. `""clf""` predstavlja ""character - logical - factor"")"
+"0","studenti <- read_csv(""Datasets/studenti.csv"", na = ""NULL"", col_types = ""ncciiiiiii"")"
+"0",""
+"0","# proučite okvir `studenti`"
+"0","glimpse(studenti)"
+"1","Rows: 27"
+"1",""
+"1","
+"
+"1","Columns: 10"
+"1",""
+"1","
+"
+"1","$ JMBAG                   [3m[38;5;246m<dbl>[39m[23m 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349…
+$ Prezime                 [3m[38;5;246m<chr>[39m[23m ""Anić"", ""Babić"", ""Crnoja"", ""Črnjac"", ""Dizla"", ""Ermić…
+$ Ime                     [3m[38;5;246m<chr>[39m[23m ""Iva"", ""Josip"", ""Petra"", ""Lucija"", ""Stipe"", ""Igor"", …
+$ `Matematika 1`          [3m[38;5;246m<int>[39m[23m 2, 5, 4, 2, NA, NA, NA, 3, 3, 4, 2, 4, 5, 3, 4, 2, 2…
+$ `Fizika 1`              [3m[38;5;246m<int>[39m[23m 2, 3, 3, 5, 4, 3, 3, 4, 2, 2, NA, 2, 4, NA, 5, 4, 2,…
+$ Programiranje           [3m[38;5;246m<int>[39m[23m NA, 4, 4, 2, 3, NA, 3, 3, 3, 4, 3, 5, 2, 4, 4, 3, 5,…
+$ `Osnove elektrotehnike` [3m[38;5;246m<int>[39m[23m NA, 3, 2, 2, 5, 5, 3, 4, 2, 2, 3, 2, 4, 5, 2, 3, 3, …
+$ `Digitalna logika`      [3m[38;5;246m<int>[39m[23m 4, NA, 3, 3, 2, 5, 2, 4, 3, 5, 2, 4, 3, NA, 5, 4, 2,…
+$ `Matematika 2`          [3m[38;5;246m<int>[39m[23m 2, 5, 4, 3, 2, 5, 2, 5, NA, 4, 2, 5, 2, 3, 4, 2, 5, …
+$ `Algoritmi 1`           [3m[38;5;246m<int>[39m[23m 2, 5, 3, 4, 2, 5, 5, 4, 3, 2, 4, 2, 3, NA, 3, 4, 2, …"
+"1",""
+"1","
+"
+"0","head(studenti)"

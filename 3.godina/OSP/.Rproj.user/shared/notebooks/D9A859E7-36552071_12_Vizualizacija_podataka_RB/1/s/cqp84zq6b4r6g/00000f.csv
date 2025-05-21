@@ -1,0 +1,5 @@
+"0","mtcars$vs <- factor(mtcars$vs, labels = c(""V"", ""S""))"
+"0","mtcars$am <- factor(mtcars$am, labels = c(""automatic"", ""manual""))"
+"0","mtcars$cyl  <- factor(mtcars$cyl)"
+"0","mtcars$gear <- factor(mtcars$gear)"
+"0","mtcars$carb <- factor(mtcars$carb)"

@@ -1,0 +1,1 @@
+"0","ggplot(diamonds, aes(price)) + geom_histogram(bins = 10)"

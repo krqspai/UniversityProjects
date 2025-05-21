@@ -1,0 +1,4 @@
+"0",""
+"0","model <- lm(formula =  imdb_score ~ num_critic_for_reviews + duration + director_facebook_likes + num_voted_users + gross + cast_total_facebook_likes + budget + color + aspect_ratio + decade, data = imdb )"
+"2","Error in eval(predvars, data, env) : object 'decade' not found
+"

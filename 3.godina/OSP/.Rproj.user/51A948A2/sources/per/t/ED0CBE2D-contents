@@ -1,0 +1,294 @@
+---
+title: "13 Razdiobe i simulacije"
+author: "36552071 Kristijan Šagovac"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+---
+
+
+
+```{r setup_razdiobe, include = F}
+library(tidyverse)
+library(sn)
+library(GGally)
+library(gridExtra)
+brojZad <- 0
+brojPog <- 13
+```
+
+
+
+## Popis podržanih razdiobi
+
+- ovo ne uključuje razne razdiobe podržane u dodatnim paketima!
+
+```{r, eval = FALSE}
+help(Distributions)
+```
+
+## Binomna razdioba
+
+$$P(brojIshoda = x) = {n\choose x}p^x(1-p)^{n-x}$$
+
+
+- `dbinom(x, size, prob)` 
+     - vjerojatnost da ćemo pozitivni ishod dobiti `x` puta u `size` ponavljanja ako je vjerojatnost pozitivnog ishoda `prob`
+     - `x` može biti vektor (dobivamo vektor vjerojatnosti)
+     
+- `pbinom(q, size, prob)` 
+     - vjerojatnost da ćemo pozitivni ishod dobiti `q` puta **ili manje** u `size` ponavljanja ako je vjerojatnost pozitivnog ishoda `prob`
+
+
+- `qbinom(p, size, prob)`
+    - vrijednost koja se nalazi na `p`-tom kvantilu binomne razdiobe u kojoj imamo `size` ponavljanja i vjerojatnost pozitivnog ishoda `prob`
+     
+    
+    
+## Zadatak 13.1 - Binomna razdioba
+
+
+```{r}
+# koja je vjerojatnost da u 10 bacanja novčića vrijednost "pismo" dobijete točno jednom?
+dbinom(1, 10, 0.5)
+
+# koja je vjerojatnost da u 20 bacanja novčića broj dobivanja vrijednosti "pismo" bude manji ili jednak 10?
+pbinom(10, 20, 0.5)
+
+# koja je vrijednost prvog, drugog i trećeg kvartila u bacanju novčića 100 puta?
+qbinom(c(0.25, 0.50, 0.75), 100, 0.5)
+
+# nacrtajte funkciju razdiobe eksperimenta bacanja novčića 10 puta
+## NAPUTAK: napravite pomoćni numerički vektor svih mogućih ishoda, 
+##          konstruirajte podatkovni okvir sa potrebnim podacima a potom nacrtajte razdiobu
+##          na grafu odabrane geometrije (točkasta, linijska ili stupčasta)
+data.frame(brojIshoda = 0:10, vjerojatnost = dbinom(0:10, 10, 0.5)) %>% 
+ggplot(aes(x = brojIshoda, y = vjerojatnost)) + geom_bar(stat = "identity")
+```
+
+
+
+## Normalna razdioba
+
+$$ f(x) = \frac{1}{\sigma\sqrt{2\pi}} 
+  \exp\left( -\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^{\!2}\,\right)$$
+
+
+
+
+- `dnorm(x, mean = 0, sd = 1)` 
+     - vrijednost funkcije gustoće razdiobe za vrijednost `x` kod normalne razdiobe sa sredinom `mean` i standardnom devijacijom `sd`
+     
+- `pnorm(q, mean = 0, sd = 1)` 
+     - vrijednost kumulativne funkcije razdiobe za vrijednost `x` kod normalne razdiobe sa sredinom `mean` i standardnom devijacijom `sd`
+
+
+- `qbinom(p, mean = 0, sd = 1)`
+    - vrijednost koja se nalazi na `p`-tom kvantilu kod normalne razdiobe sa sredinom `mean` i standardnom devijacijom `sd`
+
+     
+
+## Zadatak 13.2 - Normalna razdioba
+
+
+```{r}
+# ako pretpostavimo normalnu razdiobu sa sredinom 50 i standardnom devijacijom 5, koja je vjerojatnost
+# da će slučajno odabrana opservacija imati vrijednost između 55 i 65?
+pnorm(65, 50, 5) - pnorm(55, 50, 5)
+
+# na jednom grafu prikažite funkcije gustoće razdiobe sa sljedećim parametrima
+#   - sredina: 50, st.dev: 5   (plava linija)
+#   - sredina: 50, st.dev: 20  (crvena linija)
+#   - sredina: 70, st.dev: 5   (zelena linija)
+#
+## NAPUTAK: koristite trik s "pomoćnim vektorom" iz prethodnog zadatka
+##          na isti graf stavite tri geometrije sa redefinicijom y estetike
+x <- seq(0, 100, 0.5)
+data.frame(x = x, y1 = dnorm(x, 50, 5), y2 = dnorm(x, 50, 20), y3 = dnorm(x, 70, 5)) %>% ggplot(aes(x = x)) + geom_line(aes(y = y1), color = "blue") + geom_line(aes(y = y2), color = "red") + geom_line(aes(y = y3), color = "green")
+```
+
+
+
+
+## Generiranje nasumičnih opservacija
+
+Jedna od najčešće korištenih obitelji funkcija vezanih uz razdiobe su funkcije za generiranje nasumičnih opservacija koje odgovaraju zadanoj razdiobi. Kako je već spomenute, sve ove funkcije počinju slovom `r` (od eng. *random*) te nizom znakova koji označavaju naziv razdiobe. Dodatni parametri funkcije ovise o korištenoj razdiobi, a mogu se pronaći u dokumentaciji.
+
+
+## Zadatak 13.3 - Generiranje nasumičnih opservacija iz odabrane razdiobe
+
+```{r}
+set.seed(1112)
+# generirajte 1000 opservacija koje odgovaraju broju pozitivnih ishoda
+# kod 100 ponavljanja Bernoullijevog eksperimenta sa vjerojatnosti
+# pozitivnog ishoda od 0.2
+x1 <- rbinom(1000, 100, 0.2)
+
+# generirajte 1000 opservacija koje odgovaraju normalnoj razdiobi
+# sa srednjom vrijednosti 20 i standardnom devijacijom 4
+x2 <- rnorm(1000, 20, 4)
+
+# na istom grafu nacrtajte histograme oba skupa opservacija
+# (sami odaberite prikladnu širinu ladice)
+data.frame(x1 = x1, x2 = x2) %>% ggplot(aes(x=x1)) + geom_histogram(fill = "blue", alpha = 0.5, bins = 30) + geom_histogram(aes(x = x2), fill = "orange", alpha = 0.5, bins = 30)
+```
+
+
+
+
+
+## Funkcija `geom_density`
+
+Proces analize podataka često uključuje provjeru izgleda razdiobe određene varijable (mjere). Jedan od načina kako ovo izvesti jest uz pomoć histograma, kao u prethodnom zadatku. Drugi način jest koristiti funkciju `geom_density` paketa `ggplot2` koja će uz pomoć posebnog algoritma pokušati "pogoditi" funkciju razdiobe te ju vizualizirati na grafu.
+
+
+
+## Zadatak 13.4 - Funkcija `geom_density`
+
+```{r}
+# učitajte podatke iz datoteke "podaci.csv" i prikažite izgled
+# procjenjene funkcije razdiobe za svaki od stupaca
+# komentirajte izgled tj. prirodu prikazanih razdiobi
+
+podaci <- read_csv("Datasets/podaci.txt")
+ggplot(podaci, aes(x1)) + geom_density()
+ggplot(podaci, aes(x2)) + geom_density()
+ggplot(podaci, aes(x3)) + geom_density()
+ggplot(podaci, aes(x4)) + geom_density()
+```
+
+
+
+
+
+## QQ graf (*quantile-quantile* graf)
+
+Za provjeru normalnosti razdiobe odabrane varijable često se koristi i tzv. "QQ graf" (od engl.  *quantile-quantile*). Ovaj graf radi na sljedeći način: opservacije se poredaju na jednu os prema svojoj vrijednosti dok na drugu os stavljamo njihovu očekivanu Z-vrijednost (engl. *Z-score*) koji predstavlja "udaljenost od sredine po broju standardnih devijacija"). Kod normalne razdiobe QQ graf leži na dijagonali grafa, dok se odstupanje od normalne razdiobe očituje u "izvijenosti" grafa tj. odstupanju od "pravca normalnosti".
+
+Funkcija geometrije `geom_qq` uz definiranu estetiku `sample` nam omogućuje jednostavno stvaranje QQ grafa odabrane varijable.
+
+## Zadatak 13.5 - Funkcija `geom_qq`
+
+```{r}
+# nacrtajte QQ grafove varijabli iz prethodnog zadatka
+ggplot(podaci, aes(sample = x1)) + geom_qq()
+ggplot(podaci, aes(sample = x2)) + geom_qq()
+ggplot(podaci, aes(sample = x3)) + geom_qq()
+ggplot(podaci, aes(sample = x4)) + geom_qq()
+```
+
+
+
+
+## Simulacije 
+
+
+***
+
+## Zadatak 13.6 - Funkcija `sample`
+
+
+```{r}
+set.seed(1234)
+# napišite funkciju `baciNovcic(n)` koja će vratiti vektor duljine `n` sa nasumično 
+# odabranim vrijednostima 0 (pismo) i 1 (glava)
+# bacite novčić 10, 100, 1000 i 1,000,000 puta te ispišite postotak slučajeva kada je ispala "glava"
+baciNovcic <- function(n) {
+  sample(c(0, 1), n, T)
+}
+
+sum(baciNovcic(10)) / 10
+sum(baciNovcic(100)) / 100
+sum(baciNovcic(1000)) / 1000
+sum(baciNovcic(1000000)) / 1000000
+```
+
+
+
+
+
+## Funkcija `replicate`
+
+Na sličan način možemo provjeriti kolika je vjerojatnost pojedinog zbroja kod bacanja dvije kockice. Ovdje nam nije dosta jedan poziv funkcije `sample`, već trebamo zbroj dva poziva te funkcije kojeg ćemo računati velikih broj puta. Jedno od mogućih rješenja kako ovo isprogramirati jest uz pomoć petlje, no budući da znamo kako je u jeziku *R* poželjno izbjeći petlje ukoliko je to moguće, preporučljivije je koristiti funkciju `replicate`:
+
+```{r, eval = FALSE}
+replicate(n, expr, simplify = "array")
+```
+
+Ova funkcija uzima izraz `expr` i ponavlja ga `n` puta, pri čemu slaže međurezultate u prikladnu strukturu (ukoliko pogledamo dokumentaciju, uvidjet ćemo da je ova funkcija zapravo izvedenica funkcije `sapply`).
+
+## Zadatak 13.7 - Funkcija `replicate`
+
+
+```{r}
+set.seed(1234)
+# napravite funkciju `baci2kockice(n)` koja vraća vektor od n elemenata
+# gdje je svaki element zbroj rezultata jednog bacanja dvije kockice
+baci2kockice <- function(n) {
+  replicate(n, sample(1:6, 1) + sample(1:6, 1))
+}
+
+# ispišite vjerojatnosti svakog mogućeg zbroja za 100, 1000 i 1,000,000 bacanja kockice
+table(baci2kockice(100)) / 100
+table(baci2kockice(1000)) / 1000
+table(baci2kockice(1000000)) / 1000000
+```
+
+
+## Zadatak 13.8 - Funkcija `replicate` (2)
+
+
+```{r}
+set.seed(1234)
+# igra "belot" se igra sa mađarskim kartama - 32 karte u 4 različite boje
+# svaki igrač dobiva po 8 karata
+# jedan od rijetkih događaja u igri je zvanje "belot" kod kojeg (barem) jedan od igrača
+# dobije sve karte jednake boje
+# simulacijom procijenite vjerojatnost ovog događaja
+sveiste <- function(x) length(unique(x)) == 1
+belotExp <- function() {
+  spil <- sample(rep(1:4, each = 8), 32)
+  zvanjeBelot <- (sveiste(spil[1:8]) || sveiste(spil[9:16]) || sveiste(spil[17:25]) ||
+                  sveiste(spil[25:32]))
+}
+replicate(1000000, belotExp()) %>% sum
+```
+
+
+
+
+## Zadatak 13.9 - Matrični rezultat funkcije `replicate`
+
+```{r}
+set.seed(1234)
+# 1000 puta ponovite simulaciju bacanja kockice 20 puta
+# rezultate simulacije pohranite u matricu gdje će retci biti 
+# zapis 20 ishoda pojedinog bacanja
+matrica <- replicate(1000, sample(1:6, 20, T)) %>% t
+
+# ispišite prva 3 redaka dobivene matrice
+matrica[1:3,]
+```
+
+
+
+## Zadatak 13.10 - Vizualizacija rezultata simulacije
+
+```{r}
+# nacrtajte razdiobu suma bacanja dobivenih u simulacijama pohranjenim u varijabli `rez`
+# za računanje sumi koristite funkciju `apply` ili `rowSums`
+# u varijablu `prosjSum` upišite prosječnu sumu zaokruženu na 2 decimale
+# za crtanje razdiobe koristite `ggplot` i `geom_density`
+
+# OPCIONALNO: dodajte crvenu vertikalnu liniju na sredini uz pomoć fukcije `geom_vline`
+#    (estetika `xintercept` postavljena na `prosjSum`)
+# i iznos sredine crvene boje uz pomoć funkcije `geom_text` 
+#    ( parametar `label` postavljen na `prosjSum`, parametri `x` i `y` uz liniju)
+
+sume <- data.frame(y = rowSums(matrica))
+ggplot(sume, aes(y)) + geom_density()
+```
+
+
+
+

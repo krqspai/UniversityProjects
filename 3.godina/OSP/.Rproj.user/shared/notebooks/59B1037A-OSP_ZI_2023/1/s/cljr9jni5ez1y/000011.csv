@@ -1,0 +1,2 @@
+"0","mfr3 <- cereal %>% filter(type == ""C"") %>% count(mfr) %>% filter(n > 7) %>% pull(mfr)"
+"0","cereal %>% filter(mfr %in% mfr3) %>% group_by(mfr) %>% summarise(meanCalories = mean(calories, na.rm=T), meanSugars = mean(sugars, na.rm=T), meanRating = mean(rating, na.rm=T)) %>% arrange(desc(meanRating))"

@@ -1,0 +1,4 @@
+"0",""
+"0","# ispišite podatke o svim preživjelim putnicima koji "
+"0","# u imenu imaju `George` ili `Frank`"
+"0","filter(titanic, Survived == 1 & Sex == ""male"" & (str_detect(Name, ""George"") | str_detect(Name, ""Frank"")))"

@@ -1,0 +1,5 @@
+"0","# Vračanje na org vrijednost"
+"0","IMDB_org = IMDB"
+"0","IMDB_org$budget_exp = exp(IMDB$budget)"
+"0","IMDB_org$budget = IMDB_org$budget_exp"
+"0","IMDB_org$budget_exp = NULL"

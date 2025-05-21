@@ -1,0 +1,4 @@
+"0","# nacrajte graf ovisnosti potrošnje o težini automobila"
+"0","# koristite geometriju točke"
+"0","# obojite točke plavom bojom"
+"0","ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point(color = ""blue"")"

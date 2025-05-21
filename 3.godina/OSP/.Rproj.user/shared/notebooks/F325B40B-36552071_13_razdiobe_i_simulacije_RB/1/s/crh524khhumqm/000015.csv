@@ -1,0 +1,1 @@
+"0","ggplot(podaci, aes(sample = x4)) + geom_qq()"

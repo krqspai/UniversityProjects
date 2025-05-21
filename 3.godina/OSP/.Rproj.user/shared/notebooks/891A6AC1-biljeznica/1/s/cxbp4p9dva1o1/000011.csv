@@ -1,0 +1,4 @@
+"0",""
+"0","ggplot(filmovi4, aes(x = decade, y = num_voted_users)) +"
+"0","  geom_boxplot() + labs(title = ""Box-plot dijagram broja korisničkih ocjena po filmu po desetljećima"", "
+"0","       x = ""Desetljeće"", y = ""Broj korisničkih ocjena"") + scale_y_continuous(limits = c(0, 750000))"

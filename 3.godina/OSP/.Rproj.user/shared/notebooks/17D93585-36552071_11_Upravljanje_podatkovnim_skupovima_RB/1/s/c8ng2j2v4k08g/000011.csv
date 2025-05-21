@@ -1,0 +1,6 @@
+"0",""
+"0","# ispišite koliko je u svakom mjesecu bilo otkazanih letova zbog lošeg vremena"
+"0","# (za uvid koja varijabla indicira otkazivanje leta zbog lošeg vremena"
+"0","# proučite dokumentaciju skupa)"
+"0","# stupce izlaznog okvira nazovite `""Month""` i `""BadWeatherCancellations""`"
+"0","filter(hflights, CancellationCode == ""B"") %>% count(Month) %>% rename(BadWeatherCancellations = n)"

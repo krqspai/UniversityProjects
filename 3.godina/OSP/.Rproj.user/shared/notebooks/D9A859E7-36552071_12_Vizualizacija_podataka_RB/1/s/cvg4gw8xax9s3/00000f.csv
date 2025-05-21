@@ -1,0 +1,4 @@
+"0","#library(GGally)  # ako nije učitan!"
+"0","# ovaj isjecak se zapravo prikazuje buduci da nece imati stat_bin poruke"
+"0","# rjesenje sa https://github.com/ggobi/ggally/issues/184"
+"0","ggpairs(data = mtcars[,1:6], lower=list(combo=wrap(""facethist"", binwidth=0.8)))"

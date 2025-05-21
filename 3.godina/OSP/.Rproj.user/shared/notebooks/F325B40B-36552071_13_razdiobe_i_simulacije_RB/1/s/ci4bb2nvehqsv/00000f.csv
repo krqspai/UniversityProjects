@@ -1,0 +1,6 @@
+"0","library(tidyverse)"
+"0","library(sn)"
+"0","library(GGally)"
+"0","library(gridExtra)"
+"0","brojZad <- 0"
+"0","brojPog <- 13"

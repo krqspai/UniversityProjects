@@ -1,0 +1,3 @@
+"0","mjesto$prirezOpis <- factor(mjesto$prirez, levels=c(""mali"", ""srednji"", ""visok""), ordered = TRUE)"
+"0","mjesto$prirezOpis <- ifelse(mjesto$prirez < 12, ""nizak"", "
+"0","                            ifelse(mjesto$prirez <= 15, ""srednji"", ""visok""))"

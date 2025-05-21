@@ -1,0 +1,52 @@
+"0",""
+"0","imdb <- read_csv(""movie_IMDB.csv"")"
+"2","[1mRows: [22m[34m5043[39m [1mColumns: [22m[34m28[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (12): color, director_name, actor_2_name, genres, actor_1_name, movie_title, act...
+[32mdbl[39m (16): num_critic_for_reviews, duration, director_facebook_likes, actor_3_faceboo..."
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","imdb <- unique(imdb)"
+"0","glimpse(imdb)"
+"1","Rows: 4,998"
+"1",""
+"1","
+"
+"1","Columns: 28"
+"1",""
+"1","
+"
+"1","$ color                     [3m[38;5;246m<chr>[39m[23m ""Color"", ""Color"", ""Color"", ""Color"", NA, ""Color"", ""Co…
+$ director_name             [3m[38;5;246m<chr>[39m[23m ""James Cameron"", ""Gore Verbinski"", ""Sam Mendes"", ""Ch…
+$ num_critic_for_reviews    [3m[38;5;246m<dbl>[39m[23m 723, 302, 602, 813, NA, 462, 392, 324, 635, 375, 673…
+$ duration                  [3m[38;5;246m<dbl>[39m[23m 178, 169, 148, 164, NA, 132, 156, 100, 141, 153, 183…
+$ director_facebook_likes   [3m[38;5;246m<dbl>[39m[23m 0, 563, 0, 22000, 131, 475, 0, 15, 0, 282, 0, 0, 395…
+$ actor_3_facebook_likes    [3m[38;5;246m<dbl>[39m[23m 855, 1000, 161, 23000, NA, 530, 4000, 284, 19000, 10…
+$ actor_2_name              [3m[38;5;246m<chr>[39m[23m ""Joel David Moore"", ""Orlando Bloom"", ""Rory Kinnear"",…
+$ actor_1_facebook_likes    [3m[38;5;246m<dbl>[39m[23m 1000, 40000, 11000, 27000, 131, 640, 24000, 799, 260…
+$ gross                     [3m[38;5;246m<dbl>[39m[23m 760505847, 309404152, 200074175, 448130642, NA, 7305…
+$ genres                    [3m[38;5;246m<chr>[39m[23m ""Action|Adventure|Fantasy|Sci-Fi"", ""Action|Adventure…
+$ actor_1_name              [3m[38;5;246m<chr>[39m[23m ""CCH Pounder"", ""Johnny Depp"", ""Christoph Waltz"", ""To…
+$ movie_title               [3m[38;5;246m<chr>[39m[23m ""Avatar "", ""Pirates of the Caribbean: At World's End…
+$ num_voted_users           [3m[38;5;246m<dbl>[39m[23m 886204, 471220, 275868, 1144337, 8, 212204, 383056, …
+$ cast_total_facebook_likes [3m[38;5;246m<dbl>[39m[23m 4834, 48350, 11700, 106759, 143, 1873, 46055, 2036, …
+$ actor_3_name              [3m[38;5;246m<chr>[39m[23m ""Wes Studi"", ""Jack Davenport"", ""Stephanie Sigman"", ""…
+$ facenumber_in_poster      [3m[38;5;246m<dbl>[39m[23m 0, 0, 1, 0, 0, 1, 0, 1, 4, 3, 0, 0, 1, 2, 1, 0, 4, 3…
+$ plot_keywords             [3m[38;5;246m<chr>[39m[23m ""avatar|future|marine|native|paraplegic"", ""goddess|m…
+$ movie_imdb_link           [3m[38;5;246m<chr>[39m[23m ""http://www.imdb.com/title/tt0499549/?ref_=fn_tt_tt_…
+$ num_user_for_reviews      [3m[38;5;246m<dbl>[39m[23m 3054, 1238, 994, 2701, NA, 738, 1902, 387, 1117, 973…
+$ language                  [3m[38;5;246m<chr>[39m[23m ""English"", ""English"", ""English"", ""English"", NA, ""Eng…
+$ country                   [3m[38;5;246m<chr>[39m[23m ""USA"", ""USA"", ""UK"", ""USA"", NA, ""USA"", ""USA"", ""USA"", …
+$ content_rating            [3m[38;5;246m<chr>[39m[23m ""PG-13"", ""PG-13"", ""PG-13"", ""PG-13"", NA, ""PG-13"", ""PG…
+$ budget                    [3m[38;5;246m<dbl>[39m[23m 237000000, 300000000, 245000000, 250000000, NA, 2637…
+$ title_year                [3m[38;5;246m<dbl>[39m[23m 2009, 2007, 2015, 2012, NA, 2012, 2007, 2010, 2015, …
+$ actor_2_facebook_likes    [3m[38;5;246m<dbl>[39m[23m 936, 5000, 393, 23000, 12, 632, 11000, 553, 21000, 1…
+$ imdb_score                [3m[38;5;246m<dbl>[39m[23m 7.9, 7.1, 6.8, 8.5, 7.1, 6.6, 6.2, 7.8, 7.5, 7.5, 6.…
+$ aspect_ratio              [3m[38;5;246m<dbl>[39m[23m 1.78, 2.35, 2.35, 2.35, NA, 2.35, 2.35, 1.85, 2.35, …
+$ movie_facebook_likes      [3m[38;5;246m<dbl>[39m[23m 33000, 0, 85000, 164000, 0, 24000, 0, 29000, 118000,…"
+"1",""
+"1","
+"
+"0","head(imdb)"

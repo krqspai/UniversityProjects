@@ -1,0 +1,8 @@
+"0","film_count <- filmovi4 %>%"
+"0","  group_by(decade) %>%"
+"0","  summarise("
+"0","    count = n(),"
+"0","    avg_score = mean(imdb_score)"
+"0","  )"
+"0",""
+"0","film_count"

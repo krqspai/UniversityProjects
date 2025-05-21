@@ -1,0 +1,8 @@
+"0","# obrišite prvi redak i drugi stupac iz df12 metodom 2d referenciranja"
+"0","df12 <- df12[-1, -2]"
+"0",""
+"0","# obrišite stupac `imena` uz pomoć pridjeljivanja `NULL` vrijednosti"
+"0","df12$imena <- NULL"
+"0",""
+"0","# ispišite df12"
+"0","df12"

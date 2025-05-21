@@ -1,0 +1,15 @@
+"0","# u varijablu `wine` učitajte podatke iz datoteke `wines.csv`"
+"0","# proučite učitani podatkovni okvir"
+"0","# kategorizirajte stupce prema potrebi"
+"0","# i uklonite retke sa nedostajućim vrijednostima ako ih ima"
+"0",""
+"0","wine <- read_csv(""Datasets/wines.txt"")"
+"2","[1mRows: [22m[34m6497[39m [1mColumns: [22m[34m13[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (1): type
+[32mdbl[39m (12): fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides, f..."
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","head(wine)"

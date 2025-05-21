@@ -1,0 +1,8 @@
+"0","# numerički vektor"
+"0","m <- c(1, 2, 3, 4, 5)  "
+"0",""
+"0","# logički vektor"
+"0","v <- c(T, F, T)"
+"0",""
+"0","# znakovni vektor"
+"0","imena <- c(""Ivo"", ""Pero"", ""Ana"")"

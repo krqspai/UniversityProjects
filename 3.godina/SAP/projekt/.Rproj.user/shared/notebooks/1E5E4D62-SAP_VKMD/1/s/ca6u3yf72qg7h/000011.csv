@@ -1,0 +1,3 @@
+"0","IMDB = IMDB[complete.cases(IMDB$budget), ] # izbacivanje NA vrijednosti"
+"0","IMDB %>% group_by(genres) %>% summarise( # broj filmova po žanrovima"
+"0","          count = n())"

@@ -1,0 +1,8 @@
+"0","# ispišite prosječno vrijeme kašnjenja u dolasku"
+"0","# kod odlaznih letova u zrakoplovne luke "
+"0","# LAX, JFK i LGA u različitim danima u tjednu"
+"0","# novi stupac nazovite 'MeanArrDelay'"
+"0","# ignorirajte retke sa NA vrijednostima vremena kašnjenja"
+"0","# ispis poredajte po vremenu kašnjenja silazno"
+"0","filter(hflights, Dest %in% c(""LAX"", ""JFK"", ""LGA"")) %>% group_by(Dest, DayOfWeek) %>% summarise(meanArrDelay = mean(ArrDelay, na.rm = T)) %>% arrange(desc(meanArrDelay))"
+"2","`summarise()` has grouped output by 'Dest'. You can override using the `.groups` argument."

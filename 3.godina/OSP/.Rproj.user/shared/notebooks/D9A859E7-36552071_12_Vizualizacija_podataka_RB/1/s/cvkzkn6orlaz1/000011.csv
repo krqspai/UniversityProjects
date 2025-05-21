@@ -1,0 +1,4 @@
+"0","# spremite sljedeći graf u datoteke `figure1.pdf`i `figure1.png`"
+"0","ggplot(mtcars, aes(x = hp, y = mpg, col = as.factor(cyl))) + geom_point() + "
+"0","geom_smooth(aes(x = hp, y = mpg), method = 'loess', linetype = 4, color = ""grey"", se = F, inherit.aes = F) +"
+"0","labs(x = ""broj konjskih snaga"", y = ""potrošnja"", col = ""broj cilindara"")"

@@ -1,0 +1,6 @@
+"0","# dodajte geometriju točaka na varijablu `graf`"
+"0","# te potom dodatni sloj sa krivuljom zaglađivanja"
+"0","# koristite funkciju `stat_smooth` uz parametar `method` "
+"0","# postavljen na `""lm""` (linearno zaglađivanje)"
+"0","# i parametar `formula` na `y~x`"
+"0","graf + geom_point() + stat_smooth(method = ""lm"", formula = ""y~x"")"

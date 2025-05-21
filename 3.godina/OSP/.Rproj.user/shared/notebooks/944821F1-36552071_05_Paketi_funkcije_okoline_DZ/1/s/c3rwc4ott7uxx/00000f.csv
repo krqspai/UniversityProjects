@@ -1,0 +1,5 @@
+"0","# učitavamo 20 nasumičnih prirodnih brojeva od 1 do 100, sa ponavljanjem"
+"0",""
+"0","#set.seed(JMBAG)  # otkomentirati i zamijeniti svojim JBMAG-om"
+"0","a <- sample(1:100, 20, replace = T)"
+"0",""

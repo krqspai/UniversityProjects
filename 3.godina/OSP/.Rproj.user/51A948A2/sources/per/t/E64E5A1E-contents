@@ -1,0 +1,297 @@
+---
+output:
+  html_document: default
+  title: A
+---
+
+```{r setup, include = F}
+knitr::opts_chunk$set(results = 'hold')
+library(tidyverse)
+library(lubridate)
+library(caret)
+library(ggplot2)
+# sve nužne pakete učitati ovdje!
+```
+
+******************
+
+## OSNOVE STATISTIČKOG PROGRAMIRANJA
+#### **Fakultet elektrotehnike i računarstva, Sveučilište u Zagrebu**
+#### 10/2/2025
+
+******************
+
+# **ZAVRŠNI ISPIT**  
+
+======================================================================================
+
+#### JMBAG: 36552071        
+#### Ime i prezime: Kristijan Šagovac
+#### e-mail: kristijan.sagovac@fer.hr      
+#### IP adresa: 161.53.78.35      
+
+
+======================================================================================
+
+#### OSNOVNE UPUTE
+
+U nastavku slijedi niz zadataka za završni ispit. Rješenja zadatka mogu uključivati **upisivanje programskog koda** ili **čistog teksta** te **izvršavanje programskog koda**. Molimo da se pridržavate sljedećih naputaka:
+
+- prije rješavanja stisnite gumb **Knit to HTML** kako bi provjerili ispravnost sučelja te dobili predložak ispita u preglednijem obliku u prozoru preglednika s desne strane
+- ukoliko nije drugačije navedeno, prostor za rješavanje zadataka sami stvarate kombinacijom tipaka **CTRL+ALT+I** ili odabirom opcija **Insert -> R**
+- pažljivo čitajte tekstove zadataka
+- tekst zadatka može sadržavati i programski kod kojeg morate izmijeniti i nadopuniti te izvršiti već prema uputama danim u tekstu zadatka i / ili komentarima postojećeg programskog koda
+- ukoliko je rješenje zadatka programski kod koji nešto ispisuje, budite sigurni da bilježnica uključuje i taj ispis
+- programski kod slobodno komentirajte
+- oznake `echo = F` i `message = F` ne mijenjajte; one služe kako konačni ispis ne bi imao nepotrebne statusne poruke
+
+Nakon ispunjavanja bilježnice odaberite opciju **Knit to HTML* i pohranite rezultat u HTML obliku u predviđeni repozitorij na *Moodle* stranicama predmeta. 
+
+Tijekom rješavanja bilježnice smijete se koristiti pomoćnim sredstvima kao što su podsjetnici, dokumentacija jezika R, bilježnice s predavanja, *Google* tražilica. **Izričito se zabranjuje razmjena informacije sa drugim polaznicima ispita bilo kojim vidom komunikacije, uključujući i elektroničku poštu, društvene mreže, chat programe ili korištenje zajedničkog dijeljenog repozitorija, kao i korištenje alata umjetne inteligencije.** 
+
+VAŽNO! Konačni HTML izvještaj **mora imati sljedeći oblik** (zamijenite JMBAG, Prezime i Ime vlastitim podacima)!!
+
+`JMBAG_Prezime_Ime_OSP_ZI_2025.html`
+
+**VAŽNO! Uz HTML bilježnice predat ćete i do dvije slike u PNG formatu (vizualizacije iz zadatka 3.)**
+
+`JMBAG_Graph_3a.png`
+`JMBAG_Graph_3b.png`
+
+
+Pohranom HTML bilježnice pod Vašim korisničkim imenom i lozinkom garantirate da tijekom ove provjere znanje niste od drugoga primili niti pružili pomoć te da se niste koristili nedopuštenim sredstvima. Ove su radnje povreda Kodeksa ponašanja te mogu uzrokovati trajno isključenje s Fakulteta.
+
+
+
+======================================================================================
+
+## ZADACI
+
+******************
+
+**NAPOMENA** U zadacima nije dopušteno koristiti eksplicitne programske petlje!
+
+******************
+
+
+Podatkovni skup `penguins.csv` je popularan podatkovni skup koji sadrži podatke o tri vrste pingvina (Adélie, Chinstrap i Gentoo) s tri različite lokacije u arhipelagu Palmer na Antarktiku. 
+
+Učitajte ove podatke u podatkovni okvir `penguins` uz pomoć sljedećeg programskog odsječka. Kratko proučite učitani okvir (u konzoli ili u programskom odsječku - u potonjem slučaju obrišite naredbe proučavanja prije predaje). Potom nastavite sa rješavanjem zadaće.
+
+```{r, echo = F, message=F}
+
+#The dataset consists of 326 observations and 8 columns.
+
+#    species: penguin species (Chinstrap, Adélie, or Gentoo)
+#    bill_length_mm: bill length (mm)
+#    bill_depth_mm: bill depth (mm)
+#    flipper_length_mm: flipper length (mm)
+#    body_mass_g: body mass (g)
+#    island: island name (Dream, Torgersen, or Biscoe) in the Palmer Archipelago (Antarctica)
+#    sex: penguin sex
+#    year: the year in which data point was collected
+    
+penguins <- read_csv("penguins.csv", col_types = "ffnnnnff")
+```
+
+Ovaj skup koristiti ćete u zadacima 2, 3 i 5.
+
+***
+
+## 1. (3 boda)
+
+Tekstualna datoteka `Homer_Iliad.txt` sadrži poznati ep grčkog pisca Homera.
+
+Ispišite na zaslon sadržaj vektora koji pohranjuje sve **jedinstvene** riječi koje neposredno prethode riječi "horse" u ovom epu. Riječi u ispisu moraju biti poredane abecedno.
+
+NAPOMENA: riječi je potrebno pronaći programski, ručno izrađeni ispisi neće se priznavati. Kod analize cijeli ep pretvorite u mala slova i svu interpunkciju zamijenite praznim znakovnim nizom ("Hence, it was Achille's horse." -> "hence it was achilles horse"). Zanima vas samo riječ "horse", ignorirajte izvedenice (npr. "horses" ili "horseshoe").
+
+### Rješenje 1a
+
+```{r}
+con <- file("Homer_Iliad.txt")
+iliad <- readLines(con)
+close(con)
+
+iliad_clean <- iliad %>% str_c(collapse = " ") %>% str_replace_all('[:punct:]', '') %>% tolower %>% str_split('[:space:]') %>% unlist 
+iliad_words <- iliad_clean[nchar(iliad_clean)>0]
+iliad_horse <- which(iliad_words == "horse")
+iliad_result <- iliad_words[iliad_horse - 1] %>% unique
+iliad_result %>% sort()
+```
+
+***
+
+
+## 2. **(2 + 3 + 4 bodova)**
+
+NAPOMENA: U ovom zadatku sva rješenja moraju biti izražena uz pomoć **jedne** naredbe (uz korištenje operatora ulančavanja i bez korištenja pomoćnih varijabli).
+
+
+
+a) Za sve retke koji sadrže barem jednu nedostajuću vrijednost ispišite naziv vrste i sve stupce koji sadrže podniz "mm". Provjeru postojanja nedostajućih vrijednosti i traženje podniza u nazivima stupaca morate napraviti programski. Ispis poredajte po duljini peraja silazno.
+
+### Rješenje 2a
+
+```{r}
+penguins[!complete.cases(penguins),] %>% select(species, contains("mm")) %>% arrange(desc(flipper_length_mm))
+```
+
+***
+
+b) Za 10 pingvina koji imaju **najmanji** omjer duljine (*length*) i dubine (*depth*) kljuna ispišite vrstu, otok, spol i navedeni omjer. Stupac ispisa s navedenim omjerom nazovite `bill_length_depth_ratio`. Ispis poredajte po omjeru uzlazno.
+
+
+### Rješenje 2b
+
+```{r}
+penguins %>% mutate(bill_length_depth_ratio = bill_length_mm / bill_depth_mm) %>% slice_min(bill_length_depth_ratio, n = 10) %>% select(species, island, sex, bill_length_depth_ratio) %>% arrange(bill_length_depth_ratio)
+```
+
+
+***
+
+
+c) Za svaku godinu prikupljanja podataka i svaki otok ispišite broj muških jedinki pingvina, broj ženskih jedinki pingvina, broj jedinki nepoznatog spola i ukupan broj. Stupce nazovite `year`, `island`, `males`, `females`, `unknownSex` i `TOTAL`. Ispis poredajte po godini a potom po nazivu otoka abecedno.
+
+
+### Rješenje 2c
+
+```{r}
+penguins %>% group_by(year, island, sex) %>% summarise(TOTAL = n()) %>% pivot_wider(names_from = sex, values_from = TOTAL) %>% rename(males = male, females = female, unknownSex = "NA") %>% transmute(year, island, males, females, unknownSex, TOTAL = males + females + ifelse(is.na(unknownSex), 0, unknownSex)) %>% arrange(year, island) 
+```
+
+***
+
+
+## 3. **(2 + 3 boda)**
+
+a) Napišite naredbu koja kao rezultat daje graf prikazan na slici `graph_3a.png`(bez vodenog žiga).
+
+Radi jasnoće, slijedi detaljni opis zadatka koji rezultira navedenim grafom:
+
+Koristeći podatkovni skup `penguins`, nacrtajte stupčasti graf koji prikazuje broj pingvina za svaku kombinaciju otoka i vrste pingvina (species). Graf facetirajte po spolu pingvina.
+
+**VAŽNO: Konačni graf snimite kao `JMBAG_graph_3a.png` i predajte zajedno sa riješenim ispitom!**
+
+
+### Rješenje 3a
+
+
+```{r}
+ggplot(penguins, aes(x = species, fill = island)) + geom_histogram(position = "dodge", stat="count", color = "black") + facet_wrap(~sex)
+ggsave("36552071_graph_3a.png")
+```
+
+
+***
+
+
+b) Napišite naredbu koja kao rezultat daje graf prikazan na slici `graph_3b.png`(bez vodenog žiga).
+
+Radi jasnoće, slijedi detaljni opis zadatka koji rezultira navedenim grafom:
+
+Koristeći podatkovni skup penguins, nacrtajte raspršeni graf koji prikazuje odnos između duljine kljuna ("bill_length_mm") i širine kljuna ("bill_depth_mm"). Na grafu, svaka točka treba biti obojana prema vrsti pingvina ("species"), dok veličina točke treba predstavljati masu tijela ("body_mass_g"). Za svaku vrstu potrebno je nacrtati i pravac linearne regresije (bez intervala pouzdanosti).
+
+Prilikom izrade grafa, koristite parametar prozirnosti (alpha) postavljen na vrijednost 0.5 kako bi točke bile preglednije i manje preklapale jedna drugu. Kao temeljni stil grafa, primijenite "theme_minimal()".
+
+Nazive osi i legendi preimenujte prema slici.
+
+
+**VAŽNO: Konačni graf snimite kao `JMBAG_graph_3b.png` i predajte zajedno sa riješenim ispitom!**
+
+### Rješenje 3b
+
+```{r}
+
+ggplot(penguins, aes(x=bill_length_mm, y=bill_depth_mm, color = species, size = body_mass_g)) + 
+  geom_point(alpha = 0.5) + 
+  stat_smooth(formula = y ~ x, aes(group = species), method = 'lm', se = F) +
+  labs(x = "Bill Length (mm)",
+       y = "Bill Width (mm)",
+       title = "Bill Dimensions and Body Mass of Penguins",
+       color = "Species",
+       size = "Body Mass (g)") +
+  theme_minimal()
+ggsave("36552071_graph_3b.png")
+```
+
+
+***
+
+## 4. **(1 + 3 boda)**
+
+a) Nogometaš pogađa penal sa vjerojatnosti 0.75. Kolika je vjerojatnost da u seriji od 15 penala pogodi gol točno 12 puta?
+
+**Ispišite vjerojatnost u obliku decimalnog broja zaokruženog na četiri decimale.**
+
+### Rješenje 4a
+
+```{r}
+dbinom(12, 15, 0.75) %>% round(4)
+```
+
+***
+
+
+b) U razredu ima 28 učenika. Profesor geografije proziva učenike na usmeno ispitivanje, uz pravilo da se učenika uvijek odabire nasumično, a niti jedan učenik ne smije tijekom polugodišta biti prozvan više od dva puta.
+
+Ako znamo da profesor tijekom polugodišta proziva sveukupno 50 puta, simulacijom od 10,000 ponavljanja procijenite vjerojatnost da će na kraju polugodišta biti učenika koji nisu prozvani niti jednom. **Ispišite ovu vjerojatnost u obliku decimalnog broja zaokruženog na četiri decimale**.
+
+
+### Rješenje 4b
+
+```{r}
+prozivanje <- function() {
+  prozvani <- sample(rep(1:28, times = 2), 50) %>% unique %>% length
+  prozvani < 28 
+}
+
+replicate(10000, prozivanje()) %>% mean() %>% round(4)
+```
+
+
+***
+
+## 5. **(4 boda)** 
+
+Datoteka `new_penguins.csv` sadrži nepotpune podatke o 18 novih pingvina. U podacima imamo samo podatke o duljini i dubini kljuna.
+
+```{r}
+new_penguins <- read_csv("new_penguins.csv", col_types = "nn")
+```
+
+
+Uz pomoć informacija iz podatkovnog okvira `penguins` istrenirajte kNN model koji će pokušati pogoditi vrstu pingvina na osnovu atributa koji su dostupni u skupu `new_penguins`. Parametar k postavite na 5.
+
+Potom pokušajte pogoditi vrste 18 pingvina iz okvira `new_penguins`. Na zaslon ispišite predikcije vrsta redoslijedom kako se pojavljuju u ovom okviru.
+
+NAPOMENA: Nemojte zaboraviti na normalizaciju! Podatke iz datoteke `new_penguins.csv` normalizirajte uz pomoć sredina i standardnih devijacija iz okvira `penguins`.
+
+### Rješenje 5
+
+```{r}
+penguinsNoNA <- penguins[complete.cases(penguins),]
+penguinsNorm <- lapply(penguinsNoNA, function(x){
+  if (is.numeric(x)) (x - mean(x))/sd(x)
+  else x
+}) %>% as.data.frame
+
+km <- knn3(species ~ bill_length_mm + bill_depth_mm, data = penguinsNorm, k = 5)
+
+meanLength <- mean(penguinsNoNA$bill_length_mm)
+meanDepth <- mean(penguinsNoNA$bill_depth_mm)
+sdLength <- sd(penguinsNoNA$bill_length_mm)
+sdDepth <- sd(penguinsNoNA$bill_depth_mm)
+
+new_penguins$bill_length_mm <- (new_penguins$bill_length_mm - meanLength)/sdLength
+new_penguins$bill_depth_mm <- (new_penguins$bill_depth_mm - meanDepth)/sdDepth
+
+new_penguins$predictedSpecies <- predict(km, new_penguins, type = "class")
+new_penguins %>% select(predictedSpecies)
+```
+
+
+  
+### KRAJ
+  

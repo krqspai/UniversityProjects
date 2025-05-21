@@ -1,0 +1,4 @@
+"0","#con <- file(""datoteka.txt"", ""r"")    # r = ""read"""
+"0","#rows <- readLines(con)   # ili readLines(con, n = 100) za čitanje samo određenog broja redaka"
+"0","#close(con)   # zatvaranje toka"
+"0",""

@@ -1,0 +1,7 @@
+"0","# budući da stalno koristimo istu ""osnovicu"" grafa možemo ju"
+"0","# pohraniti u zasebnu varijablu npr. imena `graf`"
+"0",""
+"0","graf <- ggplot(mtcars, aes(x = wt, y = mpg)) "
+"0",""
+"0","# dodajte varijabli `graf` geometriju točaka a potom linijsku geometriju"
+"0","graf + geom_point() + geom_line()"

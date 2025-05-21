@@ -1,0 +1,229 @@
+---
+title: "SAP projekt"
+author: "36552071 Kristijan Šagovac"
+date: "2024-12-15"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(broom)
+library(gridExtra)
+```
+
+Učitajmo dataset i promotrimo što se u njemu nalazi:
+
+```{r}
+filmovi <- read_csv("movie_IMDB.csv")
+glimpse(filmovi)
+head(filmovi)
+```
+
+
+# Pitanje 4: Razlikuju li se ocjene s obzirom na vrijeme premijere?
+
+Pošto nam za analizu ovog pitanja ne trebaju oni filmovi koji u stupcima "title_year" ili "imdb_score" imaju nedostajuću vrijednost, najprije ćemo njih izbaciti iz okvira. Također želimo izbaciti potencijalne duplikate.
+
+```{r}
+filmovi4 <- filter(filmovi, !is.na(title_year) & !is.na(imdb_score))
+filmovi4 <- unique(filmovi4)
+```
+
+
+Uzevši u obzir da u datasetu postoji 91 različita godina (te je shodno tome za neke od njih vrlo malen uzorak filmova), analizirat ćemo filmove po desetljećima u kojima su izašli. Dodat ćemo stupac "decade" u podatkovni okvir.
+
+```{r}
+filmovi4 <- mutate(filmovi4, decade = title_year - title_year %% 10)
+```
+
+Provjerimo sada veličinu uzorka za svako desetljeće:
+
+```{r}
+count(filmovi4, decade)
+```
+Pošto u 1910-ima postoji samo jedan film, izbacit ćemo ga iz ove analize.
+
+```{r}
+filmovi4 <- filter(filmovi4, decade != 1910)
+```
+
+Također, primjećujemo da su veličine uzoraka za neka desetljeća manja od 30. Kako bismo proveli ANOVA postupak, najprije moramo provjeriti jesu li ocjene po desetljećima normalno distribuirane. To možemo učiniti upotrebom Lillieforsovog testa, koji je inačica Kolmogorov-Smirnovljevog testa, ali se može upotrijebiti i ako varijanca i aritmetička sredina nisu poznate. Početna hipoteza testa je da je razdioba koju testiramo normalna, a alternativna je suprotna početnoj.
+
+
+
+```{r}
+require(nortest)
+lillie.test(filmovi4$imdb_score[filmovi4$decade==1920])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==1930])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==1940])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==1950])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==1960])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==1970])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==1980])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==1990])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==2000])
+lillie.test(filmovi4$imdb_score[filmovi4$decade==2010])
+```
+
+Uočimo da su p-vrijednosti za gotovo sva desetljeća iznimno male. Za sva desetljeća s p-vrijednostima manjima od 0.05 odbacujemo početnu hipotezu, odnosno zaključujemo da razdiobe ocjena filmovima po tim desetljećima nisu normalno distribuirane. Pogledajmo njihove razdiobe na sljedećim grafovima.
+
+```{r}
+graf0 <- ggplot(data = filmovi4[filmovi4$decade == 1920, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "1920-e")
+graf1 <- ggplot(data = filmovi4[filmovi4$decade == 1930, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "1930-e")
+graf2 <- ggplot(data = filmovi4[filmovi4$decade == 1940, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title ="1940-e")
+graf3 <- ggplot(data = filmovi4[filmovi4$decade == 1950, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "1950-e")
+graf4 <- ggplot(data = filmovi4[filmovi4$decade == 1960, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "1960-e")
+graf5 <- ggplot(data = filmovi4[filmovi4$decade == 1970, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "1970-e")
+graf6 <- ggplot(data = filmovi4[filmovi4$decade == 1980, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "1980-e")
+graf7 <- ggplot(data = filmovi4[filmovi4$decade == 1990, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "1990-e")
+graf8 <- ggplot(data = filmovi4[filmovi4$decade == 2000, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "2000-e")
+graf9 <- ggplot(data = filmovi4[filmovi4$decade == 2010, ], aes(x = imdb_score)) +
+    geom_histogram(binwidth = 0.5, fill = "lightblue", color = "black") +
+    labs(title = "2010-e")
+grid.arrange(graf0, graf1, graf2, graf3, graf4, graf5, ncol = 3)
+grid.arrange(graf6, graf7, graf8, graf9, ncol = 3)
+```
+
+Histogrami pokazuju asimetriju u distribuciji. To ćemo još bolje prikazati na sljedećim QQ grafovima:
+
+```{r}
+graf0 <- ggplot(filmovi4[filmovi4$decade==1920, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "1920-e")
+graf1 <- ggplot(filmovi4[filmovi4$decade==1930, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "1930-e")
+graf2 <- ggplot(filmovi4[filmovi4$decade==1940, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "1940-e")
+graf3 <- ggplot(filmovi4[filmovi4$decade==1950, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "1950-e")
+graf4 <- ggplot(filmovi4[filmovi4$decade==1960, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "1960-e")
+graf5 <- ggplot(filmovi4[filmovi4$decade==1970, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "1970-e")
+graf6 <- ggplot(filmovi4[filmovi4$decade==1980, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "1980-e")
+graf7 <- ggplot(filmovi4[filmovi4$decade==1990, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "1990-e")
+graf8 <- ggplot(filmovi4[filmovi4$decade==2000, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "2000-e")
+graf9 <- ggplot(filmovi4[filmovi4$decade==2010, ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "navyblue", size = 1) + labs(title = "2010-e")
+
+grid.arrange(graf0, graf1, graf2, graf3, graf4, graf5, ncol = 3)
+grid.arrange(graf6, graf7, graf8, graf9, ncol = 3)
+```
+
+Kada bi distribucije bile normalne, podatci na QQ grafu bi bili posloženi približno u ravnoj liniji, dok na ovim grafovima primjećujemo zakrivljenost tih linija. Time smo i grafički prikazali kako distribucije ocjena filmova po desetljećima nisu normalne.
+
+Učinimo još Bartlettov test za provjeru homogenosti varijanci. Početna hipoteza je da su varijance za sva desetljeća jednake, dok je alternativna hipoteza suprotna.
+
+```{r}
+bartlett.test(filmovi4$imdb_score ~ filmovi4$decade)
+```
+
+Iz navedenih testova uočavamo kako razdiobe po većini desetljeća nisu ni približno normalne, a varijance nisu homogene. To znači da trebamo upotrijebiti neparametarsku alternativu ANOVA postupku, a to je Kruskal-Wallisov test. Početna hipoteza testa je da su aritmetičke sredine ocjena u svim desetljećima jednake. Alternativna hipoteza je da se barem jedna od tih sredina razlikuje.
+
+```{r}
+kruskal.test(imdb_score ~ decade, data = filmovi4) 
+```
+
+Izuzetno mala p-vrijednost nas upućuje da odbacimo početnu hipotezu. Time zaključujemo da se IMDB ocjene filmova razlikuju s obzirom na vrijeme premijere filma. Promotrimo na koji način se razlikuju, odnosno na koji način ocjena ovisi o vremenu premijere filma.
+
+Faktorizirajmo stupac za desetljeće:
+
+```{r}
+decades <- paste(seq(1920, 2010, by=10), seq(1929, 2019, by=10), sep="-")
+filmovi4$decade <- factor(filmovi4$decade, levels = seq(1920, 2010, 10),
+                          labels = decades)
+```
+
+Napravimo linearni model za dane podatke:
+
+```{r}
+model = lm(imdb_score ~ decade, data = filmovi4)
+summary(model)
+```
+
+Prema procjeni ovog modela, prosječna IMDB ocjena filmova raste po desetljećima do 1930-ih, nakon kojih počinje padati. Pogledajmo kakav rezultat bismo dobili kad bismo prema njemu izvršili ANOVA postupak. 
+
+```{r}
+anova(model)
+```
+
+Iz navedenog postupka vidimo kako je p-vrijednost ponovno izuzetno malena, odnosno da se prosječna ocjena filmova razlikuje s obzirom na desetljeće. Rezultat testa slaže se s gore provedenim neparametarskim postupkom. Pogledajmo sada podatke po desetljećima na određenim grafovima kako bismo vizualno predočili tu razliku. Najprije ćemo prikazati histogram prosječnih ocjena po desetljećima.
+
+```{r}
+f4_mean_scores <- filmovi4 %>%
+  group_by(decade) %>%
+  summarise(mean_imdb = mean(imdb_score, na.rm = TRUE))
+
+ggplot(f4_mean_scores, aes(x = decade, y = mean_imdb)) + geom_bar(stat = "identity", fill = "lightblue", color = "black")
+```
+
+Kao što je gornji model pokazao u svojim očekivanim vrijednostima, nakon 1930-ih primjećuje se pad prosječne ocjene. Prikažimo sada box-plot dijagram razdioba:
+
+```{r}
+ggplot(filmovi4, aes(x = decade, y = imdb_score)) +
+  geom_boxplot() +
+  labs(x = "Desetljeće", y = "IMDb ocjena", title = "IMDb ocjene po desetljećima")
+```
+
+Primjetimo da osim što medijan načelno pada s obzirom na desetljeće, kasnija desetljeća imaju nekoliko stršećih vrijednosti sa jako niskim ocjenama, što nas upućuje da konačno razmislimo o pitanju: znači li ovo uistinu da su stariji filmovi i bolji? 
+Pogledajmo kako se prosječne ocjene odnose prema broju filmova po desetljeću koji su uzeti u obzir. Već smo na početku ispisali te brojeve radi određivanja veličine uzoraka, ali radi jednostavnosti ćemo ih prikazati i ovdje.
+
+```{r}
+film_count <- filmovi4 %>%
+  group_by(decade) %>%
+  summarise(
+    count = n(),
+    avg_score = mean(imdb_score)
+  )
+
+film_count
+```
+
+Dodajmo ih u tablicu filmova zajedno s prosjecima po desetljećima:
+
+```{r}
+filmovi4 <- filmovi4 %>%
+  left_join(film_count, by = "decade")
+```
+
+Napravimo model koji će pokušati predvidjeti prosječnu ocjenu filma po desetljeću s obzirom na broj filmova iz tog desetljeća.
+
+```{r}
+model_with_count <- lm(avg_score ~ count, data = filmovi4)
+
+summary(model_with_count)
+```
+
+Primjetimo da s obzirom na dane podatke, prosječna ocjena filmova iz pojedinog desetljeća uistinu ovisi o broju filmova uzetih u obzir iz tog desetljeća. Osim toga, model objašnjava gotovo polovicu varijance među prosječnim vrijednostima, iz čega možemo zaključiti da postoji trend smanjenja prosječnih ocjena po desetljeću što je više filmova u njemu. Prikažimo to i grafički.
+
+```{r}
+ggplot(film_count, aes(x = count, y = avg_score)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm", color = "red") +
+  labs(
+    title = "Odnos broja filmova po desetljeću i prosječne ocjene",
+    x = "Broj filmova po desetljeću",
+    y = "Prosječna IMDb ocjena"
+  )
+```
+
+Razlog ovakvog silaznog trenda može biti laka dostupnost današnjih filmova. Time je dostupno i više lošijih filmova, dok su od starih filmova dostupni samo oni koji su okarakterizirani kao klasici (dok se oni koji su bili smatrani lošijima u tadašnje vrijeme nisu sačuvali). Osim toga, moguće je da današnje filmove gleda šira publika raznovrsnijih filmskih ukusa, čime dolazi do veće varijabilnosti u korisničkim ocjenama.
+
+
+
+

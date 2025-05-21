@@ -1,0 +1,3 @@
+"0",""
+"0","ggplot(IMDB, aes(x = genres, y = budget)) + geom_boxplot() + labs(x = ""Žanr"", y = ""Budžet"", title = ""Budžet po žanru"") +"
+"0","  theme(axis.text.x = element_text(angle = 45, hjust = 1))"

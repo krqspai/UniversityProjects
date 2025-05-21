@@ -1,0 +1,4 @@
+"0","# uz pomoć podatkovnog okvira `predikcije`"
+"0","# stvorite točkasti graf predikcija i std. reziduala"
+"0","# na grafu nacrtajte i horizontalnu liniju koja prolazi kroz nulu"
+"0","ggplot(predikcije, aes(x = .fitted, y = .std.resid)) + geom_point() + geom_hline(yintercept = 0)"

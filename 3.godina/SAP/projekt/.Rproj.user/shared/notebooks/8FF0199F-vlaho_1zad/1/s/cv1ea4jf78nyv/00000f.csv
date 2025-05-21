@@ -1,0 +1,16 @@
+"0","cat('Prosječna zarada filmova namijenjenih za opću publiku (PG) iznosi ', "
+"0","    mean(filmovi_PG_clean$gross), '€\n')"
+"1","Prosječna zarada filmova namijenjenih za opću publiku (PG) iznosi "
+"1"," "
+"1","71274507"
+"1"," "
+"1","€
+"
+"0","cat('Prosječna zarada filmova namijenjenih za osobe određene dobi (R) iznosi ', "
+"0","    mean(filmovi_R_clean$gross), '€\n')"
+"1","Prosječna zarada filmova namijenjenih za osobe određene dobi (R) iznosi "
+"1"," "
+"1","31991790"
+"1"," "
+"1","€
+"

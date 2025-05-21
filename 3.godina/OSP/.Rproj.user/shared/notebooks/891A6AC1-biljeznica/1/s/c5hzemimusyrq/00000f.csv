@@ -1,0 +1,3 @@
+"0","ggplot(filmovi4, aes(x = decade, y = imdb_score)) +"
+"0","  geom_boxplot() +"
+"0","  labs(x = ""Desetljeće"", y = ""IMDb ocjena"", title = ""IMDb ocjene po desetljećima"")"

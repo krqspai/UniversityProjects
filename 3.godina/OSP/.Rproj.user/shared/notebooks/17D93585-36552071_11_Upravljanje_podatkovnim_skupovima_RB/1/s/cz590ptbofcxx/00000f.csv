@@ -1,0 +1,47 @@
+"0",""
+"0","# učitajte paket `hflights`"
+"0","# ukoliko je potrebno instalirajte ga sa CRAN repozitorija"
+"0","# uz pomoć funkcije `data` učitajte okvir u globalnu okolinu"
+"0","library(hflights)"
+"0","data(""hflights"")"
+"0",""
+"0","# pretvorite okvir u `hflights` u klasu ""tibble"""
+"0","hflights <- as_tibble(hflights)"
+"0",""
+"0","# upoznajte se s podatkovnim skupom `hflights`"
+"0","# pored funkcija glimpse/head/itd. možete pogledati i dokumentaciju"
+"0","# skupa uz pomoć naredbe `?hflights`"
+"0","glimpse(hflights)"
+"1","Rows: 227,496"
+"1",""
+"1","
+"
+"1","Columns: 21"
+"1",""
+"1","
+"
+"1","$ Year              [3m[38;5;246m<int>[39m[23m 2011, 2011, 2011, 2011, 2011, 2011, 2011, 2011, 2011, 2011…
+$ Month             [3m[38;5;246m<int>[39m[23m 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ DayofMonth        [3m[38;5;246m<int>[39m[23m 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
+$ DayOfWeek         [3m[38;5;246m<int>[39m[23m 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4…
+$ DepTime           [3m[38;5;246m<int>[39m[23m 1400, 1401, 1352, 1403, 1405, 1359, 1359, 1355, 1443, 1443…
+$ ArrTime           [3m[38;5;246m<int>[39m[23m 1500, 1501, 1502, 1513, 1507, 1503, 1509, 1454, 1554, 1553…
+$ UniqueCarrier     [3m[38;5;246m<chr>[39m[23m ""AA"", ""AA"", ""AA"", ""AA"", ""AA"", ""AA"", ""AA"", ""AA"", ""AA"", ""AA""…
+$ FlightNum         [3m[38;5;246m<int>[39m[23m 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428…
+$ TailNum           [3m[38;5;246m<chr>[39m[23m ""N576AA"", ""N557AA"", ""N541AA"", ""N403AA"", ""N492AA"", ""N262AA""…
+$ ActualElapsedTime [3m[38;5;246m<int>[39m[23m 60, 60, 70, 70, 62, 64, 70, 59, 71, 70, 70, 56, 63, 67, 60…
+$ AirTime           [3m[38;5;246m<int>[39m[23m 40, 45, 48, 39, 44, 45, 43, 40, 41, 45, 42, 41, 44, 47, 44…
+$ ArrDelay          [3m[38;5;246m<int>[39m[23m -10, -9, -8, 3, -3, -7, -1, -16, 44, 43, 29, 5, -9, -6, -1…
+$ DepDelay          [3m[38;5;246m<int>[39m[23m 0, 1, -8, 3, 5, -1, -1, -5, 43, 43, 29, 19, -2, -3, -1, -1…
+$ Origin            [3m[38;5;246m<chr>[39m[23m ""IAH"", ""IAH"", ""IAH"", ""IAH"", ""IAH"", ""IAH"", ""IAH"", ""IAH"", ""I…
+$ Dest              [3m[38;5;246m<chr>[39m[23m ""DFW"", ""DFW"", ""DFW"", ""DFW"", ""DFW"", ""DFW"", ""DFW"", ""DFW"", ""D…
+$ Distance          [3m[38;5;246m<int>[39m[23m 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224, 224…
+$ TaxiIn            [3m[38;5;246m<int>[39m[23m 7, 6, 5, 9, 9, 6, 12, 7, 8, 6, 8, 4, 6, 5, 6, 12, 8, 7, 10…
+$ TaxiOut           [3m[38;5;246m<int>[39m[23m 13, 9, 17, 22, 9, 13, 15, 12, 22, 19, 20, 11, 13, 15, 10, …
+$ Cancelled         [3m[38;5;246m<int>[39m[23m 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ CancellationCode  [3m[38;5;246m<chr>[39m[23m """", """", """", """", """", """", """", """", """", """", """", """", """", """", """"…
+$ Diverted          [3m[38;5;246m<int>[39m[23m 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…"
+"1",""
+"1","
+"
+"0","head(hflights)"

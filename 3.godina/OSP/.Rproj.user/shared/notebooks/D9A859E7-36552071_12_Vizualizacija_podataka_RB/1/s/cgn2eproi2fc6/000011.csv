@@ -1,0 +1,7 @@
+"0","# reduciramo uzorak kako bi radili sa faktorima sa manjim brojem razina"
+"0","diamondsSample %>% filter(color %in% c(""G"", ""H"", ""I"", ""J""),"
+"0","                  cut %in% c(""Very Good"", ""Premium"", ""Ideal"")) -> diamondsSample2"
+"0",""
+"0","# napravite uvjetni graf u ovisnosti o kombinaciji boje (`color`) i reza (`cut`)"
+"0","# koristite funkciju `facet_grid` i formulu kao parametar"
+"0","ggplot(diamondsSample2, aes(depth, fill = clarity)) + geom_histogram(bins = 5,  position = 'dodge') + facet_grid(color ~ cut)"

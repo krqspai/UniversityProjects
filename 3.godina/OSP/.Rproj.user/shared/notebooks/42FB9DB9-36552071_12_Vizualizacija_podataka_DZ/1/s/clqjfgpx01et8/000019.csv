@@ -1,0 +1,3 @@
+"0","ggplot(mpg, aes(hwy, fill = as.factor(cyl))) + "
+"0","  geom_histogram(bins = 10, position = ""dodge"") +"
+"0","  facet_wrap(~ cyl)"

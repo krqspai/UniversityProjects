@@ -1,0 +1,13 @@
+"0","knitr::opts_chunk$set(results = 'hold')"
+"0","library(readr)"
+"0","library(tidyr)"
+"0","library(lubridate)"
+"2","
+Attaching package: ‘lubridate’
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+"

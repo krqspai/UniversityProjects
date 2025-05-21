@@ -1,0 +1,1 @@
+"0","cereal %>% transmute(name, protein, fiber, sugars, rating, nutritionalIndex = (protein + fiber) / (sugars + 1) * rating) %>% slice_min(nutritionalIndex, n = 10)"

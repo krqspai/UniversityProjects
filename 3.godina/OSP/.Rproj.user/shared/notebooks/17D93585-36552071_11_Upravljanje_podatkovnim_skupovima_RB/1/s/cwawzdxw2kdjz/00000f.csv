@@ -1,0 +1,2 @@
+"0","# ispišite podatke o svim putnicima/putnicama prve klase starijim od 60 godina"
+"0","filter(titanic, Age > 60 & Pclass == 1)"

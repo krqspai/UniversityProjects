@@ -1,0 +1,2 @@
+"0","mate <- list(oib = ""12345678"", lastname = ""Peric"", weight = 78, yearEmpl = 2001)"
+"0","class(mate) <- c (""Employee"", ""Person"")"

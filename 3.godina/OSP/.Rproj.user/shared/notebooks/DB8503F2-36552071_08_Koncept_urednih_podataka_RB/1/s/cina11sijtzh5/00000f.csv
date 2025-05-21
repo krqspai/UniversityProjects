@@ -1,0 +1,6 @@
+"0","# ""raširite"" podatkovni okvir `ocjene` uz pomoć naredbe `pivot_wider`"
+"0","# rezultat pohranite u okvir `studenti2`"
+"0","studenti2 <- pivot_wider(ocjene, names_from = Predmet, values_from = Ocjena)"
+"0",""
+"0","# proučite okvire `studenti` i `studenti2`"
+"0","head(studenti)"

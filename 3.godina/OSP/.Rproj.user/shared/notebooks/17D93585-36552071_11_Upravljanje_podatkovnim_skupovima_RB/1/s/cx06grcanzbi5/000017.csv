@@ -1,0 +1,6 @@
+"0",""
+"0","# za nasumičnih 10 putnika (gledano oba spola) koji imaju nepoznat broj godina  "
+"0","# ispišite sve atribute od imena do cijene karte, "
+"0","# potom putničku klasu te konačno da li je putnik preživio ili ne"
+"0","# poredajte ispis abecedno po imenu"
+"0","filter(titanic, is.na(Age)) %>% slice_sample(n = 10) %>% select(Name:Fare, Pclass, Survived) %>% arrange(Name)"

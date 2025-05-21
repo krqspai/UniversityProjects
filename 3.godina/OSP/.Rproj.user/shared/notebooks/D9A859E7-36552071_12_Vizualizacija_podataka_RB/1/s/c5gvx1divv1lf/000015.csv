@@ -1,0 +1,4 @@
+"0","# stvorite još jednom isti graf ali sloju zaglađivanja"
+"0","# dodajte estetiku `group` postavljenu na `cyl`"
+"0","# Što smo ovime postigli?"
+"0","graf + geom_point() + stat_smooth(method = ""loess"", formula = ""y~x"", aes(group = cyl))"

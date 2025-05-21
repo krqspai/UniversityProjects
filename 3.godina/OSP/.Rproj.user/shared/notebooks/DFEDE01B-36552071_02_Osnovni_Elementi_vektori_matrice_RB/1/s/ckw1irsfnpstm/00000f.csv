@@ -1,0 +1,1 @@
+"0","m <- t(m)  # transponiramo matricu i pohranjujemo natrag u varijablu `m`"

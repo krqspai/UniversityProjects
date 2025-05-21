@@ -1,0 +1,3 @@
+"0",""
+"0","# ispišite podatke o pet najstarijih putnica prve klase"
+"0","filter(titanic, Pclass == 1 & Sex == ""female"") %>% arrange(desc(Age)) %>% slice_head(n = 5)"

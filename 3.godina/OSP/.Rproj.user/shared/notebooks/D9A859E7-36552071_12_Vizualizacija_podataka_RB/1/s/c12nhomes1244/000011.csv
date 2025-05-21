@@ -1,0 +1,6 @@
+"0",""
+"0","# Učitajte podatkovni skup `mtcars` u globalnu okolinu"
+"0","data(""mtcars"")"
+"0",""
+"0","# proučite okvir `mtcars`  (head, glimpse, ?...)"
+"0","head(mtcars)"

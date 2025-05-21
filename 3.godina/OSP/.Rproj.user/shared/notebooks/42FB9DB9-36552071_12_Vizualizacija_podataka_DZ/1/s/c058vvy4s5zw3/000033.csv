@@ -1,0 +1,1 @@
+"0","ggplot(mpg, aes(x = displ, y = cty, color = class)) + geom_point(shape = 8) + labs(x = ""Engine displacement / litres"", y = ""city miles per gallon"") + stat_smooth(method = ""loess"", formula = ""y~x"", aes(group = 1), se = F, color = ""gray"", linetype = ""dashed"")"

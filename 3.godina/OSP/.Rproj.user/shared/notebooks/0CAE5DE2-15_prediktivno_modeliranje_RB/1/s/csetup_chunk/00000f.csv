@@ -1,0 +1,44 @@
+"0","library(MASS)"
+"0","library(tidyverse)"
+"0","library(stringr)"
+"0","library(ggplot2)"
+"0","library(GGally)"
+"0","library(sn)"
+"0","library(gridExtra)"
+"0","library(Hmisc)"
+"0","library(broom)"
+"0","library(car)"
+"0","library(corrplot)"
+"0","library(caret)"
+"2","Warning: package ‘caret’ was built under R version 4.4.2"
+"2","Loading required package: lattice
+"
+"2","
+Attaching package: ‘caret’
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    lift
+
+"
+"0","library(ranger)"
+"2","Warning: package ‘ranger’ was built under R version 4.4.2"
+"2","ranger 0.17.0 using 2 threads (default). Change with num.threads in ranger() and predict(), options(Ncpus = N), options(ranger.num.threads = N) or environment variable R_RANGER_NUM_THREADS.
+"
+"0","library(kernlab)"
+"2","
+Attaching package: ‘kernlab’
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    cross
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    alpha
+
+"
+"0","knitr::opts_chunk$set(results = 'hold')"

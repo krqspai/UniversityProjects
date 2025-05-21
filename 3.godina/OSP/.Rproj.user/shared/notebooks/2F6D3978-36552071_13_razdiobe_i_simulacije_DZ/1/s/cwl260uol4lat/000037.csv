@@ -1,0 +1,7 @@
+"0","uzorci <- replicate(1000, uzorak <- rnorm(100, 50, 10))"
+"0","uzorci <- t(uzorci)"
+"0","sredine <- rowSums(uzorci) / 100"
+"0","vrijednosti <- as.vector(uzorci)"
+"0","df <- data.frame(x = vrijednosti, y = sredine)"
+"0",""
+"0","data.frame(x = vrijednosti, y = sredine) %>% ggplot(aes(x = y)) + geom_histogram(fill = ""green"", alpha = 0.5, bins = 100) + geom_histogram(aes(x = x), fill = ""red"", alpha = 0.5)"

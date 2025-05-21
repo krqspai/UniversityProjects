@@ -1,0 +1,3 @@
+"0","IMDB_unique_noNA = IMDB_unique[complete.cases(IMDB_unique$budget), ] # izbacivanje NA vrijednosti"
+"0","IMDB_unique_noNA %>% group_by(genres) %>% summarise( # broj filmova po žanrovima"
+"0","          count = n())"

@@ -1,0 +1,2 @@
+"0","ggplot(penguins, aes(x = species, fill = island)) + geom_histogram(position = ""dodge"", stat=""count"", color = ""black"") + facet_wrap(~sex)"
+"2","Warning: [38;5;232mIgnoring unknown parameters: `binwidth`, `bins`, and `pad`[39m"

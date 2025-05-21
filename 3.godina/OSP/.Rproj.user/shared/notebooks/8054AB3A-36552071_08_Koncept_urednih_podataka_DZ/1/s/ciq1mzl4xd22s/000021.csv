@@ -1,0 +1,5 @@
+"0",""
+"0","#ne radi se o urednim podacima, svako mjerenje zauzima 4 retka kada bi moglo zauzimati samo jedan"
+"0",""
+"0","weather2 <- pivot_wider(weather, names_from = Measure, values_from = Value)"
+"0","head(weather2)"

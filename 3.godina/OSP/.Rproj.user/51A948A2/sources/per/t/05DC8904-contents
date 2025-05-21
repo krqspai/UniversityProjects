@@ -1,0 +1,310 @@
+---
+output:
+  html_document: default
+  title: A
+---
+
+```{r setup, include = F}
+knitr::opts_chunk$set(results = 'hold')
+library(tidyverse)
+library(lubridate)
+# sve nužne pakete učitati ovdje!
+library(ggplot2)
+```
+
+******************
+
+## OSNOVE STATISTIČKOG PROGRAMIRANJA
+#### **Fakultet elektrotehnike i računarstva, Sveučilište u Zagrebu**
+#### 2/2/2024
+
+******************
+
+# **ZAVRŠNI ISPIT**  
+
+======================================================================================
+
+#### JMBAG: 36552071        
+#### Ime i prezime: Kristijan Šagovac
+#### e-mail: kristijan.sagovac@fer.hr      
+#### IP adresa: 161.53.78.35     
+
+
+======================================================================================
+
+#### OSNOVNE UPUTE
+
+U nastavku slijedi niz zadataka za završni ispit. Rješenja zadatka mogu uključivati **upisivanje programskog koda** ili **čistog teksta** te **izvršavanje programskog koda**. Molimo da se pridržavate sljedećih naputaka:
+
+- prije rješavanja stisnite gumb **Knit to HTML** kako bi provjerili ispravnost sučelja te dobili predložak ispita u preglednijem obliku u prozoru preglednika s desne strane
+- ukoliko nije drugačije navedeno, prostor za rješavanje zadataka sami stvarate kombinacijom tipaka **CTRL+ALT+I** ili odabirom opcija **Insert -> R**
+- pažljivo čitajte tekstove zadataka
+- tekst zadatka može sadržavati i programski kod kojeg morate izmijeniti i nadopuniti te izvršiti već prema uputama danim u tekstu zadatka i / ili komentarima postojećeg programskog koda
+- ukoliko je rješenje zadatka programski kod koji nešto ispisuje, budite sigurni da bilježnica uključuje i taj ispis
+- programski kod slobodno komentirajte
+- oznake `echo = F` i `message = F` ne mijenjajte; one služe kako konačni ispis ne bi imao nepotrebne statusne poruke
+
+Nakon ispunjavanja bilježnice odaberite opciju **Knit to HTML* i pohranite rezultat u HTML obliku u predviđeni repozitorij na *Moodle* stranicama predmeta. 
+
+Tijekom rješavanja bilježnice smijete se koristiti pomoćnim sredstvima kao što su podsjetnici, dokumentacija jezika R, bilježnice s predavanja, *Google* tražilica. **Izričito se zabranjuje razmjena informacije sa drugim polaznicima ispita bilo kojim vidom komunikacije, uključujući i elektroničku poštu, društvene mreže, chat programe ili korištenje zajedničkog dijeljenog repozitorija, kao i korištenje alata umjetne inteligencije.** 
+
+VAŽNO! Konačni HTML izvještaj **mora imati sljedeći oblik** (zamijenite JMBAG, Prezime i Ime vlastitim podacima)
+
+`JMBAG_Prezime_Ime_OSP_ZI_2023.html`
+
+**VAŽNO! Uz HTML bilježnice predati ćete i do dvije slike u PNG formatu (vizualizacije iz zadatka 4.)**
+
+`JMBAG_Graph_4a.png`
+`JMBAG_Graph_4b.png`
+
+
+Pohranom HTML bilježnice pod Vašim korisničkim imenom i lozinkom garantirate da tijekom ove provjere znanje niste od drugoga primili niti pružili pomoć te da se niste koristili nedopuštenim sredstvima. Ove su radnje povreda Kodeksa ponašanja te mogu uzrokovati trajno isključenje s Fakulteta.
+
+
+
+======================================================================================
+
+## ZADACI
+
+******************
+
+**NAPOMENA** U zadacima nije dopušteno koristiti eksplicitne programske petlje!
+
+******************
+
+
+Podatkovni skup `cereal.csv` pohranjuje podatke o žitnim pahuljicama. Metapodatke skupa možete pronaći u datoteci `cereal.txt`.
+
+Učitajte ove podatke u podatkovni okvir `cereal` uz pomoć sljedećeg programskog odsječka. Kratko proučite učitani okvir (u konzoli ili u programskom odsječku - u potonjem slučaju obrišite naredbe proučavanja prije predaje). Potom nastavite sa rješavanjem zadaće.
+
+```{r, echo = F, message=F}
+cereal <- read_csv("cereal.csv", col_types = "cffnnnnnnnnnnnnn")
+```
+
+Ovaj skup koristiti ćete u zadacima 3, 4 i 6.
+
+
+***
+
+
+
+## 1. **(2 boda)**
+
+Ako sa ABCD označimo zadnje četiri znamenke Vašeg JMBAG-a, ispišite godinu iz datuma koji će biti nakon točno 2071 dana.
+
+### Rješenje 1
+
+```{r}
+year(today() + 2071)
+```
+
+
+## 2. **(3 boda)**
+
+Tekstualna datoteka `hamlet.txt` sadrži poznatu dramu pisca Williama Shakespeare-a. 
+
+Stvorite i ispišite **numerički vektor** od četiri elementa čija će **imena** biti `Hamlet`, `Claudius`, `Horatio` i `Ophelia`, a **vrijednosti** frekvencije ovih riječi u drami.
+
+NAPOMENA: treba brojati samo riječi u dokumentu koje točno odgovaraju navedenim kombinacijama velikih i malih slova.
+
+### Rješenje 2
+
+```{r}
+con <- file("Hamlet.txt")
+hamlet <- readLines(con)
+close(con)
+
+freq <- c(0, 0, 0, 0)
+names(freq) <- c("Hamlet", "Claudius", "Horatio", "Ophelia")
+hamlet %>% str_c(collapse = " ") %>% str_replace_all('[:punct:]', '') %>% str_split('[:space:]') %>% unlist -> hamlet
+hamlet <- hamlet[hamlet %in% names(freq)]
+freq2 <- table(hamlet)
+freq[names(freq)] = freq2[names(freq)]
+freq
+```
+
+
+***
+
+
+
+## 3. **(1 + 2 + 2 boda)**
+
+
+a)  Ispišite sve podatke o žitnim pahuljicama **proizvođača Kelloggs** koje **u nazivu imaju riječ "corn" ili "rice"** (neovisno o veličini slova). 
+
+
+### Rješenje 3a
+
+```{r}
+cereal %>% filter(str_detect(name, "(?i)(Corn|Rice)") & mfr == "K")
+```
+
+
+b) Ispišite **naziv žitnih pahuljica, sadržaj proteina, vlakana, šećera, ocjenu i nutritivni indeks** za top 10 žitnih pahuljica s najmanjim nutritivnim indeksom, uz pretpostavku da se nutritivni indeks izračunava kao 
+
+$$\frac{protein+fiber}{(sugars+1)}\cdot rating$$ <- (kliknuti na ovo)
+
+Retke poredajte uzlazno prema nutritivnom indeksu.
+
+NAPOMENA: novi stupac sa izračunatim nutritivnim indeksom nazovite `nutritionalIndex`
+
+### Rješenje 3b
+
+```{r}
+cereal %>% transmute(name, protein, fiber, sugars, rating, nutritionalIndex = (protein + fiber) / (sugars + 1) * rating) %>% slice_min(nutritionalIndex, n = 10)
+```
+
+c) Za svakog proizvođača za kojeg u skupu postoji **barem 8 vrsta "hladnih" žitnih pahuljica** ispišite **inicijal proizvođača, prosječnu količinu kalorija (`meanCalories`) njihovih proizvoda, prosječnu količinu šećera (`meanSugars`) i prosječni rating `meanRating`**. Prosjeke zaokružite na dvije decimale. Rezultat ispišite po rating-u silazno.
+
+
+### Rješenje 3c
+
+```{r}
+mfr3 <- cereal %>% filter(type == "C") %>% count(mfr) %>% filter(n > 7) %>% pull(mfr)
+cereal %>% filter(mfr %in% mfr3) %>% group_by(mfr) %>% summarise(meanCalories = mean(calories, na.rm=T), meanSugars = mean(sugars, na.rm=T), meanRating = mean(rating, na.rm=T)) %>% arrange(desc(meanRating))
+```
+
+***
+
+
+## 4. **(3 + 3 boda)**
+
+a) Napišite naredbu koja kao rezultat daje graf prikazan na slici `graph_4a.png`(bez vodenog žiga).
+
+Radi jasnoće, slijedi detaljni opis zadatka koji rezultira navedenim grafom:
+
+Koristeći podatkovni skup "cereal", izradite **graf gustoće razdiobe kalorija (`calories`) za svaku vrstu žitnih pahuljica (`type`)**. Dodajte slojeve s različitim bojama za svaku vrstu žitnih pahuljica (koristite nazivnu paletu boja - crvenu i svijetlo plavu), te na grafu prikažite i **prosječnu kalorijsku vrijednost za svaku vrstu žitnih pahuljica** pomoću isprekidanih vertikalnih linija (također crvene i svijetlo plave boje). Za prikaz grafova gustoće raspodjele koristite parametar prozirnosti `0.5`. 
+
+NAPOMENA: prosjeke po tipu možete izračunati unaprijed i onda ih koristiti kao varijable
+
+
+**VAŽNO: Konačni graf snimite kao `JMBAG_graph_4a.png` i predajte zajedno sa riješenim ispitom!**
+
+### Rješenje 4a
+
+```{r, echo = F, message=F}
+cerealAvg <- cereal %>% group_by(type) %>% summarise(meanCalories = mean(calories, na.rm=T))
+ggplot(cereal, aes(x = calories, fill = type)) + 
+  geom_density(alpha = 0.5) + 
+  geom_vline(data = cerealAvg, aes(xintercept = meanCalories, color = type), linetype = "dashed", show.legend = FALSE) +
+  scale_color_manual(values = c("C" = "red", "H" = "lightblue"))
+ggsave("36552071_graph_4a.png")
+```
+
+Napišite jednu naredbu programskog koda čiji ispis odgovara na sljedeća pitanja:
+
+b) Napišite naredbu koja kao rezultat daje graf prikazan na slici `graph_3b.png`(bez vodenog žiga).
+
+Za proizvođače Kelloggs, General Mills, Post i Quaker Oats nacrtajte **facetirane histograme rating-a** žitnih pahuljica (razdiobom u 10 ladica), pri čemu pojedini stupci histograma moraju biti **ispunjeni bojama koje označavaju broj šalica po porciji**. Legendu ispunjenja nazovite "cups per serving". 
+
+
+**VAŽNO: Konačnu sliku snimite kao `JMBAG_graph_4b.png` i predajte zajedno sa riješenim ispitom!**
+
+
+### Rješenje 4b
+
+
+```{r}
+ggplot(cereal %>% filter(mfr %in% c("K", "G", "P", "Q")), aes(x = rating, fill = factor(cups))) + 
+  geom_histogram(position = "stack", bins = 10) + 
+  facet_wrap(~mfr, nrow = 1) + 
+  labs(fill = "cups per serving")
+ggsave("36552071_graph_4b.png")
+```
+
+***
+
+## 5. **(1 + 3 boda)**
+
+a) Ako znate da gađanjem koša u prosjeku jednom od 5 bacanja ostvarite pogodak, kolika je vjerojatnost da u 20 bacanja ostvarite pogodak točno 7 puta? **Ispišite vjerojatnost zaokruženu na četiri decimale**.
+
+### Rješenje 5a
+
+
+```{r}
+dbinom(7, 20, 0.2) %>% round(4)
+```
+
+
+b) Igrate igru u kojoj ulažete 5 eura i potom bacate tri kovanice:
+
+- ako sve tri kovanice pokažu "glavu", dobivate 10 eura.
+- ako dvije kovanice pokažu "glavu", dobivate 5 eura.
+- ako jedna kovanica pokaže "glavu", dobivate 2 eura.
+- ako nijedna kovanica ne pokaže "glavu" (sve su "pismo"), bacate sve tri kovanice ponovo.
+
+Ispišite **broj zaokružen na jednu decimalu koji predstavlja prosječni dobitak po jednoj odigranoj igri** (ako se radi o gubitku broj mora biti negativan). Prosječni dobitak/gubitak izračunajte igranjem igre 100,000 puta i računanjem prosjeka rezultata.
+
+NAPOMENA: u zadatku je dopušteno koristiti petlje
+
+
+
+### Rješenje 5b
+
+```{r}
+igra <- function() {
+  coins <- sample(0:1, 3, replace = T)
+  if (sum(coins) == 3) 5 
+  else if (sum(coins) == 2) 0
+  else if (sum(coins) == 1) -3
+  else igra()
+}
+replicate(100000, igra()) %>% mean()
+```
+
+***
+
+## 6. **(2 + 3 boda)** 
+
+
+a) Istrenirajte dva modela linearne regresije koji pokušavaju pogoditi rating žitnih pahuljica:
+  - model `lm1` koji kao prediktore uzima samo proizvođača
+  - model `lm2` koji kao prediktore uzima količinu kalorija, šećera i vitamina
+  
+### Prostor za treniranje modela i uvid u rezultate
+```{r}
+lm1 <- lm(rating ~ mfr, data = cereal)
+lm2 <- lm(rating ~ calories + sugars + vitamins, data = cereal)
+summary(lm1)
+summary(lm2)
+```
+
+Ispišite **iznos rezidualne standardne greške (zaokružen na dvije decimale) modela kojeg smatrate boljim.**
+
+(možete ju pročitati iz sažetka modela i samo ispisati uočeni broj)
+
+
+### Rješenje 6a
+
+```{r}
+8.22
+```
+
+
+  
+b) Učitajte podatke o novim pahuljicama izvođenjem sljedećeg programskog odsječka:
+
+```{r}
+newCereal <- read_csv("newCereal.csv", col_types = "cccnnnnnnnnnnnnn")
+newCereal$mfr <- factor(newCereal$mfr, levels = levels(cereal$mfr))
+newCereal$type <- factor(newCereal$type, levels = levels(cereal$type))
+```
+
+Stvorite predikcije pomoću dobivenih modela na sljedeći način: ispišite podatkovni okvir koji ima stupce 
+ - `name` - ime žitnih pahuljica
+ - `predictedRatinglm1` - predviđeni rating preko boljeg modela `lm1`
+ - `predictedRatinglm2` - predviđeni rating preko boljeg modela `lm2` i 
+ - `realRating` - stvarni rating pahuljica
+ 
+### Rješenje 6b
+
+```{r}
+newCereal$predictedRatinglm1 <- predict(lm1, newCereal)
+newCereal$predictedRatinglm2 <- predict(lm2, newCereal)
+newCereal %>% select(name, rating:predictedRatinglm2)
+```
+  
+  
+### KRAJ
+  

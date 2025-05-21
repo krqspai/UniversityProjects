@@ -1,0 +1,10 @@
+"0","setMethod(""print"", "
+"0","  signature(x = ""Person""),"
+"0","  function(x) {"
+"0","    rez <- paste0(""ID:"", x@id, "", surname:"", x@surname, "", weight:"", x@weight, ""\n"")"
+"0","    cat(rez)"
+"0","  })"
+"0",""
+"0","print(pero)"
+"1","ID:12345678, surname:peric, weight:76
+"

@@ -1,0 +1,3 @@
+"0","x <- 1:50"
+"0","# proslijedite `x` i `x*x` funkciji `plot`"
+"0","plot(x, x*x)"

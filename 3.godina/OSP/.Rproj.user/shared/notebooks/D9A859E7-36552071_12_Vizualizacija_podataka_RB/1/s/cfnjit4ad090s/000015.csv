@@ -1,0 +1,5 @@
+"0","df <- data.frame( x = c(rep(1, 90), rep(2, 9), 3),"
+"0","                  y = c(rep(1, 70), rep(2, 25), rep(3, 5)))"
+"0",""
+"0","# prikažite okvir df uz pomoć `scatterplot` grafa, tj. točkaste geometrije"
+"0","ggplot(df, aes(x = x, y = y)) + geom_point()"

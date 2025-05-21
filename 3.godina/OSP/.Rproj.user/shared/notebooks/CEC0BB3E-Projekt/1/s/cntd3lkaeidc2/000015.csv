@@ -1,0 +1,3 @@
+"0","top5Izvodjaci <- c(""Bruno Mars"", ""The Weeknd"", ""Lady Gaga"", ""Billie Eilish"", ""Coldplay"")"
+"0","songs %>% filter(track_artist %in% top5Izvodjaci) %>% select(track_name, track_artist, danceability) %>% unique -> songs1"
+"0","songs1"

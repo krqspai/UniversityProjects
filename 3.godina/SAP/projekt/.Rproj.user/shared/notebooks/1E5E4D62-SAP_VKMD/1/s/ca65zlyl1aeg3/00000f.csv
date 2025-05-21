@@ -1,0 +1,6 @@
+"0","IMDB_mean = IMDB %>%"
+"0","  group_by(genres) %>%"
+"0","  summarise(mean_imdb = mean(budget, na.rm = TRUE))"
+"0",""
+"0","ggplot(IMDB_mean, aes(x = genres, y = mean_imdb)) + geom_bar(stat = ""identity"", fill = ""blue"", color = ""black"") + "
+"0","  theme(axis.text.x = element_text(angle = 45, hjust = 1))"

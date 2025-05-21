@@ -1,0 +1,4 @@
+"0","x <- numeric(2)         # vektor se puni ""nultim"" elementima, u ovom slučaju (0, 0)"
+"0","y <- character(5)"
+"0","z <- integer(0)         # ""prazan"" vektor!"
+"0","z <- c(z, 1)            # dodaj vektoru element 1 (zapravo ""spoji prazan vektor i element 1"")"

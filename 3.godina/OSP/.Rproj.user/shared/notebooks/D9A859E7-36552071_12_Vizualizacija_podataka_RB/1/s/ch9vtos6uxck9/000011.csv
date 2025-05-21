@@ -1,0 +1,5 @@
+"0","# logaritmirajte cijenu dijamanta u prethodno izvedenom grafu"
+"0","ggplot(diamondsSample, aes(x*y*z, price, color = color)) + geom_point(na.rm = T, alpha = 0.6) +"
+"0","  scale_x_continuous(name = ""volumen u mm3"" , limits = c(0, 450)) +"
+"0","  scale_y_log10(name = ""cijena u $"", breaks = c(1000, 5000, 10000, 15000)) +"
+"0","  scale_color_ordinal(name = ""kvaliteta boje"", labels = 1:7)"

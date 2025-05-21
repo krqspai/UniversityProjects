@@ -1,0 +1,4 @@
+"0","ggplot(cereal %>% filter(mfr %in% c(""K"", ""G"", ""P"", ""Q"")), aes(x = rating, fill = factor(cups))) + "
+"0","  geom_histogram(position = ""stack"", bins = 10) + "
+"0","  facet_wrap(~mfr, nrow = 1) + "
+"0","  labs(fill = ""cups per serving"")"

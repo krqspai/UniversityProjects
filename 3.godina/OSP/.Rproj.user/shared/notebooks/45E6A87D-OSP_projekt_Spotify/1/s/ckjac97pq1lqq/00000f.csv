@@ -1,0 +1,7 @@
+"0","ggplot(songs1, aes(x = track_artist, y = danceability, fill = track_artist)) +"
+"0","  geom_bar(stat = ""summary"", fun = ""mean"") +"
+"0","  labs(title = ""Plesnost određenih izvođača"","
+"0","       x = ""Izvođač"","
+"0","       y = ""Prosječna plesnost"") +"
+"0","  theme_minimal() +"
+"0","  theme(legend.position = ""none"")"

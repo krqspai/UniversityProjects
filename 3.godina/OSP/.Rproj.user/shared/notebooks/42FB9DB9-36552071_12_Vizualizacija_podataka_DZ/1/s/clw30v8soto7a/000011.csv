@@ -1,0 +1,1 @@
+"0","ggplot(diamonds, aes(x = price, color = clarity)) + geom_freqpoly(bins = 10)"

@@ -1,0 +1,7 @@
+"0","sums <- apply(m, 1, sum)"
+"0","sums <- sums[sums > 0]"
+"0","length(sums)"
+"1","[1]"
+"1"," 437"
+"1","
+"

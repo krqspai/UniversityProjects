@@ -1,0 +1,2 @@
+"0","library(readr)"
+"0","knitr::opts_chunk$set(results = 'hold')"

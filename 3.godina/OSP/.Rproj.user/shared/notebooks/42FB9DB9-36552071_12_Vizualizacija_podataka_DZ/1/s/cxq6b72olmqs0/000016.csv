@@ -1,0 +1,1 @@
+"0","ggplot(mpg, aes(x = drv, y = hwy)) + labs(x = ""Drive type"", y = ""Highway miles per gallon"") + geom_boxplot()"

@@ -1,0 +1,7 @@
+"0","ggplot(filmovi4, aes(x = num_voted_users, y = imdb_score)) +"
+"0","  geom_point(alpha = 0.4, color = ""blue"") +"
+"0","  geom_smooth(method = ""lm"", color = ""red"") +"
+"0","  scale_x_log10() +"
+"0","  labs(title = ""Relationship Between Number of Votes and IMDb Scores"","
+"0","       x = ""Number of Votes (Log Scale)"","
+"0","       y = ""IMDb Score"")"

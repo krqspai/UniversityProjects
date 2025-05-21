@@ -1,0 +1,2 @@
+"0","penguins %>% group_by(year, island, sex) %>% summarise(TOTAL = n()) %>% pivot_wider(names_from = sex, values_from = TOTAL) %>% rename(males = male, females = female, unknownSex = ""NA"") %>% transmute(year, island, males, females, unknownSex, TOTAL = males + females + ifelse(is.na(unknownSex), 0, unknownSex)) %>% arrange(year, island) "
+"2","`summarise()` has grouped output by 'year', 'island'. You can override using the `.groups` argument."

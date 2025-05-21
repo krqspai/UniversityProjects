@@ -1,0 +1,5 @@
+"0","IMDB$genres = factor(IMDB$genres, levels = c('Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', "
+"0","                                                  'Documentary', 'Drama', 'Family', 'Fantasy', 'Film-Noir', 'Game-Show', "
+"0","                                                  'History', 'Horror', 'Music', 'Musical', 'Mystery', 'News', "
+"0","                                                  'Reality-TV', 'Romance', 'Sci-Fi', 'Short', 'Sport', 'Thriller', "
+"0","                                                  'War', 'Western'))"

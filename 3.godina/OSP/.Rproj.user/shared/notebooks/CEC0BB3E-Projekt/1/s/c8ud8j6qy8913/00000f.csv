@@ -1,0 +1,1 @@
+"0","songs3$mode <- factor(songs3$mode, levels = c(0, 1), labels = c(""minor"", ""major""))"

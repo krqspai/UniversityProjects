@@ -1,0 +1,7 @@
+"0","conservationStatus <- data.frame( "
+"0","  code = c(""ex"", ""ew"", ""cr"", ""en"", ""vu"", ""nt"", ""cd"", ""lc""),"
+"0","  description = c(""extinct"", ""extinct in the wild"", "
+"0","                 ""critically endangered"", ""endangered"","
+"0","                 ""vulnerable"", ""near threatened"", "
+"0","                 ""conservation dependent"", ""least concern""))"
+"0",""

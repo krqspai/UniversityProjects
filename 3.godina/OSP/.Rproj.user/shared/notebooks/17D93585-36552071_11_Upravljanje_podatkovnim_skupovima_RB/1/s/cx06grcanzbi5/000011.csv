@@ -1,0 +1,4 @@
+"0",""
+"0","# za prvih 10 najstarijih putnika (gledano oba spola) ispišite sve atribute "
+"0","# od imena do cijene karte"
+"0","slice_max(titanic, Age, n = 10) %>% select(Name:Fare)"

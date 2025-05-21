@@ -1,0 +1,4 @@
+"0","# na sljedećem grafu preimenujte osi i legendu"
+"0","# te dodajte adekvatni naslov (najbolje nešto što objašnjava graf)"
+"0","ggplot(mtcars, aes(x = wt, y = mpg, color = cyl, shape = cyl)) + labs(x = ""Weight (1000 lbs)"", y = ""Miles / US gallon"", title = ""Fuel consumption compared to car weight"", color = ""No. of cylinders"", shape = ""No. of cylinders"") + geom_point() "
+"0",""

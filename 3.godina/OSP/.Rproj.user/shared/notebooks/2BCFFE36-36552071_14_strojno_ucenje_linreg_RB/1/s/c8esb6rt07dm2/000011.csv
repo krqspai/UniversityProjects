@@ -1,0 +1,6 @@
+"0","# primjenite funkciju `augment` nad linearnim modelom `linMod`"
+"0","# rezultantni podatkovni okvir pohranite u varijablu `predikcije`"
+"0","predikcije <- augment(linMod)"
+"0",""
+"0","# proučite prvih nekoliko redaka okvira `predikcije`"
+"0","head(predikcije)"

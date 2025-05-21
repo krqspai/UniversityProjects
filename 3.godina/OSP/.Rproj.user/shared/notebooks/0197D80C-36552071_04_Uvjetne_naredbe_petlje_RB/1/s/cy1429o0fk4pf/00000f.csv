@@ -1,0 +1,8 @@
+"0","a <- 1:3"
+"0","b <- c(0, 2, 4)"
+"0",""
+"0","# kako izgleda vektor `x` nakon izvršavanja sljedeće naredbe?"
+"0","# razmislite o odgovoru a potom provjerite ispravnost rješenja"
+"0",""
+"0","x <- ifelse(a < b, 2, 5)"
+"0",""

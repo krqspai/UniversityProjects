@@ -1,0 +1,3 @@
+"0",""
+"0","imdb %>% select(-imdb_score,-color) %>% cor %>% corrplot"
+"0",""

@@ -1,0 +1,5 @@
+"0","# učitajte paket `corrplot` (instalirajte ako je potrebno)"
+"0","# pozovite funkciju `corrplot` kojoj ćete proslijediti korelacijski matricu"
+"0","# stupaca okvira `mtcarsNumInputs`"
+"0","library(ggcorrplot)"
+"0","ggcorrplot(mtCarsNumPred %>% cor, type = ""lower"", outline.color = ""white"", lab = T)"

@@ -1,0 +1,3 @@
+"0","# ispisujemo podatke o maksimalnoj brzini i težini svih automobila sa 6 cilindara"
+"0",""
+"0","dbGetQuery(conn, ""SELECT mpg, wt FROM AUTI WHERE cyl = 6"")"

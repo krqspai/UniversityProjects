@@ -1,0 +1,4 @@
+"0",""
+"0","# stvorite graf ovisnosti `mpg` o `wt`"
+"0","# uz mapiranje `cyl` varijable na `shape` estetiku"
+"0","ggplot(mtcars, aes(x = wt, y = mpg, shape = cyl)) + geom_point()"

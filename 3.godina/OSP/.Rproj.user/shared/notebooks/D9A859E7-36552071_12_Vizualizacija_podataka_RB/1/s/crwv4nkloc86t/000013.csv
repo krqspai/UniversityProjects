@@ -1,0 +1,4 @@
+"0","# ponovite postupak, ali sada rastavite samo po boji"
+"0","# grafove organizirajte u stupac"
+"0","# koristite funkciju `facet_grid` i notaciju formule sa točkom"
+"0","ggplot(diamondsSample2, aes(depth, fill = clarity)) + geom_histogram(bins = 5,  position = 'dodge') + facet_grid(color ~ .)"

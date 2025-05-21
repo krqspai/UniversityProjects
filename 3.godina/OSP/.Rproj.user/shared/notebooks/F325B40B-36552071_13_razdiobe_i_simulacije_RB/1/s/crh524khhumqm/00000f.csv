@@ -1,0 +1,2 @@
+"0","# nacrtajte QQ grafove varijabli iz prethodnog zadatka"
+"0","ggplot(podaci, aes(sample = x1)) + geom_qq()"

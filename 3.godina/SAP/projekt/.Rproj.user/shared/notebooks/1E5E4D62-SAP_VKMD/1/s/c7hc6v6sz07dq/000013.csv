@@ -1,0 +1,2 @@
+"0",""
+"0","qqnorm(filmovi_R_clean$gross, pch = 1, frame = FALSE,main='Zarada R filmova')"

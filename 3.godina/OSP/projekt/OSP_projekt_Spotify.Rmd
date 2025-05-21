@@ -1,0 +1,386 @@
+---
+title: "OSP projekt - Spotify"
+author: "36551971 Mark Sarić, 36552071 Kristijan Šagovac"
+date: "2025-01-30"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(results = 'hold')
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(gridExtra)
+library(ggcorrplot)
+```
+
+```{r}
+songs <- read_csv("Datasets/spotify_songs.csv")
+head(songs)
+glimpse(songs)
+```
+
+# Koja je razlika u hip hop-u i hip pop-u, osim jednog slova? 
+
+Idemo dublje analizirati u čemu se razlikuju, ako se uopće razlikuju.
+
+```{r}
+songs_g <- songs %>% filter(playlist_subgenre %in% c("hip hop","hip pop"))
+songs_hop <- songs %>% filter(playlist_subgenre %in% c("hip hop"))
+songs_pop <- songs %>% filter(playlist_subgenre %in% c("hip pop"))
+```
+
+Pogledajmo izvođače koji se najviše pojavljuju iz oba skupa.
+
+```{r}
+table(songs_hop$track_artist) %>% sort(decreasing=T) %>% head(7)
+table(songs_pop$track_artist) %>% sort(decreasing=T) %>% head(7)
+```
+
+Vidimo da se neki izvođači pojavljuju u obje kategorije poput Post Malonea i Drakea. Pogledajmo koliko izvođača se pojavljuje u oba skupa.
+
+```{r}
+cat(paste("Number of artists in both genres:", length(intersect(songs_hop$track_artist,songs_pop$track_artist)), "\n"))
+cat(paste("Number of artists in hop:", length(unique(songs_hop$track_artist)), "\n"))
+cat(paste("Number of artists in pop:", length(unique(songs_pop$track_artist)), "\n"))
+```
+
+S obzirom da se u obje kategorije nalazi 80 izvođača, a ni u jednoj nema iznad 800, to je indikacija da su te kategorije slične jer se izvođači uglavnom drže svojeg stila pjevanja. Sljedeće ćemo usporediti plesnost (engl. danceability) i energiju kategorija. Plesnost označava koliko je pjesma prikladna za plesanje, gdje vrijednost 1.0 označava da je najplesnija, a 0.0 obrnuto. Energija se također mjeri u rasponu od 0.0 do 1.0 i predstavlja perceptivnu mjeru intenziteta i aktivnosti. Nacrtat ćemo histograme tih varijabli te vidjeti koliko se preklapaju.
+
+```{r}
+
+g1 <- ggplot(songs_g,aes(x=danceability,fill = playlist_subgenre)) + geom_histogram(bins=10,alpha=0.5,position = "identity") + scale_x_continuous(breaks=seq(0.0,1.0,0.1)) + scale_fill_manual(values = c("blue", "orange"))
+
+g2 <- ggplot(songs_g,aes(x=energy,fill = playlist_subgenre)) + geom_histogram(bins=10,alpha=0.5,position = "identity") + scale_x_continuous(breaks=seq(0.0,1.0,0.1)) + scale_fill_manual(values = c("blue", "orange"))
+
+grid.arrange(g1,g2)
+```
+
+Vidimo da se obje kategorije dosta preklapaju u obje varijable, s tim da hip hop ima više pjesama s većom plesnošću, a hip pop ima više pjesama s većom energijom. Pogledajmo prosjeke.
+
+```{r}
+songs_g %>% group_by(playlist_subgenre) %>% summarise(meanDance=mean(danceability),meanEnergy=mean(energy))
+```
+
+U prosjeku se razine plesnosti ne razlikuju toliko, dok se razine energije razlikuju malo više. Još ćemo pogledati boxplot.
+
+```{r}
+g1 <- ggplot(songs_g,aes(x=playlist_subgenre,y=danceability)) + geom_boxplot()
+g2 <- ggplot(songs_g,aes(x=playlist_subgenre,y=energy)) + geom_boxplot()
+grid.arrange(g1,g2)
+```
+
+Na temelju analize možemo reći da je hip hop malo prikladniji za ples, dok je hip pop nešto življi. Nastavimo s analizom. Gledat ćemo tempo i ugođaj (engl. valence). Tempo je varijabla koja označava brzinu ritma u otkucajima po sekundi, a ugođaj koliko pozitivnosti pjesma prenosi u rasponu od 0.0 do 1.0.
+
+```{r}
+g1 <- ggplot(songs_g,aes(x=tempo,fill = playlist_subgenre)) + geom_histogram(bins=10,alpha=0.5,position = "identity") + scale_fill_manual(values = c("blue", "orange"))
+
+g2 <- ggplot(songs_g,aes(x=valence,fill = playlist_subgenre)) + geom_histogram(bins=10,alpha=0.5,position = "identity") + scale_x_continuous(breaks=seq(0.0,1.0,0.1)) + scale_fill_manual(values = c("blue", "orange"))
+
+grid.arrange(g1,g2)
+```
+
+Kod ugođaja gotovo da nema razlike, a kod tempa izgleda kao da hip hop ima sporiji tempo, jer ima više pjesama u lijevom dijelu razdiobe, no ima i više pjesama od desnom dijelu. Za ugođaj već možemo reći da je vrlo vjerojatno identičan, ali za tempo ne. Stoga ćemo pogledati prosjek i boxplotove.
+
+```{r}
+songs_g %>% group_by(playlist_subgenre) %>% summarise(meanTempo=mean(tempo),meanValence=mean(valence))
+```
+
+Prosjeci ugođaja su vrlo slični kao i očekivano. Prosjeci tempa su vrlo slični, što ima smisla. Hip hop ima sličan prosjek jer ako većina pjesama ima spor ili brzi tempo, onda u prosjeku imaju srednji. Zbog toga ćemo pogledati boxplot.
+
+```{r}
+g1 <- ggplot(songs_g,aes(x=playlist_subgenre,y=tempo)) + geom_boxplot()
+g2 <- ggplot(songs_g,aes(x=playlist_subgenre,y=valence)) + geom_boxplot()
+grid.arrange(g1,g2)
+```
+
+Većina hip pop pjesama ima tempo oko 110 otkucaja po minuti te je varijabilnost manja, dok je kod hip hopa varijabilnost znatno veća. Kod ugođaja su boxplotovi obje kategorije gotovo identični. Trentuno nismo našli značajne razlike između kategorija, stoga nastavljamo dalje, s varijablama: akustičnost i instrumentalnost. Akustičnost govori sadrži li pjesma uglavnom akustične elemente ili je dominirana elektronskim i sintetičkim zvukovima, a instrumentalnost označava vjerojatnost da pjesma nema vokale.
+
+```{r}
+g1 <- ggplot(songs_g,aes(x=acousticness,fill = playlist_subgenre)) + geom_histogram(bins=10,alpha=0.5,position = "identity") + scale_x_continuous(breaks=seq(0.0,1.0,0.1))+ scale_fill_manual(values = c("blue", "orange"))
+
+g2 <- ggplot(songs_g,aes(x=instrumentalness,fill = playlist_subgenre)) + geom_histogram(bins=10,alpha=0.5,position = "identity") + scale_x_continuous(breaks=seq(0.0,1.0,0.1)) + scale_fill_manual(values = c("blue", "orange"))
+
+grid.arrange(g1,g2)
+```
+
+Hip hop ima malo više pjesama koje sadrže akustične elemente nego hip pop. Kod insturmentalnosti vidimo da obje kategorije uglavnom imaju pjesme koje gotovo sigurno sadrže vokale, no hip hop ima i solidan broj pjesama koje su insturmentalne. Zbog čudne razdiobe instrumentalnosti, napravit ćemo prosjek samo za akustičnost.
+
+```{r}
+songs_g %>% group_by(playlist_subgenre) %>% summarise(meanAcousticness=mean(acousticness))
+```
+
+Kao što smo i pretpostavili, hip hop pjesme u prosjeku imaju manje elektronskih zvukova. Pogledajmo boxplot.
+
+```{r}
+g1 <- ggplot(songs_g,aes(x=playlist_subgenre,y=acousticness)) + geom_boxplot()
+g2 <- ggplot(songs_g,aes(x=playlist_subgenre,y=instrumentalness)) + geom_boxplot(outlier.shape = NA)
+grid.arrange(g1,g2)
+```
+
+Vidimo da što se instrumentalnosti tiče, hip hop ima veću varijabilnost, dok hip pop pjesme uglavnom nisu instrumentalne. Maknuli smo stršeće vrijednosti kod instrumentalnosti jer s njima izgleda kao da je puno hip pop pjesama insturmentalno, no to nije istina. Pjesme s instrumentalnošću iznad 0.5 se smatraju instrumentalnim pjesmama.
+
+```{r}
+songs_pop %>% filter(instrumentalness>0.5) %>% nrow %>% cat("Broj hip pop pjesama s instrumentalnošću većom od 0.5:", ., "\n") 
+cat("Broj ukupno hip pop pjesmama: ",nrow(songs_pop),"\n")
+
+songs_hop %>% filter(instrumentalness>0.5) %>% nrow %>% cat("Broj hip hop pjesama s instrumentalnošću većom od 0.5:", ., "\n") 
+cat("Broj ukupno hip hop pjesmama: ",nrow(songs_hop))
+```
+
+Gotovi smo s analizom. Pregledajmo što smo se zaključili. Ima 80 pjevača koji se nalaze u obje kategorije, s tim da u jednoj ima 797, a u drugoj 779 pjevača. Što se tiče plesnosti i energije, postoje neke razlike, hip pop je nešto življi, a hip hop je nešto prikladniji za ples, no razlike nisu baš značajne. Hip hop je varijabilniji u tempu, dok hip pop pokazuje relativnu stabilnost. Što se tiče valence, gotovo su identične. Najveća razlika se vidi u instrumentalnosti. Skoro pa sve hip pop pjesme su neinstrumentalne, dok postoji solidan dio hip hop pjesama koje su instrumentalne. Hip hop pjesme su nešto više akustične nego hip pop, no također nije značajno. Jedan od autora će zaključiti da nema nekakve značajne razlike između ove dvije kategorije te da bi po njemu, kao pravi minimalist, spojio ih u istu stvar.
+
+# Tko ima pjesme sretnijeg ugođaja, Bruno Mars ili Adele?
+
+Najdraži pjevači jednom od autora su Bruno Mars i Adele. Želi općenito usporediti pjevače te saznati kojeg pjevača da pusti kad je sretan, a kojeg kad je tužan.
+
+```{r}
+songs_both <- songs %>% filter(track_artist %in% c("Bruno Mars","Adele"))
+songs_Bruno <- songs %>% filter(track_artist=="Bruno Mars")
+songs_Adele <- songs %>% filter(track_artist=="Adele")
+```
+
+Pogledajmo prvo žanrove u kojima se pojavljuje Bruno, a u kojima Adele.
+
+```{r}
+songs_Bruno %>% select(playlist_genre) %>% unique()
+songs_Adele %>% select(playlist_genre) %>% unique()
+```
+
+Pojavljuju se u istim žanrovima, i to u nekim neočekivanim. Adele nema veze s latino i EDM-om, kao što Bruno nema veze s EDM-om. Pogledajmo kakve su njihove pjesme što se tiče ugođaja.  Pretpostavka autora je da će Adele imati pjesme s tužnijim ugođajem, a Bruno sa sretnijim. S obzirom da se neke pjesme pojavljuju više puta pod različitim žanrovima, a manji je broj pjesama, izbacit ćemo duplikate.
+
+```{r}
+songs_both_clean <- songs_both %>% distinct(track_name, .keep_all = TRUE)
+
+ggplot(songs_both_clean,aes(x=valence,fill = track_artist)) + geom_histogram(bins=10,alpha=0.5,position = "identity") + scale_x_continuous(breaks=seq(0.0,1.0,0.1)) + scale_fill_manual(values = c("blue", "orange"))
+```
+
+Kao što je bilo pretpostavljeno, Adele se povezuje s tužnim ugođajem, a Bruno sa sretnim. Pogledajmo koje pjesme su najtužnije, a koje najsretnije.
+
+```{r}
+songs_both_clean %>% filter(track_artist=="Adele") %>% slice_min(order_by = valence,n = 3) %>% select(track_name,valence)
+songs_both_clean %>% filter(track_artist=="Adele") %>% slice_max(order_by = valence,n = 3) %>% select(track_name,valence)
+
+songs_both_clean %>% filter(track_artist=="Bruno Mars") %>% slice_min(order_by = valence,n = 3) %>% select(track_name,valence) %>% unique()
+songs_both_clean %>% filter(track_artist=="Bruno Mars") %>% slice_max(order_by = valence,n = 3) %>% select(track_name,valence)
+```
+
+Zanimljivo, krivo je uneseno ime pjesme. Autoru su poznate neke pjesme te se slaže s ugođajima iz skupa podataka. Pogledajmo još samo prosjeke. 
+
+```{r}
+songs_both_clean %>% group_by(track_artist) %>% summarise(meanValence=mean(valence))
+```
+
+Ako nam se slušaju tužne pjesme, vjerojatno ćemo pustiti Adele, a ako nam se slušaju sretne onda ćemo pustiti Brunu Marsa. Na temelju ovog zaključka ćemo pretpostaviti da Bruno ima glasnije pjesme te da glasnije pjesme traju kraće. Glasnoća se mjeri u decibelima te što je ta veličina manja, to znači da je pjesma glasnija (relativno s obzirom na točku koja predstavlja najveću moguću glasnoću koja se može percipirati bez smetnji, čija vrijednost je 0).
+
+```{r}
+ggplot(songs_both_clean,aes(x=duration_ms,y=loudness,shape=track_artist,color=track_artist)) + geom_point() 
+```
+
+Iako uzorak nije velik, na grafu postoji naznaka da Bruno ima više glasnih pjesama te da one u prosjeku traju kraće, dok Adele ima tiše pjesme i traju dulje. Da zaključimo, Bruno Mars je bolji kad ste u veselom raspolaženju, iako i on ima tužnih pjesama, dok će inače Adele biti bolji izbor.
+
+# Na kojeg od najpopularnijih izvođača današnjice ćemo najlakše zaplesati?
+
+Izdvojimo pjesme 5 najpopularnijih izvođača na Spotifyju (prema podacima od 27. siječnja 2025.).
+
+```{r}
+top5Izvodjaci <- c("Bruno Mars", "The Weeknd", "Lady Gaga", "Billie Eilish", "Coldplay")
+songs %>% filter(track_artist %in% top5Izvodjaci) %>% select(track_name, track_artist, danceability) %>% unique -> songs1
+songs1
+```
+
+Pogledajmo koji izvođač ima pjesme s najvećom plesnošću.
+
+```{r}
+ggplot(songs1, aes(x = track_artist, y = danceability, fill = track_artist)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  labs(title = "Plesnost određenih izvođača",
+       x = "Izvođač",
+       y = "Prosječna plesnost") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+Bruno Mars ima najplesnije pjesme, dok Coldplay, najdraži bend jednog od autora ovog projekta, ima najmanje plesne pjesme. Prikažimo još distribucije njihovih pjesama po plesnosti na box-plot dijagramu.
+
+```{r}
+ggplot(songs1, aes(x = track_artist, y = danceability, fill = track_artist)) +
+  geom_boxplot() +
+  labs(title = "Distribucije plesnosti za određene izvođače",
+       x = "Izvođač",
+       y = "Plesnost") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+# Razlikuju li se nove pjesme od starih?
+
+Možemo li primjetiti promjenu u određenim karakteristikama pjesme (npr. akustičnost, glasnoća ili raspoloženje) kroz godine?
+Najprije ćemo provjeriti broj pjesama po godini jer i to može imati utjecaja na konačne rezultate.
+
+```{r}
+songs %>%
+  select(track_name, track_album_release_date, acousticness) %>% 
+  filter(!is.na(track_album_release_date)) %>% 
+  mutate(year = as.numeric(substr(track_album_release_date, 1, 4))) %>% 
+  ggplot(aes(x = year)) + geom_histogram(bins = 60, fill = "navyblue") +   
+  labs(
+    title = "Broj pjesama po godini",
+    x = "Godina",
+    y = "Broj pjesama"
+  ) +
+  theme_minimal()
+```
+
+Logično, iz starijih godina postoji puno manje pjesama za analizu. Uzet ćemo to u obzir pri analizi rezultata. Grupirajmo sada vrijednosti parametara po godinama:
+
+```{r}
+songs2 <- songs %>%
+  select(track_name, track_album_release_date, acousticness, loudness, valence, tempo, duration_ms) %>% 
+  filter(!is.na(track_album_release_date)) %>% 
+  mutate(year = as.numeric(substr(track_album_release_date, 1, 4))) %>% 
+  group_by(year) %>% 
+  summarise(avg_acousticness = mean(acousticness, na.rm = TRUE), 
+            avg_loudness = mean(loudness, na.rm = TRUE),
+            avg_valence = mean(valence, na.rm = TRUE),
+            avg_tempo = mean(tempo, na.rm = TRUE),
+            avg_duration_ms = mean(duration_ms, na.rm = TRUE))
+```
+
+Sada možemo grafički prikazati vrijednosti određenih parametara po godini. Učinimo to najprije za akustičnost.
+
+```{r}
+ggplot(songs2, aes(x = year, y = avg_acousticness)) +
+  geom_line(color = "lightblue", linewidth = 1.2) +
+  geom_point(color = "darkred", size = 2) +
+  labs(
+    title = "Trend akustičnosti kroz vrijeme",
+    x = "Godina",
+    y = "Prosječna akustičnost po godini"
+  ) +
+  theme_minimal()
+```
+
+Primjetimo kako su malobrojne pjesme iz 60-ih, te donekle 70-ih godina bile akustičnije, dok od 80-ih do danas akustičnost stagnira. To je i očekivano s obzirom na razvoj elektronske i dance glazbe u 80-im godinama. 
+
+Analizirajmo sada promjenu glasnoće.
+
+```{r}
+ggplot(songs2, aes(x = year, y = avg_loudness)) +
+  geom_line(color = "lightgreen", linewidth = 1.2) +
+  geom_point(color = "darkred", size = 2) +
+  labs(
+    title = "Trend glasnoće kroz vrijeme",
+    x = "Godina",
+    y = "Prosječna glasnoća po godini"
+  ) +
+  theme_minimal()
+```
+
+Od kasnih 80-ih do ranih 2000-ih glasnoća je bila u konstantnom porastu, nakon čega stagnira. Velika varijabilnost u 60-im godinama vjerojatno je posljedica vrlo malog broja pjesama iz tog vremena.
+
+Pogledajmo sada na isti način podatke o ugođaju.
+
+```{r}
+ggplot(songs2, aes(x = year, y = avg_valence)) +
+  geom_line(color = "yellow", linewidth = 1.2) +
+  geom_point(color = "darkred", size = 2) +
+  labs(
+    title = "Trend ugođaja kroz vrijeme",
+    x = "Godina",
+    y = "Prosječni ugođaj po godini"
+  ) +
+  theme_minimal()
+```
+
+U 60-ima je ponovno velika varijabilnost pa ne možemo ništa zaključiti za to razdoblje. Raspoloženje pjesama je u prosjeku imali slične vrijednosti sve do ranih 2010-ih. Od 2010. do 2014. primjećujemo vrlo nagli pad u raspoloženju pjesama s 0.6 na 0.4. To sugerira da je u prošlom desetljeću emotivna, tužna glazba postala sve učestalija, te je takav trend ostao i do danas. Ovakvi rezultati su prilično iznenađujući.
+
+Promotrimo sada ovisnost tempa o godini izdanja pjesme.
+
+```{r}
+ggplot(songs2, aes(x = year, y = avg_tempo)) +
+  geom_line(color = "purple", linewidth = 1.2) +
+  geom_point(color = "darkred", size = 2) +
+  labs(
+    title = "Trend tempa kroz vrijeme",
+    x = "Godina",
+    y = "Prosječni tempo po godini"
+  ) +
+  theme_minimal()
+```
+
+Malobrojne pjesme oko 1960. godine su bile vrlo brze, nakon čega prosječni tempo približno stagnira. Pjesme su bile najsporije oko 1995. godine nakon čega se primjećuje blagi rast u prosječnom tempu pjesme. Djeluje da prosječni tempo ne ovisi pretjerano (ako i uopće) o godini izdanja pjesme.
+
+Za kraj ovog dijela pogledajmo još mijenja li se trajanje pjesme s obzirom na godinu izdanja.
+
+```{r}
+ggplot(songs2, aes(x = year, y = avg_duration_ms)) +
+  geom_line(color = "#e1be9b", linewidth = 1.2) +
+  geom_point(color = "darkred", size = 2) +
+  labs(
+    title = "Trend trajanja pjesme kroz vrijeme",
+    x = "Godina",
+    y = "Prosječno trajanje (u ms) po godini"
+  ) +
+  theme_minimal()
+```
+
+Malobrojne pjesme iz 60-ih i ranijih godina su bile vrlo kratke. Potom se primjećuje trend rasta sve do kasnih 80-ih, nakon čega započinje pad koji je posebno nagao u 2010-ima. Moguće je da je ovo uzrokovano rastom popularnosti streaming servisa, gdje je svako ponovno preslušavanje pjesama važno za njihovu zaradu pa time njihovo trajanje postaje sve kraće.
+
+# Možemo li predvidjeti popularnost pjesme na temelju njenih obilježja?
+
+Izdvojimo u zasebni podatkovni okvir one podatke koji će nam trebati za ovo pitanje.
+
+```{r}
+songs3 <- songs %>%
+  select(track_popularity, playlist_genre, track_album_release_date, danceability:duration_ms) %>% 
+  mutate(year = as.numeric(substr(track_album_release_date, 1, 4))) %>% 
+  select(-track_album_release_date) %>% 
+  unique()
+```
+
+Popularnost pjesme u ovom je podatkovnom skupu određena brojem od 0 do 100. Vrijednost 100 predstavlja najpopularniju pjesmu, a 0 najmanje popularnu. 
+
+Provjerimo najprije jesu li neki od podataka međusobno korelirani. 
+
+```{r}
+ggcorrplot(songs3 %>% select(-track_popularity, -playlist_genre) %>% cor, type = "lower", outline.color = "white", lab = T, lab_size = 2.5)
+```
+
+Primjećujemo da su među većinom obilježja vrlo mali koeficijenti korelacije. Jedino što od toga odskače je parametar "energy" koji je u izrazitoj korelaciji (apsolutne vrijednosti veće od 0.5) s parametrima acousticness i loudness. Stoga tu varijablu ne moramo koristiti u modelu.
+
+Učinimo još tonski rod faktoriziranom varijablom.
+
+```{r}
+songs3$mode <- factor(songs3$mode, levels = c(0, 1), labels = c("minor", "major"))
+```
+
+Napravimo najprije linearni model koristeći sve varijable i ispišimo njegov rezultat:
+
+```{r}
+lm1 <- lm(track_popularity ~ ., songs3)
+summary(lm1)
+```
+
+Primjećujemo da neke varijable ne utječu statistički značajno na popularnost. To su tonalitet (key) i raspoloženje (valence). Pogledajmo kako bi model izgledao bez njih:
+
+```{r}
+lm2 <- lm(track_popularity ~ ., songs3 %>% select(-valence, -key))
+summary(lm2)
+```
+
+Primjećujemo da se koeficijent determinacije nije promjenio sve do 5.decimale, a prilagođeni koeficijent (koji kažnjava overfitting) je čak i porastao u 5.decimali. Iako su sve preostale varijable statistički značajne za popularnost, koeficijent determinacije je jako mali.
+
+Napravimo sada model bez varijable energy koja je u korelaciji s drugim varijablama:
+
+```{r}
+lm3 <- lm(track_popularity ~ ., songs3 %>% select(-valence, -key, -energy))
+summary(lm3)
+```
+
+Ovdje primjećujemo blagi pad koeficijenta determinacije. Međutim, bez obzira koji od gornjih modela koristili, koeficijent determinacije je premali što znači da nijedan od tih modela ne objašnjava većinu varijance. Time zaključujemo da temeljem danih obilježja pjesama ne možemo predvidjeti njenu popularnost.
+
+Dakle, među popularnim (i nepopularnim) pjesmama ima velikih raznolikosti: i novih i starih pjesama, i brzih i sporih, i plesnih i mirnih... 
+Ukusi se razlikuju, pa tako i navike slušanja, a u tome i je ljepota glazbe pa tako i umjetnosti općenito.
+

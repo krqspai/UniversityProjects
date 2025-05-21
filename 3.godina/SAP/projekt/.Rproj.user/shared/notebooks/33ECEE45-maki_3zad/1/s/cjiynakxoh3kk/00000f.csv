@@ -1,0 +1,3 @@
+"0",""
+"0","plot(model$fitted.values,model$residuals)"
+"0",""

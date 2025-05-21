@@ -1,0 +1,4 @@
+"0",""
+"0","# za nasumično odabranih 1% redaka ispišite sve atribute osim identifikatora "
+"0","# putnika i broja kabine"
+"0","slice_sample(titanic, prop = 0.01) %>% select(-PassengerId, -Cabin)"

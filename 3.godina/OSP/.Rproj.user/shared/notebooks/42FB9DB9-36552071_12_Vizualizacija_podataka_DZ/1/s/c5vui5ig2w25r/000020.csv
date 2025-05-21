@@ -1,0 +1,1 @@
+"0","ggplot(prodaja, aes(x = mjesec, y = ukupno)) + geom_bar(stat = ""identity"")"

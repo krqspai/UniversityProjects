@@ -1,0 +1,2 @@
+"0","# nacrtajte histogram varijable `wt`, uz dodanu varijablu `cyl` na estetici `fill`"
+"0","ggplot(mtcars, aes(x = wt, fill = cyl)) + geom_histogram(bins = 4)"

@@ -1,0 +1,8 @@
+"0","set.seed(1234)"
+"0",""
+"0","# ponovite gornji primjer, ali uz pomoć samo jednog retka programskog koda"
+"0","mean(sample(round(runif(100, 0, 100), 2), 10))"
+"1","[1]"
+"1"," 46.651"
+"1","
+"

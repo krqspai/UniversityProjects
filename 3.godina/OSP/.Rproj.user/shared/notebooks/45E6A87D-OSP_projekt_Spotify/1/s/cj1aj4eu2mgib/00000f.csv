@@ -1,0 +1,9 @@
+"0","cat(paste(""Number of artists in both genres:"", length(intersect(songs_hop$track_artist,songs_pop$track_artist)), ""\n""))"
+"1","Number of artists in both genres: 80 
+"
+"0","cat(paste(""Number of artists in hop:"", length(unique(songs_hop$track_artist)), ""\n""))"
+"1","Number of artists in hop: 779 
+"
+"0","cat(paste(""Number of artists in pop:"", length(unique(songs_pop$track_artist)), ""\n""))"
+"1","Number of artists in pop: 797 
+"

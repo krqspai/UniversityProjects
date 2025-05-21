@@ -1,0 +1,6 @@
+"0","# prikažite isti graf, ali umjesto `geom_point` upotrijebite"
+"0","# pomoćnu funkciju `geom_jitter` koja ima ugrađen `jitter` pozicijski aspekt"
+"0","# postavite `width` i `height` parametre na 0.3 (30% dodanog šuma)"
+"0","# dodatno postavite `color` parametar geometrije na ""blue"" "
+"0","# i `alpha` parametar (""prozirnost"") na 0.4"
+"0","ggplot(df, aes(x = x, y = y)) + geom_jitter(width = 0.3, height = 0.3, color = ""blue"", alpha = 0.4)"

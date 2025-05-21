@@ -1,0 +1,4 @@
+"0","# nacrtajte histogram varijable `wt` tablice `mtcars`"
+"0","# varijablu podijelite jednoliko u četiri ladice"
+"0","# koristite funkciju `geom_histogram`"
+"0","ggplot(mtcars, aes(wt)) + geom_histogram(bins = 4)"

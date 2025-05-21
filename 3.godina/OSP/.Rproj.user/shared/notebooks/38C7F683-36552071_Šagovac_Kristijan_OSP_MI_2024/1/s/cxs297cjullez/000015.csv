@@ -1,0 +1,4 @@
+"0","df <- rbind(bikes[1:3,], "
+"0","            bikes[sample(seq(4, nrow(bikes)-3), 3),], "
+"0","            bikes[seq(nrow(bikes)-2, nrow(bikes)),])"
+"0","df"

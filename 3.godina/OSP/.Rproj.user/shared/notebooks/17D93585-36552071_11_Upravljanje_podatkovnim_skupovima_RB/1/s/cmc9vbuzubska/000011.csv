@@ -1,0 +1,3 @@
+"0",""
+"0","# potom izračunajte prosječno kašnjenje po mjesecu"
+"0","group_by(hflights, Month) %>% summarise(meanDelay = mean(ArrDelay, na.rm = T))"

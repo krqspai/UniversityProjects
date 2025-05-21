@@ -1,0 +1,1 @@
+"0","msleep %>% group_by(vore) %>% filter(!is.na(vore)) %>% summarise(mean_sleep = mean(sleep_total, na.rm = T), max_sleep = max(sleep_total, na.rm = T), min_sleep = min(sleep_total, na.rm = T))"

@@ -1,0 +1,3 @@
+"0","set.seed(36552071)  # otkomentirati i zamijeniti svojim JMBAG-om"
+"0","lista <- replicate(100, sample(1:10, sample(1:10, 1)))"
+"0",""

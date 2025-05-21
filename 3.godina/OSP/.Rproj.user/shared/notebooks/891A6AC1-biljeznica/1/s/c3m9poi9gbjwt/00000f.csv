@@ -1,0 +1,8 @@
+"0","ggplot(film_count, aes(x = count, y = avg_score)) +"
+"0","  geom_point(color = ""blue"") +"
+"0","  geom_smooth(method = ""lm"", color = ""red"") +"
+"0","  labs("
+"0","    title = ""Relationship Between Number of Films and Average IMDb Score"","
+"0","    x = ""Number of Films per Decade"","
+"0","    y = ""Average IMDb Score"""
+"0","  )"

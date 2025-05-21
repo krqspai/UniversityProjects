@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription</title>
+</head>
+<body>
+    <h2>Subscribe to <%=catName%>!</h2>
+    <hr/>
+    <% if(err==0) { %>
+        <h2 style="color:red">This nick and email (<%= nickname + ", " + email %>) combination is already subscribed.</h2>
+    <% } %>
+    <form onsubmit="return chkParameters('<%=catName%>', event)" action="add/<%=catName%>" method="POST">
+        <div>Nick:</div>
+        <input type="text" id="name" name="nickname">
+        <div>Email:</div>
+        <input type="text" id="email" name="email">
+        <button type="submit"%>>Submit</button>
+    </form>
+    <script>    
+        function chkParameters(catName, event){
+            var nickname = document.getElementById("name").value
+            var email = document.getElementById("email").value
+            if (nickname == "") {
+                event.preventDefault();
+                alert('Nickname must not be empty')
+                return false;
+            } else if (email == "") {
+                event.preventDefault();
+                alert('Email must not be empty')
+                return false;
+            } else {
+                var x=0
+                var y=0
+                for (var i=0; i < email.length; i++) {
+                    if (email[i]=="@") x++
+                    if (x>0 && email[i]==".") y++
+                }
+                if (x!=1) {
+                    event.preventDefault();
+                    alert('Email must have exactly one @')
+                    return false;
+                } else if (y==0) {
+                    event.preventDefault();
+                    alert('Email must have at least one . after @')
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

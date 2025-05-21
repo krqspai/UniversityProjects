@@ -1,0 +1,17 @@
+"0",""
+"0","# pogledajmo da li je tablica AUTI u bazi"
+"0","dbListTables(conn)"
+"1","[1]"
+"1"," ""AUTI"""
+"1","
+"
+"0","# stvaram referencu na ovu tablicu"
+"0","# (ništa se ne učitava dok ne pristupam podacima!)"
+"0","auti <- tbl(conn, ""AUTI"")"
+"2","Registered S3 methods overwritten by 'dbplyr':
+  method         from
+  print.tbl_lazy     
+  print.tbl_sql      
+"
+"0","# ispisujemo podatke o maksimalnoj brzini i težini svih automobila sa 6 cilindara"
+"0","auti %>% filter(cyl == 6) %>% select(mpg, wt) %>% collect"

@@ -1,0 +1,53 @@
+"0","# ispišite izvorni kod funkcije `summary` (unesite samo ime funkcije!)"
+"0","summary"
+"1","function (object, ...) 
+"
+"1","UseMethod(""summary"")
+"
+"1","<bytecode: 0x000002a40fbea878>
+"
+"1","<environment: namespace:base>
+"
+"0","# ispišite izvorni kod funkcije koja se uistinu izvodi"
+"0","# kada pozivate `summary(f)` gdje je `f` objekt klase `factor`"
+"0","summary.factor"
+"1","function (object, maxsum = 100L, ...) 
+"
+"1","{
+"
+"1","    nas <- is.na(object)
+"
+"1","    ll <- levels(object)
+"
+"1","    if (ana <- any(nas)) 
+"
+"1","        maxsum <- maxsum - 1L
+"
+"1","    tbl <- table(object)
+"
+"1","    tt <- c(tbl)
+"
+"1","    names(tt) <- dimnames(tbl)[[1L]]
+"
+"1","    if (length(ll) > maxsum) {
+"
+"1","        drop <- maxsum:length(ll)
+"
+"1","        o <- sort.list(tt, decreasing = TRUE)
+"
+"1","        tt <- c(tt[o[-drop]], `(Other)` = sum(tt[o[drop]]))
+"
+"1","    }
+"
+"1","    if (ana) 
+"
+"1","        c(tt, `NA's` = sum(nas))
+"
+"1","    else tt
+"
+"1","}
+"
+"1","<bytecode: 0x000002a40fc9a908>
+"
+"1","<environment: namespace:base>
+"

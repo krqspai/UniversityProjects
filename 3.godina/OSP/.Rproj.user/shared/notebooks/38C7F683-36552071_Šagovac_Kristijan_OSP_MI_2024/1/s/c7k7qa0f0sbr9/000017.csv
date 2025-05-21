@@ -1,0 +1,5 @@
+"0","brew2 <- separate(brew, log, c(""Date"", ""Drink1"", ""Coffee"", ""Drink2"", ""Tea"", ""Drink3"", ""HotChocolate""), ""_"")"
+"0","brew2 <- brew2[, c(""brewerId"", ""Date"", ""Coffee"", ""Tea"", ""HotChocolate"")]"
+"0","names(brew2)[1] = ""BrewerId"""
+"0","brewLog <- pivot_longer(brew2, cols = ""Coffee"":""HotChocolate"", names_to = ""Drink"", values_to = ""Amount"")"
+"0","head(brewLog, 10)"

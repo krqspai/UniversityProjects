@@ -1,0 +1,3 @@
+"0",""
+"0","# za retke od broja 10 do broja 20 ispišite sve stupce koji počinju samoglasnikom"
+"0","slice(titanic, 10:20) %>% select(matches(""^[AEIOU]""))"

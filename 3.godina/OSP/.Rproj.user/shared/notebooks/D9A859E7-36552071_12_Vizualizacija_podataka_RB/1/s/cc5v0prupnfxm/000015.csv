@@ -1,0 +1,4 @@
+"0","# nacrtajte stupčani graf varijable `cyl` tablice `mtcars` "
+"0","# isprobajte funkcije `geom_bar` i `stat_count`"
+"0","# ima li razlike?"
+"0","ggplot(mtcars, aes(cyl)) + geom_bar()"

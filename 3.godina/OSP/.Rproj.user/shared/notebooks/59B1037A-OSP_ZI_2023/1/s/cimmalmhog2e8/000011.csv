@@ -1,0 +1,3 @@
+"0","newCereal$predictedRatinglm1 <- predict(lm1, newCereal)"
+"0","newCereal$predictedRatinglm2 <- predict(lm2, newCereal)"
+"0","newCereal %>% select(name, rating:predictedRatinglm2)"

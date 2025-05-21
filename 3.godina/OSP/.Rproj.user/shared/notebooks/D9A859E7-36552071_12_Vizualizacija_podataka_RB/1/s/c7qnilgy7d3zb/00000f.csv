@@ -1,0 +1,5 @@
+"0","# podesite `fill` estetiku sljedećeg grafa korištenjem funkcije `scale_fill_brewer`"
+"0","# parametar `palette` postavite na jednu od gore prikazanih paleta"
+"0",""
+"0","ggplot(diamondsSample, aes(x = x*y*z, fill = color)) + geom_histogram(bins = 30, na.rm = T) + "
+"0","  xlim(0, 500) + scale_fill_brewer(palette = ""Greens"")"

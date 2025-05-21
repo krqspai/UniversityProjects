@@ -1,0 +1,6 @@
+"0","# učitajte datoteku `datasets/ExcelSampleData.xlsx` u varijablu `sampleData`"
+"0","library(readxl)"
+"0","sampleData <- read_excel(""datasets/ExcelSampleData.xlsx"")"
+"0",""
+"0","# proučite podatkovni okvir `ExcelSampleData`"
+"0","head(sampleData)"

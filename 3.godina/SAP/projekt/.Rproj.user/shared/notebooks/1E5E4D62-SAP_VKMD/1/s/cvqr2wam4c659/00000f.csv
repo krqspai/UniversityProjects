@@ -1,0 +1,4 @@
+"0","IMDB <- unique(filmovi)"
+"0","IMDB_unique = unique(filmovi)"
+"0","IMDB_unique %>% group_by(genres) %>% summarise(  # broj filmova po žanrovima"
+"0","          count = n())"

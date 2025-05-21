@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>1. CSS</title>
+        <style>
+            @font-face {
+                font-family: Roboto;
+                src: url(Roboto-Regular.ttf);
+            }
+            body{
+                font-family: Roboto;
+            }
+            .card{
+                width: 400px;
+                border-radius: 10px;
+                background-color: seashell;
+                position: relative;
+            }
+            .card-close{
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                background-color: lightskyblue;
+                border-radius: 20px;
+                font-size: 1.5rem;
+                top: 10px;
+                left: 10px;
+            }
+            .card-header{
+                display: flex;
+                align-items: center;
+            }
+            .card-avatar img{
+                width: 200px;
+                height: 200px;
+                margin: 10px;
+            }
+            .card-info div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .card-info img {
+                width: 45px;
+                height: 45px;
+            }
+            .card-footer{
+                text-align: center;
+            }
+            .card-footer div:first-child{
+                font-size: 2.5rem;
+                margin: 10px;
+            }
+            .card-footer div:nth-child(2){
+                font-size: 1.3rem;
+                margin: 10px;
+            }
+            .card-actions {
+                text-align: center;
+            }
+            .card-actions button {
+                width: 100px;
+                height: 40px;
+                border-radius: 5px;
+                background-color: lightskyblue;
+                margin-top: 20px;
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body style="background-color: darkgrey">
+        <div class="card">
+            <button class="card-close">X</button>
+            <div class="card-header">
+                <div class="card-avatar">
+                    <img src="avatar.png" alt="Mock avatar" />
+                </div>
+                <div class="card-info">
+                    <div>
+                        <div>
+                            <img src="education.png" alt="Education" />
+                        </div>
+                        <div>MSc</div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="pin.png" alt="Location" />
+                        </div>
+                        <div>Zagreb, Croatia</div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="online.png" alt="Online" />
+                        </div>
+                        <div>Online</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div>Ivana Ivić</div>
+                <div>Web developer</div>
+            </div>
+            <div class="card-actions">
+                <button>Add friend</button>
+                <button>Send mail</button>
+            </div>
+        </div>
+    </body>
+</html>

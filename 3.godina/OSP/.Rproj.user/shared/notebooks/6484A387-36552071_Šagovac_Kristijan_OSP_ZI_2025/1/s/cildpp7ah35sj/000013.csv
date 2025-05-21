@@ -1,0 +1,1 @@
+"0","penguins %>% mutate(bill_length_depth_ratio = bill_length_mm / bill_depth_mm) %>% slice_min(bill_length_depth_ratio, n = 10) %>% select(species, island, sex, bill_length_depth_ratio) %>% arrange(bill_length_depth_ratio)"

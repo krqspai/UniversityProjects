@@ -1,0 +1,1 @@
+"0","filmovi4 <- filter(filmovi4, decade != 1910)"

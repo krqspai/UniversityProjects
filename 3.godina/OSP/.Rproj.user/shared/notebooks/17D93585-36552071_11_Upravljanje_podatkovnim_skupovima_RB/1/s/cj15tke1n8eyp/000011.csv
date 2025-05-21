@@ -1,0 +1,2 @@
+"0","# `df` je klase `tbl_df`, zelim vidjeti 50 redaka u ispisu"
+"0","#print(df, n = 50)"

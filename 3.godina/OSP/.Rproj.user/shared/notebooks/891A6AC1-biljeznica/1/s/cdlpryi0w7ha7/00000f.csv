@@ -1,0 +1,5 @@
+"0","f4_mean_scores <- filmovi4 %>%"
+"0","  group_by(decade) %>%"
+"0","  summarise(mean_imdb = mean(imdb_score, na.rm = TRUE))"
+"0",""
+"0","ggplot(f4_mean_scores, aes(x = decade, y = mean_imdb)) + geom_point() + stat_smooth(method = ""loess"", formula = ""y~x"")"

@@ -1,0 +1,3 @@
+"0","decades <- paste(seq(1920, 2010, by=10), seq(1929, 2019, by=10), sep=""-"")"
+"0","filmovi4$decade <- factor(filmovi4$decade, levels = seq(1920, 2010, 10),"
+"0","                          labels = decades)"

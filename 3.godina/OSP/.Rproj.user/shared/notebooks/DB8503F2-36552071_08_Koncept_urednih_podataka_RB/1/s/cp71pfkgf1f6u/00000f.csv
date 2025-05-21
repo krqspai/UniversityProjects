@@ -1,0 +1,23 @@
+"0","# stvorite podatkovni okvir `ocjene` uz pomoć funkcije `pivot_longer` i okvira `studenti`"
+"0","# nove stupce nazovite ""Predmet"" i ""Ocjena"""
+"0","ocjene <- pivot_longer(studenti, cols = `Matematika 1`:`Algoritmi 1`, names_to = ""Predmet"", values_to = ""Ocjena"", values_drop_na = T)"
+"0",""
+"0","# proučite okvir `ocjene`"
+"0","glimpse(ocjene)"
+"1","Rows: 168"
+"1",""
+"1","
+"
+"1","Columns: 5"
+"1",""
+"1","
+"
+"1","$ JMBAG   [3m[38;5;246m<dbl>[39m[23m 1341, 1341, 1341, 1341, 1341, 1342, 1342, 1342, 1342, 1342, 1342, 13…
+$ Prezime [3m[38;5;246m<chr>[39m[23m ""Anić"", ""Anić"", ""Anić"", ""Anić"", ""Anić"", ""Babić"", ""Babić"", ""Babić"", ""…
+$ Ime     [3m[38;5;246m<chr>[39m[23m ""Iva"", ""Iva"", ""Iva"", ""Iva"", ""Iva"", ""Josip"", ""Josip"", ""Josip"", ""Josip…
+$ Predmet [3m[38;5;246m<chr>[39m[23m ""Matematika 1"", ""Fizika 1"", ""Digitalna logika"", ""Matematika 2"", ""Alg…
+$ Ocjena  [3m[38;5;246m<int>[39m[23m 2, 2, 4, 2, 2, 5, 3, 4, 3, 5, 5, 4, 3, 4, 2, 3, 4, 3, 2, 5, 2, 2, 3,…"
+"1",""
+"1","
+"
+"0","head(ocjene)"

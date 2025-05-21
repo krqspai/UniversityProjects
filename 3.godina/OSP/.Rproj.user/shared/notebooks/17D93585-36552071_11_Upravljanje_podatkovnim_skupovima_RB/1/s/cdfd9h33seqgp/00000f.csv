@@ -1,0 +1,37 @@
+"0","#učitajte podatkovni skup iz datoteke `Titanic.csv` u varijablu `titanic`"
+"0","titanic <- read_csv(""Datasets/Titanic.csv"")"
+"2","[1mRows: [22m[34m891[39m [1mColumns: [22m[34m12[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (5): Name, Sex, Ticket, Cabin, Embarked
+[32mdbl[39m (7): PassengerId, Survived, Pclass, Age, SibSp, Parch, Fare"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","#pogledajte strukturu podatkovnog okvira `titanic` uz pomoć funkcije `glimpse`"
+"0","#i prvih nekoliko redaka uz pomoć funkcije `head`"
+"0","glimpse(titanic)"
+"1","Rows: 891"
+"1",""
+"1","
+"
+"1","Columns: 12"
+"1",""
+"1","
+"
+"1","$ PassengerId [3m[38;5;246m<dbl>[39m[23m 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1…
+$ Survived    [3m[38;5;246m<dbl>[39m[23m 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1…
+$ Pclass      [3m[38;5;246m<dbl>[39m[23m 3, 1, 3, 1, 3, 3, 1, 3, 3, 2, 3, 1, 3, 3, 3, 2, 3, 2, 3, 3, 2, 2…
+$ Name        [3m[38;5;246m<chr>[39m[23m ""Braund, Mr. Owen Harris"", ""Cumings, Mrs. John Bradley (Florence…
+$ Sex         [3m[38;5;246m<chr>[39m[23m ""male"", ""female"", ""female"", ""female"", ""male"", ""male"", ""male"", ""m…
+$ Age         [3m[38;5;246m<dbl>[39m[23m 22, 38, 26, 35, 35, NA, 54, 2, 27, 14, 4, 58, 20, 39, 14, 55, 2,…
+$ SibSp       [3m[38;5;246m<dbl>[39m[23m 1, 1, 0, 1, 0, 0, 0, 3, 0, 1, 1, 0, 0, 1, 0, 0, 4, 0, 1, 0, 0, 0…
+$ Parch       [3m[38;5;246m<dbl>[39m[23m 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0…
+$ Ticket      [3m[38;5;246m<chr>[39m[23m ""A/5 21171"", ""PC 17599"", ""STON/O2. 3101282"", ""113803"", ""373450"",…
+$ Fare        [3m[38;5;246m<dbl>[39m[23m 7.2500, 71.2833, 7.9250, 53.1000, 8.0500, 8.4583, 51.8625, 21.07…
+$ Cabin       [3m[38;5;246m<chr>[39m[23m NA, ""C85"", NA, ""C123"", NA, NA, ""E46"", NA, NA, NA, ""G6"", ""C103"", …
+$ Embarked    [3m[38;5;246m<chr>[39m[23m ""S"", ""C"", ""S"", ""S"", ""S"", ""Q"", ""S"", ""S"", ""S"", ""C"", ""S"", ""S"", ""S"",…"
+"1",""
+"1","
+"
+"0","head(titanic)"

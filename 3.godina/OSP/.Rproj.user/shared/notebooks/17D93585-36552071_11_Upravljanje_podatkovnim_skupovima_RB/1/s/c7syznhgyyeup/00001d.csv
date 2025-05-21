@@ -1,0 +1,6 @@
+"0","# za svaku zrakoplovnu tvrtku ispišite "
+"0","# kojih pet letova je imalo najveće vrijeme kašnjenja"
+"0","# u mjesecu veljači"
+"0","# ispis mora sadržavati datum leta (stupac tipa `Date`), oznaku zrakoplovne tvrtke,"
+"0","# oznaku leta i vrijeme kašnjenja"
+"0","hflights %>% filter(Month == 2) %>% group_by(UniqueCarrier) %>% slice_max(ArrDelay, n = 5) %>% transmute(DateofFlight = as.Date(paste(Year, Month, DayofMonth, sep=""-"")), UniqueCarrier, FlightNum, ArrDelay)"

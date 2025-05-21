@@ -1,0 +1,5 @@
+"0","starwars[starwars$homeworld == ""Naboo"" & starwars$eye_color == ""brown"",] %>% nrow"
+"1","[1]"
+"1"," 5"
+"1","
+"

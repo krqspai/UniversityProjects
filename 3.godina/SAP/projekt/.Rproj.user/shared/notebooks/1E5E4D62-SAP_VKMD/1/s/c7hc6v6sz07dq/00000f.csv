@@ -1,0 +1,1 @@
+"0","qqnorm(filmovi_PG_clean$gross, pch = 1, frame = FALSE,main='Zarada PG filmova')"

@@ -1,0 +1,2 @@
+"0","kavaUredna <- pivot_longer(kava, cols = ""23.3.2023"":""9.4.2023"", names_to = ""Datum"", values_to = ""PopijenoKava"", values_drop_na = T)"
+"0","head(kavaUredna, 10)"

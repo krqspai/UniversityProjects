@@ -1,0 +1,29 @@
+.container{
+    background-color: pink;
+    padding: 20px;
+    position: absolute;
+    left:15vw;
+    right:15vw;
+}
+
+.naslov{
+    font-size: 2.9rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.tekstispodnaslova{
+    font-size:1.5rem;
+    margin-bottom: 1.5rem;
+}
+label{
+    font-size: 1.3rem;
+}
+input{
+    font-size: 1.3rem;
+}
+textarea{
+    font-size: 1.3rem;
+}
+button{
+    font-size: 1.2rem;
+}

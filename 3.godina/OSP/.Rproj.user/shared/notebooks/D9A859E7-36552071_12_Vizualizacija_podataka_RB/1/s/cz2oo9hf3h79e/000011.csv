@@ -1,0 +1,2 @@
+"0","# nacrtajte opet histogram varijable wt, ali pozicijski aspekt `position` postavite na `""dodge""`"
+"0","ggplot(mtcars, aes(x = wt, fill = cyl)) + geom_histogram(bins = 4, position = ""dodge"")"

@@ -1,0 +1,8 @@
+"0","# uz pomoć funkcije `predict` i modela `rfMod` i `svmMod`"
+"0","# skupu `wine.test` dodajte stupce `predQualityRF` i `predQualitySVM`"
+"0","# koji će sadržavati predikciju kvalitete vina"
+"0","wine.test$predQualityRF <- predict(rfMod, wine.test)"
+"0","wine.test$predQualitySVM <- predict(svmMod, wine.test)"
+"2","Error in h(simpleError(msg, call)) : 
+  error in evaluating the argument 'object' in selecting a method for function 'predict': object 'svmMod' not found
+"

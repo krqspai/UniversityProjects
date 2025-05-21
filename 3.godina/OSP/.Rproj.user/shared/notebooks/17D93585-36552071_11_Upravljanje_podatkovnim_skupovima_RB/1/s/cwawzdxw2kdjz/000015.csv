@@ -1,0 +1,4 @@
+"0",""
+"0","# nasumično izaberite i ispišite podatke o pet putnika/putnica koji nisu preživjeli potonuće"
+"0","# ispis poredati silazno po cijeni karte"
+"0","filter(titanic, Survived == 0) %>% slice_sample(n = 5) %>% arrange(desc(Fare))"

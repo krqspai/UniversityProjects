@@ -1,0 +1,4 @@
+"0",""
+"0","imdb <- read_csv(""Datasets/movie_IMDB.csv"")"
+"2","Error: 'Datasets/movie_IMDB.csv' does not exist in current working directory ('C:/Users/kisel/Documents/FER/3.godina/SAP/projekt').
+"

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hr">
+    <head>
+        <style>
+            .container{
+                display: flex;
+                width: 97%;
+                height: 200px;
+                border: 2px solid green;
+                border-radius: 5px;
+                margin-left: 1.5%;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 1.5rem;
+            }
+            .linkovi{
+                display: flex;
+                justify-content: space-evenly;
+                width: 30%;
+            }
+            .linkovi a{
+                margin: 1%;
+            }
+            .linkovi a:hover{
+                background-color: aqua;
+            }
+            .ime{
+                margin-left: 2%;
+            }
+            #posebnilink{
+                display: none;
+            }
+            .inicijal{
+                display: none;
+            }
+            @media only screen and (max-width: 499px){
+                .linkovi a{
+                    display: none;
+                }
+                #posebnilink{
+                    display: block;
+                }
+                #posebnilink:hover{
+                    background-color: white;
+                }
+                .inicijal{
+                    display: block;
+                    margin-left: 2%;
+                }
+                .ime{
+                    display: none;
+                }
+            }
+        </style>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="container">
+            <div class="ime">Kristijan Šagovac</div>
+            <div class="inicijal">K.Š.</div>
+            <div class="linkovi">
+                <a href=#>Link 1</a>
+                <a href=#>Link 2</a>
+                <a href=#>Link 3</a>
+                <a href=# id="posebnilink">Links...</a>
+            </div>
+        </div>
+    </body>
+</html>

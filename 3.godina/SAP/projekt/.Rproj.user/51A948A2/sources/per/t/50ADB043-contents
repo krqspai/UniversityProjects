@@ -1,0 +1,389 @@
+---
+title: "Projekt 2 zad"
+output: html_document
+date: "2025-01-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
+```
+
+# Postoji li razlika u budžetima filmova s obzirom na njihov žanr?
+Ovo istraživačko pitanje testiro bih jednofaktorskom ANOVA testom.
+
+# Podatci o filmovima
+```{r podatci Ucitavanje podataka}
+IMDB = read.csv('movie_IMDB.csv')
+summary(IMDB)
+head(IMDB)
+```
+```{r}
+dim(IMDB)
+```
+Ovo nam govori da imamo 5043 filmova, a svaki film ima 28 varijabla.
+
+Uočavamo da se u datasetu neki filmovi ponavljaju, pa nam je u interesu da "duplikate" maknem.
+
+```{r}
+IMDB = unique(IMDB)
+dim(IMDB)
+```
+Sada imamo 4998 filmova, a svaki film ima 28 varijabla.
+
+Sada trebamo provjeriti dali ima nedostajućih vrijednosti odnosno NA u varijbalama žanrovi i budžet.
+
+```{r}
+sum(is.na(IMDB$genres)) # Koliko?
+sum(is.na(IMDB$budget)) # Koliko?
+```
+Uočavamo da kod varijable žanrovi nema NA, ali kod varijable budžet ima i to 487. Te filmove koji imaju NA kod budžeta ćemo ukloniti.
+
+```{r}
+IMDB %>% group_by(genres) %>% summarise(  # broj filmova po žanrovima
+          count = n())
+IMDB = IMDB[complete.cases(IMDB$budget), ] # izbacivanje NA vrijednosti
+IMDB %>% group_by(genres) %>% summarise( # broj filmova po žanrovima
+          count = n())
+dim(IMDB)
+```
+Sada imamo 4511 filmova, a svaki film ima 28 varijabla.
+
+Varijabla žanrovi je u zapisu x|y|z|... Znači naprimjer film Avatar ima više genres, a to su Action|Adventure|Fantasy|Sci-Fi. Stoga sam ih razdvojio jer sam htio da se budžet od filma u ovom slučaju avatar gleda pod svaki genre.
+
+
+```{r Razdvajanje genres}
+IMDB = IMDB %>%
+  separate_rows(genres, sep = "\\|")
+dim(IMDB)
+
+```
+Sada imamo 13136 filmova, a svaki film ima 28 varijabla.
+
+
+```{r}
+unique_genres_count = IMDB %>%
+  distinct(genres) %>%
+  count()
+
+unique_genres_count$n
+```
+Postoje 26 žanra
+
+```{r}
+unique(IMDB$genres) # žanrovi filmova
+```
+
+
+```{r ciscenje i priprema}
+IMDB$genres = factor(IMDB$genres, levels = c('Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 
+                                                  'Documentary', 'Drama', 'Family', 'Fantasy', 'Film-Noir', 'Game-Show', 
+                                                  'History', 'Horror', 'Music', 'Musical', 'Mystery', 'News', 
+                                                  'Reality-TV', 'Romance', 'Sci-Fi', 'Short', 'Sport', 'Thriller', 
+                                                  'War', 'Western'))
+```
+
+
+```{r}
+genre_counts = table(IMDB$genres) # broj filmova po žanru
+print(genre_counts)
+```
+Uočavamo da neki žanrovi imaju mali broj filmova. To su "Game-Show", "News", "Reality-TV" i "Short". Te žanrove ću izbaciti iz dataseta zato što smatram ako je broj takvih filmova tolko mali neće dati točan zaključak. Naprimjer za "Reality-TV" imamo samo jedan primjer i da je taj primjer imao veliki "budget" došli bi do zaključka da bi svaki "Reality-TV" imao takav "budget" što naravno nije istina. Također kada ću provoditit testove potrebne za dokazivanje pretpostavke za ANOVA-u neće mi dopustit ako je broj nekog žanra tako mali.
+
+```{r}
+excluded_genres = c("Game-Show", "News", "Reality-TV", "Short")
+# Izbacivanje određene žanrove
+IMDB = IMDB[!(IMDB$genres %in% excluded_genres), ]
+dim(IMDB)
+
+genre_counts = table(IMDB$genres) # broj filmova po žanru
+print(genre_counts)
+```
+Sada imamo 13129 filmova, a svaki film ima 28 varijabla.
+
+```{r}
+unique_genres_count = IMDB %>%
+  distinct(genres) %>%
+  count()
+unique_genres_count$n
+```
+# "Budget" -> log()
+
+Kako su vrijednosti budžet jako velike smanjujem ih pomoću log(). Ovo radim da lakše mogu očitati neke pretpostavke s grafova.
+
+```{r}
+# Provođenje log() nad budžet vrijednostima
+IMDB$budget_log = log(IMDB$budget)
+IMDB$budget = IMDB$budget_log
+IMDB$budget_log = NULL
+```
+
+# "Budget" -> originalna vrijednost
+
+```{r}
+# Vračanje na org vrijednost
+IMDB_org = IMDB
+IMDB_org$budget_exp = exp(IMDB$budget)
+IMDB_org$budget = IMDB_org$budget_exp
+IMDB_org$budget_exp = NULL
+```
+
+
+Dataset je sada spreman, pa možemo započeti sa ANOVA.
+
+Pretpostavke ANOVA-e su:
+
+- nezavisnost pojedinih podataka u uzorcima,
+- normalna razdioba podataka,
+- homogenost varijanci među populacijama.
+
+# Normalna razdioba podataka
+Provjera normalnosti može se za svaku pojedinu grupu napraviti KS testom ili Lillieforsovom inačicom KS testa. Također možemo iz histograma zaključiti normalnost.
+
+```{r test pretpostavki - normalnost "Budget" -> log()}
+
+require(nortest)
+lillie.test(IMDB$budget)
+
+lillie.test(IMDB$budget[IMDB$genres=='Action'])
+lillie.test(IMDB$budget[IMDB$genres=='Adventure'])
+lillie.test(IMDB$budget[IMDB$genres=='Fantasy'])
+lillie.test(IMDB$budget[IMDB$genres=='Sci-Fi'])
+lillie.test(IMDB$budget[IMDB$genres=='Thriller'])
+lillie.test(IMDB$budget[IMDB$genres=='Documentary'])
+lillie.test(IMDB$budget[IMDB$genres=='Romance'])
+lillie.test(IMDB$budget[IMDB$genres=='Animation'])
+lillie.test(IMDB$budget[IMDB$genres=='Comedy'])
+lillie.test(IMDB$budget[IMDB$genres=='Family'])
+lillie.test(IMDB$budget[IMDB$genres=='Musical'])
+lillie.test(IMDB$budget[IMDB$genres=='Mystery'])
+lillie.test(IMDB$budget[IMDB$genres=='Western'])
+lillie.test(IMDB$budget[IMDB$genres=='Drama'])
+lillie.test(IMDB$budget[IMDB$genres=='History'])
+lillie.test(IMDB$budget[IMDB$genres=='Sport'])
+lillie.test(IMDB$budget[IMDB$genres=='Crime'])
+lillie.test(IMDB$budget[IMDB$genres=='Horror'])
+lillie.test(IMDB$budget[IMDB$genres=='War'])
+lillie.test(IMDB$budget[IMDB$genres=='Biography'])
+lillie.test(IMDB$budget[IMDB$genres=='Music'])
+lillie.test(IMDB$budget[IMDB$genres=='Film-Noir'])
+
+graf1 = ggplot(data = IMDB[IMDB$genres == 'Action', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Action", x = "Budget")
+
+graf2 = ggplot(data = IMDB[IMDB$genres == 'Adventure', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Adventure", x = "Budget")
+
+graf3 = ggplot(data = IMDB[IMDB$genres == 'Fantasy', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Fantasy", x = "Budget")
+
+graf4 = ggplot(data = IMDB[IMDB$genres == 'Sci-Fi', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Sci-Fi", x = "Budget")
+
+graf5 = ggplot(data = IMDB[IMDB$genres == 'Thriller', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Thriller", x = "Budget")
+
+graf6 = ggplot(data = IMDB[IMDB$genres == 'Documentary', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Documentary", x = "Budget")
+
+graf7 = ggplot(data = IMDB[IMDB$genres == 'Romance', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Action", x = "Romance")
+
+graf8 = ggplot(data = IMDB[IMDB$genres == 'Animation', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Animation", x = "Budget")
+
+graf9 = ggplot(data = IMDB[IMDB$genres == 'Comedy', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Comedy", x = "Budget")
+
+graf10 = ggplot(data = IMDB[IMDB$genres == 'Family', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Family", x = "Budget")
+
+graf11 = ggplot(data = IMDB[IMDB$genres == 'Musical', ], aes(x = budget)) + geom_histogram(binwidth = 0.2, fill = "blue", color = "black") +
+  labs(title = "Musical", x = "Budget")
+
+
+
+grid.arrange(graf1, graf2, graf3, graf4, graf5, graf6, ncol = 3)
+grid.arrange(graf7, graf8, graf9, graf10, graf11, ncol = 3)
+
+```
+
+
+```{r}
+graf12 = ggplot(data = IMDB[IMDB$genres == 'Mystery', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "Mystery", x = "IMDb Score")
+
+graf13 = ggplot(data = IMDB[IMDB$genres == 'Western', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "Western", x = "IMDb Score")
+
+graf14 = ggplot(data = IMDB[IMDB$genres == 'Drama', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "Drama", x = "IMDb Score")
+
+graf15 = ggplot(data = IMDB[IMDB$genres == 'History', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "History", x = "IMDb Score")
+
+graf16 = ggplot(data = IMDB[IMDB$genres == 'Sport', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "Sport", x = "IMDb Score")
+
+graf17 = ggplot(data = IMDB[IMDB$genres == 'Crime', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "Crime", x = "IMDb Score")
+
+graf18 = ggplot(data = IMDB[IMDB$genres == 'Horror', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "Horror", x = "IMDb Score")
+
+graf19 = ggplot(data = IMDB[IMDB$genres == 'War', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "War", x = "IMDb Score")
+
+graf20 = ggplot(data = IMDB[IMDB$genres == 'Biography', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + 
+  stat_qq_line(color = "blue", size = 1) + labs(title = "Biography", x = "IMDb Score")
+
+graf21 = ggplot(data = IMDB[IMDB$genres == 'Music', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + stat_qq_line(color = "blue", size = 1) + 
+  labs(title = "Music", x = "IMDb Score")
+
+graf22 = ggplot(data = IMDB[IMDB$genres == 'Film-Noir', ], aes(sample = imdb_score)) + geom_qq(alpha = 0.8) + 
+  stat_qq_line(color = "blue", size = 1) + labs(title = "Film-Noir", x = "IMDb Score")
+
+grid.arrange(graf12, graf13, graf14, graf15, graf16, graf17,ncol = 3)
+grid.arrange(graf18, graf19, graf20, graf21, graf22, ncol = 3)
+
+```
+
+
+
+```{r test pretpostavki - normalnost "Budget" -> originalna vrijednost}
+
+require(nortest)
+lillie.test(IMDB_org$budget)
+
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Action'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Adventure'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Fantasy'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Sci-Fi'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Thriller'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Documentary'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Romance'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Animation'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Comedy'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Family'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Musical'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Mystery'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Western'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Drama'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='History'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Sport'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Crime'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Horror'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='War'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Biography'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Music'])
+lillie.test(IMDB_org$budget[IMDB_org$genres=='Film-Noir'])
+
+#hist(IMDB_org$budget[IMDB_org$genres=='Action']) Nisam radio grafove za org vrijednost jer nisu čitljivi ovo je primjer
+
+```
+
+
+#Analiza Lillieforsovom inačicom KS testa:
+Lillieforsovom inačicom KS testa za oba dataseta odnosno za dataset s budgetom s originalnim vrijednostima i budget s log() su jako slični.
+Ako je p-value mala tj. manji od 0.05 zaključujemo da za te žanrove normalnost nije potvrđena, a ako je veći od 0.05 normalnost je potvrđena. Većina žanrova ima p-value manju od 0.05, što znači da su podaci o budžetu u tim žanrovima statistički različiti od normalne distribucije. Ovo dokazujemo i grafički. Histogrami pokazuju asimetriju u distribuciji, a na QQ grafu da su distribucije normalne, nebi bilo izrazitog zakrivljenja kao na nekim žanrovima, nego bi podaci bili više posloženi na plavoj liniji.
+
+# homogenost varijanci među populacijama
+Što se tiče homogenosti varijanci različitih populacija, potrebno je testirati:
+$$ \begin{aligned}
+  H_0 & : \sigma_1^2 = \sigma_2^2 = \ldots = \sigma_k^2 \\
+  H_1 & : \text{barem dvije varijance nisu iste}.
+\end{aligned} $$
+Navedenu hipotezu možemo testirati Bartlettovim testom.
+
+```{r test pretpostavki - homogenost varijanci "Budget" -> log()}
+
+bartlett.test(IMDB$budget ~ IMDB$genres)
+
+var((IMDB$budget[IMDB$genres=='Film-Noir']))
+var((IMDB$budget[IMDB$genres=='Animation']))
+var((IMDB$budget[IMDB$genres=='Drama']))
+var((IMDB$budget[IMDB$genres=='Music']))
+var((IMDB$budget[IMDB$genres=='Horror']))
+var((IMDB$budget[IMDB$genres=='Documentary']))
+```
+
+
+```{r test pretpostavki - homogenost varijanci "Budget" -> originalna vrijednost}
+
+bartlett.test(IMDB_org$budget ~ IMDB_org$genres)
+
+var((IMDB_org$budget[IMDB_org$genres=='Film-Noir']))
+var((IMDB_org$budget[IMDB_org$genres=='Animation']))
+var((IMDB_org$budget[IMDB_org$genres=='Drama']))
+var((IMDB_org$budget[IMDB_org$genres=='Music']))
+var((IMDB_org$budget[IMDB_org$genres=='Horror']))
+var((IMDB_org$budget[IMDB_org$genres=='Documentary']))
+
+
+```
+
+# Analiza Bartlettov testa:
+Ako je p-value mala tj. manji od 0.05 zaključujemo da varijance između žanrova nisu jednake. U oba testa je p-value manji od 0.05. Najmanju varijancu ima žanr 'Film-Noir' što znači da filmovi toga žanra imaju slične budžete. Naravno "sample size" od 'Film-Noir' je malen, pa je i zato isto moguće mala vrijednost pa bih izdvojio žanr 'Animation' kojem je isto vrijednost varijance mala. Najveću varijancu ima žanr 'Documentary', što ukazuje na širok raspon u budžetima.
+
+
+# Kruskal-Wallis test
+Iz testova iznad zaključujemo da normalnost i homogenost nisu potvrđena. Radi tog zaključka provest ćemo neparametarsku alternativu ANOVA test -> Kruskal-Wallis test.
+
+```{r Kruskal-Wallis test "Budget" -> log()}
+kw_log = kruskal.test(budget ~ genres, data = IMDB)
+kw_log
+```
+
+```{r Kruskal-Wallis test "Budget" -> originalna vrijednost}
+kw_org = kruskal.test(budget ~ genres, data = IMDB_org)
+kw_org
+```
+
+#ANOVA
+
+```{r test razlike u prihodima "Budget" -> log()}
+
+ggplot(IMDB, aes(x = genres, y = budget)) + geom_boxplot() + labs(x = "Žanr", y = "Budžet", title = "Budžet po žanru") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+a = aov(IMDB$budget ~ IMDB$genres)
+summary(a)
+
+```
+
+```{r test razlike u prihodima "Budget" -> originalna vrijednost}
+#boxplot(IMDB_org$budget ~ IMDB_org$genres)
+
+a = aov(IMDB_org$budget ~ IMDB_org$genres)
+summary(a)
+
+```
+
+```{r linearni model "Budget" -> log()}
+model = lm(budget ~ genres, data = IMDB)
+summary(model)
+anova(model)
+```
+Linearni model istovjetan je ANOVA modelu. Zaključci u oba slučaja isti.
+
+# Zaključak
+$$ \begin{aligned}
+  H_0 & : \text{Distribucije budgeta isti je za sve žanrove}. \\
+  H_1 & : \text{Postoji razlika u distribuciji budžeta među barem dva žanra}.
+\end{aligned} $$
+Prvo što uočavam je da provedeni Kruskal-Wallis test daje sličan rezultat kao ANOVA test iako nisu bile zadovoljene pretpostavke "normalna razdioba podataka" i "homogenost varijanci među populacijama". Zaključak koji donosim na temelju Kruskal-Wallis testa je da je p-value izuzetno malo. To nam govori da postoji značajna razlika u distribuciji budget među žanrovima tj. da se budžeti razlikuju među različitim žanrovima.
+
+# Mean histogram
+Ovim grafovom također uočavamo tu razliku budžeta između žanrova, odnosno razlika prosjeka budžeta.
+```{r}
+IMDB_mean = IMDB %>%
+  group_by(genres) %>%
+  summarise(mean_imdb = mean(budget, na.rm = TRUE))
+
+ggplot(IMDB_mean, aes(x = genres, y = mean_imdb)) + geom_bar(stat = "identity", fill = "blue", color = "black") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+

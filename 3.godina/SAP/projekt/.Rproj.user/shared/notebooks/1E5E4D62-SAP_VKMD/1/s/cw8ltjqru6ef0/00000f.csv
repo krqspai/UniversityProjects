@@ -1,0 +1,3 @@
+"0","boxplot(filmovi_PG_clean$gross, filmovi_R_clean$gross, "
+"0","        names = c('Zarada PG filmova','Zarada R filmova'),"
+"0","        main='Boxplot zarada')"

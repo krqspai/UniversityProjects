@@ -1,0 +1,27 @@
+"0","# učitajte datoteku `auti.csv` u podatkovni okvir naziva `auti`"
+"0","auti <- read_csv(""Datasets/auti.csv"")"
+"2","[1mRows: [22m[34m18[39m [1mColumns: [22m[34m3[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (2): Model auta, Tehnicka karakteristika
+[32mdbl[39m (1): Vrijednost"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","# proučite okvir `auti`"
+"0","glimpse(auti)"
+"1","Rows: 18"
+"1",""
+"1","
+"
+"1","Columns: 3"
+"1",""
+"1","
+"
+"1","$ `Model auta`              [3m[38;5;246m<chr>[39m[23m ""Opel Astra"", ""Opel Astra"", ""Opel Astra"", ""Opel As…
+$ `Tehnicka karakteristika` [3m[38;5;246m<chr>[39m[23m ""Cilindara"", ""KS"", ""Dužina m"", ""Masa kg"", ""Cilinda…
+$ Vrijednost                [3m[38;5;246m<dbl>[39m[23m 4.000, 125.000, 4.267, 1285.000, 4.000, 136.000, 4…"
+"1",""
+"1","
+"
+"0","head(auti)"

@@ -1,0 +1,4 @@
+"0",""
+"0","model <- lm(imdb_score ~. ,data=imdb)"
+"0",""
+"0",""

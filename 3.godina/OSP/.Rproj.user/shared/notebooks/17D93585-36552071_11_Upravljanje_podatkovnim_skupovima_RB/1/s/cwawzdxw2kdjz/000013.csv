@@ -1,0 +1,3 @@
+"0",""
+"0","# provjerite ima li u podatkovnom skupu duplih obzervacija"
+"0","distinct(titanic)   #nema, i dalje je 891 redak"

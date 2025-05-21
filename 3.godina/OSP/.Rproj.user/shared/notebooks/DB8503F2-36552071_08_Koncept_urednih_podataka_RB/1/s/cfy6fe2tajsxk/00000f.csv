@@ -1,0 +1,23 @@
+"0","# stvorite okvir `auti2` koji će biti uređena inačica okvira `auti`"
+"0","auti2 <- pivot_wider(auti, names_from = `Tehnicka karakteristika`, values_from = Vrijednost)"
+"0",""
+"0","# proučite okvir `auti2`"
+"0","glimpse(auti2)"
+"1","Rows: 5"
+"1",""
+"1","
+"
+"1","Columns: 6"
+"1",""
+"1","
+"
+"1","$ `Model auta` [3m[38;5;246m<chr>[39m[23m ""Opel Astra"", ""Audi A4"", ""Renault Grand Scenic"", ""Citroen C6"", …
+$ Cilindara    [3m[38;5;246m<dbl>[39m[23m 4, 4, 4, 6, 2
+$ KS           [3m[38;5;246m<dbl>[39m[23m 125, 136, 110, 215, 103
+$ `Dužina m`   [3m[38;5;246m<dbl>[39m[23m 4.267, 4.703, 4.560, NA, NA
+$ `Masa kg`    [3m[38;5;246m<dbl>[39m[23m 1285, 1470, NA, 1816, 1260
+$ Ventila      [3m[38;5;246m<dbl>[39m[23m NA, NA, 16, NA, NA"
+"1",""
+"1","
+"
+"0","head(auti2)"

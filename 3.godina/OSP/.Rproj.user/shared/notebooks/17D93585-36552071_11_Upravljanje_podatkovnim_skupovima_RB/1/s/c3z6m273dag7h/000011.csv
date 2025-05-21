@@ -1,0 +1,8 @@
+"0",""
+"0","# stvorite stupac FareCategory kojim ćete podijeliti cijene karata "
+"0","# u pet kategorija jednake veličine"
+"0","# potom nasumično izaberite 20 putnika i ispišite "
+"0","# ime putnika, putničku klasu, cijenu karte i kategoriju"
+"0","# ispis poredajte po kategoriji cijene"
+"0","titanic <- mutate(titanic, FareCategory = ntile(Fare, 5))"
+"0","slice_sample(titanic, n = 20) %>% select(Name, Pclass, Fare, FareCategory) %>% arrange(FareCategory)"

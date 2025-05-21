@@ -1,0 +1,3 @@
+"0","# nacrtajte isti histogram uz pozicijski aspekt postavljen na `""identity""`"
+"0","# postavite `alpha` parametar geometrije na 0.4 zbog jasnijeg prikaza"
+"0","ggplot(mtcars, aes(x = wt, fill = cyl)) + geom_histogram(bins = 4, position = ""identity"", alpha = 0.4)"

@@ -1,0 +1,39 @@
+"0","library(dplyr)"
+"2","
+Attaching package: ‘dplyr’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(readr)"
+"0","library(stringr)"
+"0","library(hflights)"
+"2","
+Attaching package: ‘hflights’
+
+"
+"2","The following object is masked _by_ ‘.GlobalEnv’:
+
+    hflights
+
+"
+"0","library(tidyr)"
+"0","library(lubridate)"
+"2","
+Attaching package: ‘lubridate’
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union
+
+"
+"0","knitr::opts_chunk$set(results = 'hold')"

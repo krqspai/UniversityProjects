@@ -1,0 +1,4 @@
+"0","ggplot(filmovi4, aes(x = decade, y = num_voted_users)) +"
+"0","  geom_point(color = ""green"", alpha = 0.3) +"
+"0","  labs(title = ""Razdiobe broja korisničkih ocjena po filmu po desetljećima"", "
+"0","       x = ""Desetljeće"", y = ""Broj korisničkih ocjena"")"

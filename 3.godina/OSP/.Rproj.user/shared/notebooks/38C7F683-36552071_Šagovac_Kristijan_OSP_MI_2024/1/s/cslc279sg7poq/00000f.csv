@@ -1,0 +1,2 @@
+"0","set.seed(1234) "
+"0","m <- sample(c(-1, 0, 1), 10000, replace = TRUE) %>% matrix(nrow = 1000) "

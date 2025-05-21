@@ -1,0 +1,3 @@
+"0","newCereal <- read_csv(""newCereal.csv"", col_types = ""cccnnnnnnnnnnnnn"")"
+"0","newCereal$mfr <- factor(newCereal$mfr, levels = levels(cereal$mfr))"
+"0","newCereal$type <- factor(newCereal$type, levels = levels(cereal$type))"

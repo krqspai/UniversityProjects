@@ -1,0 +1,3 @@
+"0","songs_both <- songs %>% filter(track_artist %in% c(""Bruno Mars"",""Adele""))"
+"0","songs_Bruno <- songs %>% filter(track_artist==""Bruno Mars"")"
+"0","songs_Adele <- songs %>% filter(track_artist==""Adele"")"
